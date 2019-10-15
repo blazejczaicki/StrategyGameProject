@@ -1163,7 +1163,7 @@ GameObject:
   - component: {fileID: 1053679376}
   - component: {fileID: 1053679375}
   m_Layer: 0
-  m_Name: FieldStone (1)
+  m_Name: FieldStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1181,8 +1181,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2fcb7094a41a34b99ff8ef86888c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 3
+  id: 0
   tile: {fileID: 11400000, guid: 6e91faf7cd478154699ff56dac1f1a59, type: 2}
+  objectList: []
+  probabilityOfGeneration: 0
 --- !u!4 &1053679376
 Transform:
   m_ObjectHideFlags: 0
@@ -1275,8 +1277,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2fcb7094a41a34b99ff8ef86888c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 0
+  id: 0
   tile: {fileID: 11400000, guid: 1464c9c1ceff7a442a0538e5f2dc732d, type: 2}
+  objectList: []
+  probabilityOfGeneration: 0
 --- !u!4 &1271434532
 Transform:
   m_ObjectHideFlags: 0
@@ -1464,8 +1468,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2fcb7094a41a34b99ff8ef86888c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 1
+  id: 2
   tile: {fileID: 11400000, guid: 6d813cd83a413504281393b8d69b015d, type: 2}
+  objectList: []
+  probabilityOfGeneration: 0
 --- !u!4 &1400694442
 Transform:
   m_ObjectHideFlags: 0
@@ -1559,8 +1565,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2fcb7094a41a34b99ff8ef86888c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 6
+  id: 4
   tile: {fileID: 11400000, guid: 8decbd978e0451c4988153a2d3eb5dad, type: 2}
+  objectList: []
+  probabilityOfGeneration: 0
 --- !u!4 &1502813037
 Transform:
   m_ObjectHideFlags: 0
@@ -1703,8 +1711,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2fcb7094a41a34b99ff8ef86888c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 5
+  id: 3
   tile: {fileID: 11400000, guid: 4ca31fc0c84bc8a4a989d5a0fca4044d, type: 2}
+  objectList: []
+  probabilityOfGeneration: 0
 --- !u!4 &1718472082
 Transform:
   m_ObjectHideFlags: 0
@@ -1896,8 +1906,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2fcb7094a41a34b99ff8ef86888c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileType: 1
+  id: 1
   tile: {fileID: 11400000, guid: 95f70f4bb8d396a44b255bea04c836ce, type: 2}
+  objectList: []
+  probabilityOfGeneration: 0
 --- !u!4 &2001598163
 Transform:
   m_ObjectHideFlags: 0

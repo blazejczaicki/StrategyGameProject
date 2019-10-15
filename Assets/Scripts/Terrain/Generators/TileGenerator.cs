@@ -23,26 +23,6 @@ public class TileGenerator : MonoBehaviour
     private float upLandLayer = 0.8f;
     private float moutainLayer = 1.0f;
 
-    //private static float climateModificator = 0.1f;
-    //private float climateInChunk = 0;
-    //public void UpdateClimate(Chunk chunk)
-    //{
-    //    float originClimate = chunk.OriginChunk.transform.position.y / Chunk.chunkSize;
-    //    float currentClimate = chunk.transform.position.y / Chunk.chunkSize;
-    //    float climateInOriginChunk = originClimate * climateModificator;
-    //    if (currentClimate < originClimate)
-    //    {
-    //        climateInChunk = -climateModificator + climateInOriginChunk;
-    //    }
-    //    else if (currentClimate > originClimate)
-    //    {
-    //        climateInChunk = climateModificator + climateInOriginChunk;
-    //    }
-    //    else
-    //    {
-    //        climateInChunk = climateInOriginChunk;
-    //    }
-    //}
 
     private float RiverNoise(float x, float y, float scale, float seed, Chunk chunk)
     {
@@ -73,10 +53,6 @@ public class TileGenerator : MonoBehaviour
                 neighboursBiomes[i] = NearnestNeighbourBiome.Calculate(chunk.Neighbours4Chunks[i].position);
             }
         }
-        //Debug.Log(neighboursBiomes[(int)Direction.N].topographyScaleOffset);
-        //Debug.Log(neighboursBiomes[(int)Direction.S].topographyScaleOffset);
-        //Debug.Log(neighboursBiomes[(int)Direction.E].topographyScaleOffset);
-        //Debug.Log(neighboursBiomes[(int)Direction.W].topographyScaleOffset);
     }
 
     public bool checkNeighbourScaleTheSame(Chunk chunk)
@@ -132,7 +108,7 @@ public class TileGenerator : MonoBehaviour
         temperatureCell = PerlinNoise.Calculate(x, y, Chunk.temperatureScale, temperatureSeed, chunk.offsetTemperature, Chunk.chunkSize);
         Field field = ChooseFieldType(biome, heightCell, moistureCell, temperatureCell);
         chunk.tilemap.SetTile(new Vector3Int((int)(-x + chunk.transform.position.x + Chunk.chunkSizeHalf),
-            (int)(-y + chunk.transform.position.y + Chunk.chunkSizeHalf), 0), field.tileProp);
+            (int)(-y + chunk.transform.position.y + Chunk.chunkSizeHalf), 0), field.TileRepresentation);
     }
 
     private IEnumerator GenerateTilesForNormalChunks( Chunk chunk)
@@ -150,9 +126,10 @@ public class TileGenerator : MonoBehaviour
                 moistureCell = PerlinNoise.Calculate(x, y, Chunk.moistureScale, moistureSeed, chunk.offsetMoisture, Chunk.chunkSize);
                 temperatureCell = PerlinNoise.Calculate(x, y, Chunk.temperatureScale, temperatureSeed, chunk.offsetTemperature, Chunk.chunkSize);
                 Field field = ChooseFieldType(chunk.TerrainBiome, heightCell, moistureCell, temperatureCell);
+                chunk.Fields[x][y] = field.ID;
                 positionArray[x * Chunk.chunkSize + y] = new Vector3Int((int)(-x + chunk.transform.position.x + Chunk.chunkSizeHalf),
                 (int)(-y + chunk.transform.position.y + Chunk.chunkSizeHalf), 0);
-                tileArray[x * Chunk.chunkSize + y] = field.tileProp;
+                tileArray[x * Chunk.chunkSize + y] = field.TileRepresentation;
             }
         }
 
@@ -294,7 +271,7 @@ public class TileGenerator : MonoBehaviour
         return PerlinNoise.Calculate(x + xDistortion, y + yDistortion, scale, seed, offset, Chunk.chunkSize);
     }
 
-
+    #region jobsy
     private NativeArray<int> input;
     private NativeArray<float> outputHeight;
     private NativeArray<float> outputTemperature;
@@ -361,7 +338,7 @@ public class TileGenerator : MonoBehaviour
             y = i % 64;
             Field field = ChooseFieldType(chunk.TerrainBiome, heightCells[i], moistureCells[i], temperatureCells[i]);
             chunk.tilemap.SetTile(new Vector3Int((int)(-index + chunk.transform.position.x + Chunk.chunkSizeHalf),
-                (int)(-y + chunk.transform.position.y + Chunk.chunkSizeHalf), 0), field.tileProp);
+                (int)(-y + chunk.transform.position.y + Chunk.chunkSizeHalf), 0), field.TileRepresentation);
             //chunk.tilemap.SetTiles
             if (y == 63)
                 index++;
@@ -517,7 +494,7 @@ public class TileGenerator : MonoBehaviour
     //    public float topographySeed;
     //    public Vector2 topographyOffset;
 
-      
+
     //    public NativeArray<float> outputHeight;
     //    public NativeArray<float> outputTemperature;
     //    public NativeArray<float> outputMoisture;
@@ -530,5 +507,5 @@ public class TileGenerator : MonoBehaviour
     //    }
     //}
 
-
+    #endregion
 }

@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum TileType { water, shallowWater, sand, stone, grass, snow}
-
 public class Field : MonoBehaviour
 {
-
-    [SerializeField] TileType tileType;
+    [SerializeField] private int id = 0;
+    public int ID { get; }
     [SerializeField] private Tile tile;
-    public Tile tileProp
-    {
-        get { return tile; }
-        set { tile = value; }
-    }
+    public Tile TileRepresentation
+    { get; }
     private bool isMovable;
 
+
+    [SerializeField] private List<Transform> objectList;
+    [SerializeField][Range(0,1)] private float probabilityOfGeneration = 0;
 }
