@@ -4,8 +4,21 @@ using UnityEngine;
 
 public class StaticObjectGenerator : MonoBehaviour
 {
-    public void Generate()
+    [SerializeField] private List<Field> fields;
+
+    private void CreateObject()
     {
 
+    }
+
+    public void Generate(Chunk chunk)
+    {
+        for (int x = 0; x < Chunk.chunkSize; x++)
+        {
+            for (int y = 0; y < Chunk.chunkSize; y++)
+            {
+                //chunk.Fields[x][y]
+            }
+        }
     }
 }
