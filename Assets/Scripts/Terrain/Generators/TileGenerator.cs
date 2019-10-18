@@ -135,8 +135,8 @@ public class TileGenerator : MonoBehaviour
 
         chunk.tilemap.SetTiles(positionArray, tileArray);
 
-        //yield return StartCoroutine(staticObjectGenerator.Generate(chunk));
-        yield return null;
+        yield return StartCoroutine(staticObjectGenerator.Generate(chunk));
+        //yield return null;
 
     }
     

@@ -8,7 +8,7 @@ public class StaticObjectGenerator : MonoBehaviour
 
     private void CreateObject(int tileID, Vector3 position)
     {
-        Instantiate(fields[tileID].gameObject, position, Quaternion.identity);
+        Instantiate(fields[tileID].GetRandomEnviroObject(), position, Quaternion.identity);
     }
 
     public IEnumerator Generate(Chunk chunk)
@@ -20,9 +20,11 @@ public class StaticObjectGenerator : MonoBehaviour
         {
             for (int y = 0; y < Chunk.chunkSize; y++)
             {
-                randomVal = Random.Range(0, 1);
-                if(randomVal<fields[chunk.Fields[x][y]].ProbabilityOfGeneration)
+                randomVal = Random.Range(0.0f, 1.0f);
+               // Debug.Log(fields[chunk.Fields[x][y]].ID);
+                if (randomVal<fields[chunk.Fields[x][y]].ProbabilityOfGeneration)
                 {
+
                     position.x = -x + chunk.transform.position.x + Chunk.chunkSizeHalf;
                     position.y = -y + chunk.transform.position.y + Chunk.chunkSizeHalf;
                     CreateObject(chunk.Fields[x][y], position);

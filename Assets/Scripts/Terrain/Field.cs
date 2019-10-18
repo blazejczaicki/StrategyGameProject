@@ -6,14 +6,21 @@ using UnityEngine.Tilemaps;
 public class Field : MonoBehaviour
 {
     [SerializeField] private int id = 0;
-    public int ID { get; }
+    public int ID { get { return id; } }
     [SerializeField] private Tile tile;
     public Tile TileRepresentation
-    { get; }
+    { get { return tile; } }
     private bool isMovable;
 
 
-    [SerializeField] private List<Transform> objectList;
+    [SerializeField] private List<GameObject> objectList;
     [SerializeField] [Range(0, 1)] private float probabilityOfGeneration = 0;
-    public float ProbabilityOfGeneration { get; }
+    public float ProbabilityOfGeneration { get { return probabilityOfGeneration; } }
+
+
+    public GameObject GetRandomEnviroObject()
+    {
+        return objectList[0];
+    }
+
 }
