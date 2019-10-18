@@ -6,18 +6,32 @@ public class StaticObjectGenerator : MonoBehaviour
 {
     [SerializeField] private List<Field> fields;
 
-    private void CreateObject()
+    private void CreateObject(int tileID, Vector3 position)
     {
-
+        Instantiate(fields[tileID].gameObject, position, Quaternion.identity);
     }
 
-    public void Generate(Chunk chunk)
+    public IEnumerator Generate(Chunk chunk)
     {
+        float randomVal;
+        Vector3 position= Vector3.zero;
+        int breakGeneration = (int)(Chunk.chunkSize * 0.4f);
         for (int x = 0; x < Chunk.chunkSize; x++)
         {
             for (int y = 0; y < Chunk.chunkSize; y++)
             {
-                //chunk.Fields[x][y]
+                randomVal = Random.Range(0, 1);
+                if(randomVal<fields[chunk.Fields[x][y]].ProbabilityOfGeneration)
+                {
+                    position.x = -x + chunk.transform.position.x + Chunk.chunkSizeHalf;
+                    position.y = -y + chunk.transform.position.y + Chunk.chunkSizeHalf;
+                    CreateObject(chunk.Fields[x][y], position);
+                }
+            }
+            if (x == breakGeneration)
+            {
+                breakGeneration += breakGeneration;
+                yield return null;
             }
         }
     }

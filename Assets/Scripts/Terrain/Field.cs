@@ -14,5 +14,6 @@ public class Field : MonoBehaviour
 
 
     [SerializeField] private List<Transform> objectList;
-    [SerializeField][Range(0,1)] private float probabilityOfGeneration = 0;
+    [SerializeField] [Range(0, 1)] private float probabilityOfGeneration = 0;
+    public float ProbabilityOfGeneration { get; }
 }

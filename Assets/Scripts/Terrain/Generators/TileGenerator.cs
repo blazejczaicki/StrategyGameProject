@@ -10,6 +10,7 @@ using UnityEngine.Tilemaps;
 
 public class TileGenerator : MonoBehaviour
 {
+    [SerializeField] private StaticObjectGenerator staticObjectGenerator;
     [SerializeField] private Moisture tileContainer; //3d list moisture/temperatures/topologies
 
     private static float topographySeed = 554788;
@@ -100,7 +101,6 @@ public class TileGenerator : MonoBehaviour
         }
     }
 
-
     private void CalculateTile(int x, int y, Chunk chunk, float heightCell, Biome biome)
     {
         float  moistureCell, temperatureCell;
@@ -135,46 +135,10 @@ public class TileGenerator : MonoBehaviour
 
         chunk.tilemap.SetTiles(positionArray, tileArray);
 
+        //yield return StartCoroutine(staticObjectGenerator.Generate(chunk));
         yield return null;
 
     }
-    //bigger ver
-    //private IEnumerator GenerateTilesForNormalChunks( Chunk chunk)
-    //{
-    //    SaveEdges(chunk);
-    //    int breakGeneration = (int)(Chunk.chunkSize * 0.1f);
-    //    float heightCell;
-    //    float moistureCell, temperatureCell;
-    //    Vector3Int[] positionArray = new Vector3Int[Chunk.chunkSize* Chunk.chunkSize];
-    //    TileBase[] tileArray = new TileBase[Chunk.chunkSize* Chunk.chunkSize];
-    //    for (int x = 0; x < Chunk.chunkSize*10; x++)
-    //    {
-    //        for (int y = 0; y < Chunk.chunkSize*10; y++)
-    //        {
-    //            heightCell = PerlinNoise.Calculate(x, y, chunk.topographyScale, topographySeed, chunk.offsetTopography, Chunk.chunkSize);
-    //            // CalculateTile(x, y, chunk, heightCell, chunk.TerrainBiome);
-    //            moistureCell = PerlinNoise.Calculate(x, y, Chunk.moistureScale, moistureSeed, chunk.offsetMoisture, Chunk.chunkSize);
-    //            temperatureCell = PerlinNoise.Calculate(x, y, Chunk.temperatureScale, temperatureSeed, chunk.offsetTemperature, Chunk.chunkSize);
-    //            //Field field = ChooseFieldType(chunk.TerrainBiome, heightCell, moistureCell, temperatureCell);
-    //            //positionArray[x * Chunk.chunkSize + y] = new Vector3Int((int)(-x + chunk.transform.position.x + Chunk.chunkSizeHalf),
-    //            //(int)(-y + chunk.transform.position.y + Chunk.chunkSizeHalf), 0);
-    //            //tileArray[x * Chunk.chunkSize + y] = field.tileProp;
-    //            //GameObject go = GameObject.CreatePrimitive(PrimitiveType.Quad);
-    //            //go.transform.position = new Vector3Int((int)(-x + chunk.transform.position.x + Chunk.chunkSizeHalf),
-    //            //(int)(-y + chunk.transform.position.y + Chunk.chunkSizeHalf), 0);
-    //        }
-    //        //if (x == breakGeneration)
-    //        //{
-    //        //    breakGeneration += breakGeneration;
-    //        //    yield return null;
-    //        //}
-    //    }
-
-    //    //chunk.tilemap.SetTiles(positionArray, tileArray);
-
-    //    yield return null;
-
-    //}
     
     private void CalculateInterpolationPeak(ref float centerOfInterpolation, ref Vector2Int coordsOfCenter)
     {
@@ -263,13 +227,15 @@ public class TileGenerator : MonoBehaviour
         return tileContainer.GetTemperatureForMoisture(biome, moisture).GetTopologyForTemperature(biome, temperature).GetFieldForTopology(biome, height);
     }
 
-
     private float DistortionNoise(float x, float y, float scale, float seed, Vector2 offset)
     {
         float xDistortion = 20.0f * PerlinNoise.Calculate((x + 2.3f) * 4.7f, (y + 2.9f) * 4.7f, scale, seed, offset, Chunk.chunkSize);
         float yDistortion = 20.0f * PerlinNoise.Calculate((x - 3.1f) * 4.7f, (y - 4.3f) * 4.7f, scale, seed, offset, Chunk.chunkSize);
         return PerlinNoise.Calculate(x + xDistortion, y + yDistortion, scale, seed, offset, Chunk.chunkSize);
     }
+
+
+
 
     #region jobsy
     private NativeArray<int> input;
@@ -381,131 +347,6 @@ public class TileGenerator : MonoBehaviour
             outputTemperature[index] = PerlinNoise.Calculate(index / chunkSize, input[index], temperatureScale, temperatureSeed, temperatureOffset, chunkSize);
         }
     }
-
-    //bigger version
-    //private void Start()
-    //{
-    //    int index = 0;
-    //    input = new NativeArray<int>(Chunk.chunkSize * Chunk.chunkSize * 100, Allocator.Persistent);
-    //    for (int i = 0; i < input.Length; i++)
-    //    {
-    //        if (i % 640 == 0)
-    //            index = 0;
-    //        input[i] = index;
-    //        index++;
-    //    }
-    //    outputHeight = new NativeArray<float>(Chunk.chunkSize * Chunk.chunkSize*100, Allocator.Persistent);
-    //    outputTemperature = new NativeArray<float>(Chunk.chunkSize * Chunk.chunkSize * 100, Allocator.Persistent);
-    //    outputMoisture = new NativeArray<float>(Chunk.chunkSize * Chunk.chunkSize * 100, Allocator.Persistent);
-    //}
-
-    //private void OnApplicationQuit()
-    //{
-    //            input.Dispose();
-    //    outputHeight.Dispose();
-    //    outputMoisture.Dispose();
-    //    outputTemperature.Dispose();
-    //}
-
-    //private IEnumerator jobjob(Chunk chunk)
-    //{
-    //    int index = 0;
-    //    SaveEdges(chunk);
-    //    var job = new MyJob()
-    //    {
-    //        input=input,
-    //        chunkSize = Chunk.chunkSize,
-    //        moistureScale = Chunk.moistureScale,
-    //        moistureSeed = moistureSeed,
-    //        moistureOffset = chunk.offsetMoisture,
-    //        temperatureScale=Chunk.temperatureScale,
-    //        temperatureSeed=temperatureSeed,
-    //        temperatureOffset=chunk.offsetTemperature,
-    //        topographyScale=chunk.topographyScale,
-    //        topographySeed=topographySeed,
-    //        topographyOffset=chunk.offsetTopography,
-    //        outputHeight=outputHeight,
-    //        outputMoisture=outputMoisture,
-    //        outputTemperature=outputTemperature
-    //    };
-
-    //    JobHandle jobhandle = job.Schedule(input.Length, 5120);
-    //    jobhandle.Complete();
-    //    //var job2 = new MyJob()
-    //    //{
-    //    //    input = input,
-    //    //    chunkSize = Chunk.chunkSize,
-    //    //    moistureScale = Chunk.moistureScale,
-    //    //    moistureSeed = moistureSeed,
-    //    //    moistureOffset = chunk.offsetMoisture,
-    //    //    temperatureScale = Chunk.temperatureScale,
-    //    //    temperatureSeed = temperatureSeed,
-    //    //    temperatureOffset = chunk.offsetTemperature,
-    //    //    topographyScale = chunk.topographyScale,
-    //    //    topographySeed = topographySeed,
-    //    //    topographyOffset = chunk.offsetTopography,
-    //    //    outputHeight = outputHeight,
-    //    //    outputMoisture = outputMoisture,
-    //    //    outputTemperature = outputTemperature
-    //    //};
-
-    //    //JobHandle jobhandle2 = job2.Schedule(input.Length, 512, jobhandle);
-    //    //jobhandle2.Complete();
-    //    Debug.Log(outputHeight[0]);
-    //    int breakGeneration = (int)(Chunk.chunkSize * 0.2f);
-    //    int y = 0;
-    //    index = 0;
-    //    float[] heightCells = outputHeight.ToArray();
-    //    float[] moistureCells = outputMoisture.ToArray();
-    //    float[] temperatureCells = outputTemperature.ToArray();
-    //    //for (int i = 0; i < input.Length; i++)
-    //    //{
-    //    //    y = i % 64;
-    //    //    Field field = ChooseFieldType(chunk.TerrainBiome, heightCells[i], moistureCells[i], temperatureCells[i]);
-    //    //    chunk.tilemap.SetTile(new Vector3Int((int)(-index + chunk.transform.position.x + Chunk.chunkSizeHalf),
-    //    //        (int)(-y + chunk.transform.position.y + Chunk.chunkSizeHalf), 0), field.tileProp);
-    //    //    //chunk.tilemap.SetTiles
-    //    //    if (y == 63)
-    //    //        index++;
-    //    //    if (index == breakGeneration)
-    //    //    {
-    //    //        breakGeneration += breakGeneration;
-    //    //        yield return null;
-    //    //    }
-    //    //}
-    //    yield return null;
-    //}
-
-    //[BurstCompile]
-    //public struct MyJob : IJobParallelFor
-    //{
-    //    [ReadOnly]
-    //    public NativeArray<int> input;
-
-
-    //    public int chunkSize;
-    //    public float moistureScale;
-    //    public float moistureSeed;
-    //    public Vector2 moistureOffset;
-    //    public float temperatureScale;
-    //    public float temperatureSeed;
-    //    public Vector2 temperatureOffset;
-    //    public float topographyScale;
-    //    public float topographySeed;
-    //    public Vector2 topographyOffset;
-
-
-    //    public NativeArray<float> outputHeight;
-    //    public NativeArray<float> outputTemperature;
-    //    public NativeArray<float> outputMoisture;
-
-    //    public void Execute(int index)
-    //    {
-    //        outputHeight[index] = PerlinNoise.Calculate(index/ chunkSize*10, input[index], topographyScale, topographySeed, topographyOffset, chunkSize);
-    //        outputMoisture[index] = PerlinNoise.Calculate(index / chunkSize*10, input[index], moistureScale, moistureSeed, moistureOffset, chunkSize);
-    //        outputTemperature[index] = PerlinNoise.Calculate(index / chunkSize*10, input[index], temperatureScale, temperatureSeed, temperatureOffset, chunkSize);
-    //    }
-    //}
 
     #endregion
 }
