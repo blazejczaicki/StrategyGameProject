@@ -107,6 +107,7 @@ public class TileGenerator : MonoBehaviour
         moistureCell = PerlinNoise.Calculate(x, y, Chunk.moistureScale, moistureSeed, chunk.offsetMoisture, Chunk.chunkSize);
         temperatureCell = PerlinNoise.Calculate(x, y, Chunk.temperatureScale, temperatureSeed, chunk.offsetTemperature, Chunk.chunkSize);
         Field field = ChooseFieldType(biome, heightCell, moistureCell, temperatureCell);
+        chunk.Fields[x][y] = field.ID;
         chunk.tilemap.SetTile(new Vector3Int((int)(-x + chunk.transform.position.x + Chunk.chunkSizeHalf),
             (int)(-y + chunk.transform.position.y + Chunk.chunkSizeHalf), 0), field.TileRepresentation);
     }
@@ -136,8 +137,6 @@ public class TileGenerator : MonoBehaviour
         chunk.tilemap.SetTiles(positionArray, tileArray);
 
         yield return StartCoroutine(staticObjectGenerator.Generate(chunk));
-        //yield return null;
-
     }
     
     private void CalculateInterpolationPeak(ref float centerOfInterpolation, ref Vector2Int coordsOfCenter)
@@ -189,6 +188,7 @@ public class TileGenerator : MonoBehaviour
         }
         heightCell = centerOfInterpolation;        
         CalculateTile(coordsOfCenter.x, coordsOfCenter.y, chunk, heightCell, currentBiome);
+        StartCoroutine(staticObjectGenerator.Generate(chunk));
     }
     
     private void SaveEdgesIndirectChunk(Chunk chunk, ChunkEdge[] edges, Vector2Int xy1, Vector2Int xy2)
