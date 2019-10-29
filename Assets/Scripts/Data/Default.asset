@@ -16,3 +16,5 @@ MonoBehaviour:
   moveDown: 115
   moveRight: 100
   moveLeft: 97
+  interactionLeft: 323
+  interactionRight: 324

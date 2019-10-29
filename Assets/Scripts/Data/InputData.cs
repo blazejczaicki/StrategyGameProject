@@ -10,4 +10,6 @@ public class InputData : ScriptableObject
     public KeyCode moveRight;
     public KeyCode moveLeft;
 
+    public KeyCode interactionLeft;
+    public KeyCode interactionRight;
 }

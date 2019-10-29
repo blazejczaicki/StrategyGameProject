@@ -65,6 +65,7 @@ public class Chunk : MonoBehaviour
 
     private void Awake()
     {
+        gameObject.layer = 8;
         FieldInit();
         NeighboursChunksInit();
         edgesInit();
@@ -72,7 +73,6 @@ public class Chunk : MonoBehaviour
         BoxCollider2D coll = gameObject.AddComponent<BoxCollider2D>();
         coll.size = new Vector2(chunkSize, chunkSize);
         coll.offset = new Vector2(1, 1);
-
         GameObject chunkGameObject = new GameObject();
         tilemap = chunkGameObject.AddComponent<Tilemap>();
         chunkGameObject.AddComponent<TilemapRenderer>();
