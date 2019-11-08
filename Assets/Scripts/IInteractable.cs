@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IInteractable
 {
-    void OnLeftClickObject();
-    void OnRightClickObject();
+    void OnLeftClickObject(PlayerController controller);
+    void OnRightClickObject(PlayerController controller);
 }

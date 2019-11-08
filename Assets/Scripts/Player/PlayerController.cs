@@ -5,10 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Camera camer;
-    [SerializeField] private List<Controller> controllers;
+    [SerializeField] private List<Controller> playerToUpdateControllers;
     [SerializeField] private PlayerInputController inputCon;
 
-    private IInteractable interactableObject=null;
+    [SerializeField] private float extractionTool = 1.0f; //potem item z inventory
+
+    public InventoryController inventory;
+
+    private IInteractable interactableObjectFocus=null;
 
     private void Start()
     {
@@ -18,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        foreach (var controller in controllers)
+        foreach (var controller in playerToUpdateControllers)
         {
             controller.OnUpdate();
         }
@@ -26,27 +30,42 @@ public class PlayerController : MonoBehaviour
 
     private IInteractable GetInteractableObject()
     {
-        RaycastHit2D hit=Physics2D.Raycast(camer.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        int layy = ~(1<<(LayerMask.NameToLayer("Camera")));
+        RaycastHit2D hit = Physics2D.GetRayIntersection(camer.ScreenPointToRay(Input.mousePosition), Mathf.Infinity, layy);
         return hit.collider != null ? hit.collider.GetComponent<IInteractable>() : null;
     }
     
     public void TryActivateObjectLeft()
     {
-        interactableObject = GetInteractableObject();
-        if(interactableObject!=null)
+        interactableObjectFocus = GetInteractableObject();
+        
+        if(interactableObjectFocus!=null)
         {
-            interactableObject.OnLeftClickObject();
+            interactableObjectFocus.OnLeftClickObject(this);
         }
     }
 
     public void TryActivateObjectRight()
     {
-        interactableObject = GetInteractableObject();
-        if (interactableObject != null)
+        interactableObjectFocus = GetInteractableObject();
+        if (interactableObjectFocus != null)
         {
-            interactableObject.OnRightClickObject();
+            interactableObjectFocus.OnRightClickObject(this);
         }
     }
+
+    public bool ExtractObject(ref float health)
+    {
+        //odległość
+        health -= extractionTool*Time.deltaTime;
+        return health<=0;
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.inventory.ResetInventoryObject();
+    }
+
     // na odznaczenie, na zniszczenie, na oddalenie
     //funkcja do najeżdżania kursorem na obiekt
 }

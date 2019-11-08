@@ -23,18 +23,14 @@ public class PlayerInputController : Controller
 
     private void MouseInput()
     {
-        if (Input.GetKeyDown(inputData.interactionLeft))
+        if (Input.GetKey(inputData.interactionLeft))
         {
             OnClickInteractionLeft();
         }
-        if (Input.GetKeyDown(inputData.interactionRight))
+        if (Input.GetKey(inputData.interactionRight))
         {
             OnClickInteractionRight();
         }
-        //  cameraController.Zoom(Input.GetAxis("Mouse ScrollWheel"));
-
-        Debug.Log(Input.mouseScrollDelta);
-
 
         if (Input.mouseScrollDelta.y < 0)
         {

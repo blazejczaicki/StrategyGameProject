@@ -21,7 +21,6 @@ public class Field : MonoBehaviour
     public GameObject GetRandomEnviroObject()
     {
         int index = Random.Range(0, objectList.Count);
-        Debug.Log(objectList[index].gameObject.name);
         return objectList[index];
     }
 
