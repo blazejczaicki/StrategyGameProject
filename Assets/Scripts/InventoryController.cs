@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class InventoryController : Controller, IInventoryOperation
@@ -17,7 +18,7 @@ public class InventoryController : Controller, IInventoryOperation
         int i = 0;
         foreach (Transform slot in transform)
         {
-            inventory.slots.Add(new InventorySlot(i, slot.transform.position, defa));
+            inventory.slots.Add(new InventorySlot(i,  defa, slot.GetComponentInChildren<Image>()));
             i++;
         }
     }

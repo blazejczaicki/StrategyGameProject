@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName ="New Inventory")]
 public class InventoryObject : ScriptableObject, IInventoryOperation
@@ -14,13 +14,14 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
 
     public bool AddItem(ItemObject _item, int _amount)
     {
-        var target = slots.Find(slot => slot.item == _item && slot.item.amount!=itemStackConstraint);
+        var target = slots.Find(slot => slot.item.type == _item.type && slot.item.amount!=itemStackConstraint);
         
         if (target != null)
         {
             if (target.amount + _amount<=itemStackConstraint)
             {
                 target.amount += _amount;
+                target.item.amount = target.amount;
                 return true;
             }
             else
@@ -40,6 +41,7 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
         {
             target.item = _item;
             target.amount = _amount;
+            target.item.amount = target.amount;
             return true;
         }
         return false;
@@ -73,18 +75,20 @@ public class InventorySlot
     public ItemObject defaultObject;
     public int amount=0;
     public int id=0;
-    public Vector3 position;
+    public Image image;
 
-    public InventorySlot(int _id, Vector3 _position, ItemObject _defaultObject)
+    public InventorySlot(int _id, ItemObject _defaultObject, Image img)
     {
         item = defaultObject = _defaultObject;
-        position = _position;
         id = _id;
+        image = img;
     }
 
     public void UpdateSlotInUI()
     {
-        item.icon.transform.position = position;
-        item.icon.SetActive(true);
+        image.sprite = item.sprite;
+        var color = image.color;
+        color.a = 1.0f;
+        image.color = color;
     }
 }

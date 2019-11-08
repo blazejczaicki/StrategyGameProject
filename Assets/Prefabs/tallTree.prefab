@@ -215,7 +215,7 @@ MonoBehaviour:
   ItemToDrop: {fileID: 8356287798689731863, guid: 3263ff2a7792a8b4f8fa1a0e92fbe3e1,
     type: 3}
   health: 3
-  interactRange: 2
+  interactRange: 3
 --- !u!70 &1605920728676382031
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

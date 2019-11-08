@@ -9,9 +9,8 @@ public enum ItemType
 }
 public abstract class ItemObject : ScriptableObject
 {
-    public GameObject icon;
     public Sprite sprite;
     public ItemType type;
-    public int amount;
+    public int amount; // do zmiany
     [TextArea(15,20)] public string description;
 }

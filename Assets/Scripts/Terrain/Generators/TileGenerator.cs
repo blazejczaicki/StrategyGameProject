@@ -236,8 +236,8 @@ public class TileGenerator : MonoBehaviour
 
 
 
-
-    #region jobsy
+    // jako część badawcza
+    #region jobsy 
     //private NativeArray<int> input;
     //private NativeArray<float> outputHeight;
     //private NativeArray<float> outputTemperature;

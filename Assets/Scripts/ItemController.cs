@@ -8,9 +8,12 @@ public class ItemController : MonoBehaviour, IInteractable
     public ItemObject itemObject;
     [SerializeField] private float pickUpRange=5.0f;
 
+
+
     private void PickUp(PlayerController playerController)
     {
-        if (playerController.inventory.AddItem(itemObject, itemObject.amount))
+
+        if (playerController.inventory.AddItem(Instantiate(itemObject), itemObject.amount))
         {
             Destroy(gameObject); // może pull kiedyś
         }

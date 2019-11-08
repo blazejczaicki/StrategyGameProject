@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
         interactableObjectFocus = GetInteractableObject();
         if (interactableObjectFocus != null)
         {
+         //   Debug.Log(interactableObjectFocus);
             interactableObjectFocus.OnRightClickObject(this);
         }
     }
@@ -57,7 +58,9 @@ public class PlayerController : MonoBehaviour
     public bool ExtractObject(ref float health)
     {
         //odległość
+
         health -= extractionTool*Time.deltaTime;
+        Debug.Log(health);
         return health<=0;
     }
 
