@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class InventoryController : Controller, IInventoryOperation
 {
     [SerializeField] private InventoryObject inventoryObject;
     public InventoryObject inventory { get { return inventoryObject; } }
-
-
+    [SerializeField] private List<Image> slotImages;
     [SerializeField] private DefaultObject defa;
+    //private Dictionary<int, Image> slotImages= new Dictionary<int, Image>();
 
     private void Awake()
     {
@@ -18,7 +17,8 @@ public class InventoryController : Controller, IInventoryOperation
         int i = 0;
         foreach (Transform slot in transform)
         {
-            inventory.slots.Add(new InventorySlot(i,  defa, slot.GetComponentInChildren<Image>()));
+            //slotImages.Add(i, slot.GetComponentInChildren<Image>());
+            inventory.slots.Add(new InventorySlot(i,  defa));
             i++;
         }
     }
@@ -26,13 +26,9 @@ public class InventoryController : Controller, IInventoryOperation
     public bool AddItem(ItemObject item, int amount)
     {
         bool executed = inventoryObject.AddItem(item, amount);
-        inventoryObject.OnChangedUpdateUI();
+        inventoryObject.OnChangedUpdateUI(slotImages);
         return executed;
     }
-
-
-
-
 
     public override void OnUpdate()
     {
@@ -42,6 +38,11 @@ public class InventoryController : Controller, IInventoryOperation
     public InventorySlot GetInventorySlot(int slotID)
     {
         return inventoryObject.GetInventorySlot(slotID);
+    }
+
+    public void ResetSlot(int slotID)
+    {
+        inventory.ResetInventorySlot(slotImages[slotID], slotID);
     }
 
 }

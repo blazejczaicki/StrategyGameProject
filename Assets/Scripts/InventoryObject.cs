@@ -14,14 +14,14 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
 
     public bool AddItem(ItemObject _item, int _amount)
     {
-        var target = slots.Find(slot => slot.item.type == _item.type && slot.item.amount!=itemStackConstraint);
+        var target = slots.Find(slot => slot.item.type == _item.type && slot.amount!=itemStackConstraint);
         
         if (target != null)
         {
             if (target.amount + _amount<=itemStackConstraint)
             {
                 target.amount += _amount;
-                target.item.amount = target.amount;
+                target.changed = true;
                 return true;
             }
             else
@@ -41,22 +41,40 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
         {
             target.item = _item;
             target.amount = _amount;
-            target.item.amount = target.amount;
+            target.changed = true;
             return true;
         }
         return false;
     }
+
+    public bool AddToTargetSlot(ItemObject _item, int _amount, int _slotID)
+    {
+        if (slots[_slotID].item.type==ItemType.Default)
+        {
+            slots[_slotID].item = _item;
+            slots[_slotID].amount = _amount;
+            slots[_slotID].changed = true;
+            return true;
+        }
+        else
+        {
+            //inne przypadki
+        }
+        return false;
+    }
+
+
 
     public void ResetInventoryObject()
     {
         slots.Clear();
     }
 
-    public void OnChangedUpdateUI()
+    public void OnChangedUpdateUI(List<Image> slotImages)
     {
         foreach (var slot in slots)
         {
-            slot.UpdateSlotInUI();
+            slot.UpdateSlotInUI(slotImages[slot.slotID]);
         }
     }
 
@@ -65,30 +83,48 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
         return slots[slotID];
     }
 
+    public void ResetInventorySlot(Image _image, int slotID)
+    {
+        slots[slotID].Reset(_image);
+    }
+
 }
 
 
 [System.Serializable]
 public class InventorySlot
-{//stack size
+{
     public ItemObject item;
     public ItemObject defaultObject;
     public int amount=0;
-    public int id=0;
-    public Image image;
+    public int slotID=0;
+    public bool changed=false;
 
-    public InventorySlot(int _id, ItemObject _defaultObject, Image img)
+    public InventorySlot(int _id, ItemObject _defaultObject)
     {
         item = defaultObject = _defaultObject;
-        id = _id;
-        image = img;
+        slotID = _id;
     }
 
-    public void UpdateSlotInUI()
+    public void UpdateSlotInUI(Image image)
     {
+        if (changed)
+        {
+            image.sprite = item.sprite;
+            var color = image.color;
+            color.a = 1.0f;
+            image.color = color;
+            changed = false;
+        }
+    }
+
+    public void Reset(Image image)
+    {
+        item = defaultObject;
+        amount = 0;
         image.sprite = item.sprite;
         var color = image.color;
-        color.a = 1.0f;
+        color.a = 0.0f;
         image.color = color;
     }
 }
