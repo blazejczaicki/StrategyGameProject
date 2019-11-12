@@ -50,6 +50,7 @@ public class ChunkGenerator : MonoBehaviour
     private List<Vector2> chunkToGenerate;
     [SerializeField] private Transform chunkParent;
     [SerializeField] private TileGenerator tileGenerator;
+    [SerializeField] private Grid grid;
     
 
     private void Awake()
@@ -61,7 +62,9 @@ public class ChunkGenerator : MonoBehaviour
     {
         GameObject newChunkObject = new GameObject();
         newChunkObject.transform.position = Vector2.zero;
+        newChunkObject.transform.SetParent(chunkParent);
         Chunk newChunk = newChunkObject.AddComponent<Chunk>();
+        newChunk.grid = grid;
         tileGenerator.generateTiles(newChunk);
         setOfChunks.Add(Vector2.zero, newChunk);
         PlayerManager.instance.SetStartChunk(setOfChunks);
@@ -141,8 +144,9 @@ public class ChunkGenerator : MonoBehaviour
     {
         GameObject newChunkObject = new GameObject();
         newChunkObject.transform.position = chunkPosition;
-       // newChunkObject.transform.SetParent(chunkParent);
+        newChunkObject.transform.SetParent(chunkParent);
         Chunk newChunk = newChunkObject.AddComponent<Chunk>();
+        newChunk.grid = grid;
         tileGenerator.generateTiles(newChunk);
         chunks.Add(chunkPosition, newChunk);
         visibleChunks.Add(chunkPosition, newChunk);

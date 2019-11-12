@@ -108,6 +108,7 @@ public class InventorySlot
 
     public void UpdateSlotInUI(Image image)
     {
+        Debug.Log("xd");
         if (changed)
         {
             image.sprite = item.sprite;

@@ -14,7 +14,7 @@ public class NormalBiomeGenerator : BiomeGenerator
         biomes = new Dictionary<Vector2, Biome>();
 
     }
-    
+     
     protected override void CreateBiome(Vector2 position)
     {
         int biomeNumber = Random.Range(0, biomeKinds.Count);

@@ -4,13 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+public enum MovementType
+{
+    Moveable,
+    NOTmoveable
+}
+
 public class Chunk : MonoBehaviour
 {
     public NeighbourChunk[] Neighbours4Chunks { get; set; }
+
+    public Grid grid;
+
     public int[][] Fields { get; set; }
+    public int[][] GridArray { get; set; }
+    public int[][] GridMovementArray { get; set; }
+
     private Vector2Int fieldsGlobalBegin = Vector2Int.zero;
-
-
     public Tilemap tilemap { get; set; }
     public Biome TerrainBiome { get; set; }
     private bool isIndirectChunk;
@@ -44,6 +54,7 @@ public class Chunk : MonoBehaviour
             Fields[i] = new int[chunkSize];
         }
     }
+
     private void edgesInit()
     {
         edges = new ChunkEdge[4];
@@ -53,6 +64,7 @@ public class Chunk : MonoBehaviour
         edges[(int)Direction.E] = new EastEdge();
 
     }
+
     private void NeighboursChunksInit()
     {
         Neighbours4Chunks = new NeighbourChunk[]{
@@ -62,6 +74,7 @@ public class Chunk : MonoBehaviour
             new NeighbourChunk(new Vector2(transform.position.x+chunkSize, transform.position.y), Direction.E,false)
                 };
     }
+
 
     private void Awake()
     {
@@ -78,6 +91,12 @@ public class Chunk : MonoBehaviour
         chunkGameObject.AddComponent<TilemapRenderer>();
         chunkGameObject.transform.SetParent(GameManager.instance.gridd.transform);
         fieldsGlobalBegin = new Vector2Int((int)transform.position.x + chunkSizeHalf, (int)transform.position.y + chunkSizeHalf);
+
+        GridMovementArray = new int[chunkSize][];
+        for (int i = 0; i < chunkSize; i++)
+        {
+            GridMovementArray[i] = new int[chunkSize];
+        }
     }
 
 
@@ -118,19 +137,10 @@ public class Chunk : MonoBehaviour
         //offsetRiver = new Vector2(riverScale + originOffsetRiver.x, originOffsetRiver.y);
     }
 
-    public int GetFieldNumber(Vector2 objectPosition)
+
+    public void SetGridArrayField(int x, int y, MovementType movementType)
     {
-        try
-        {
-            return Fields[(int)Mathf.Round(Mathf.Abs(fieldsGlobalBegin.x - objectPosition.x))]
-              [(int)Mathf.Round(Mathf.Abs(fieldsGlobalBegin.y - objectPosition.y))];
-        }
-        catch
-        {
-            Debug.Log(((int)Mathf.Round(Mathf.Abs(fieldsGlobalBegin.x - objectPosition.x))) + "  " +((int)Mathf.Round(Mathf.Abs(fieldsGlobalBegin.y - objectPosition.y))));
-            //64 clamp
-            return 0;
-        }
+        GridMovementArray[x][y]=(int)movementType;
     }
 
 }

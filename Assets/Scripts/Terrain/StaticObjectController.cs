@@ -27,10 +27,8 @@ public class StaticObjectController : MonoBehaviour, IInteractable
 
     public void OnRightClickObject(PlayerController playerController)
     {
-       // Debug.Log(Vector3.Distance(transform.position, playerController.transform.position));
         if (Vector3.Distance(transform.position, playerController.transform.position)<interactRange)
         {
-            //Debug.Log("xd");
             DropItem(playerController);
         }
     }

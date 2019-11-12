@@ -25,9 +25,14 @@ public class StaticObjectGenerator : MonoBehaviour
                 if (randomVal<fields[chunk.Fields[x][y]].ProbabilityOfGeneration)
                 {
 
-                    position.x = -x + chunk.transform.position.x + Chunk.chunkSizeHalf;
-                    position.y = -y + chunk.transform.position.y + Chunk.chunkSizeHalf;
+                    position.x = -x + chunk.transform.position.x + Chunk.chunkSizeHalf + chunk.grid.cellSize.x*0.5f;
+                    position.y = -y + chunk.transform.position.y + Chunk.chunkSizeHalf+ chunk.grid.cellSize.y * 0.5f;
                     CreateObject(chunk.Fields[x][y], position);
+                    chunk.SetGridArrayField(x, y, MovementType.NOTmoveable);
+                }
+                else
+                {
+                    chunk.SetGridArrayField(x, y, MovementType.Moveable);
                 }
             }
             if (x == breakGeneration)

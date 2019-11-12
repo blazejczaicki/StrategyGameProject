@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        inventory.inventory.ResetInventoryObject();
+        inventory.inventoryObject.ResetInventoryObject();
     }
 
     // na odznaczenie, na zniszczenie, na oddalenie

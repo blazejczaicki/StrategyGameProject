@@ -5,5 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Resource")]
 public class ResourceObject : ItemObject
 {
-
+    private void Awake()
+    {
+        type = ItemType.Resources;
+    }
 }

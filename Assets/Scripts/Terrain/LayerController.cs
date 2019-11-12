@@ -8,7 +8,6 @@ public class LayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(layer);
         collision.GetComponent<SpriteRenderer>().sortingOrder += layer;
     }
 
