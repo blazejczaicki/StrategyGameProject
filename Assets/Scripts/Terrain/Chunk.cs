@@ -17,7 +17,6 @@ public class Chunk : MonoBehaviour
     public Grid grid;
 
     public int[][] Fields { get; set; }
-    public int[][] GridArray { get; set; }
     public int[][] GridMovementArray { get; set; }
 
     private Vector2Int fieldsGlobalBegin = Vector2Int.zero;

@@ -13,6 +13,7 @@ public class TransferItemController : Controller
     private RectTransform rectTransform;
 
     public Action OnDragging = delegate { };
+    
 
     private void Update()
     {
@@ -50,7 +51,7 @@ public class TransferItemController : Controller
 
     public void ImagePositionUpdate()
     {
-        rectTransform.position = Input.mousePosition;
+        rectTransform.position =Input.mousePosition;
     }
 }
 
