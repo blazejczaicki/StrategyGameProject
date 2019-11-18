@@ -17,7 +17,7 @@ public class Chunk : MonoBehaviour
     public Grid grid;
 
     public int[][] Fields { get; set; }
-    public int[][] GridMovementArray { get; set; }
+    public bool[][] GridMovementArray { get; set; }
 
     private Vector2Int fieldsGlobalBegin = Vector2Int.zero;
     public Tilemap tilemap { get; set; }
@@ -91,10 +91,10 @@ public class Chunk : MonoBehaviour
         chunkGameObject.transform.SetParent(GameManager.instance.gridd.transform);
         fieldsGlobalBegin = new Vector2Int((int)transform.position.x + chunkSizeHalf, (int)transform.position.y + chunkSizeHalf);
 
-        GridMovementArray = new int[chunkSize][];
+        GridMovementArray = new bool[chunkSize][];
         for (int i = 0; i < chunkSize; i++)
         {
-            GridMovementArray[i] = new int[chunkSize];
+            GridMovementArray[i] = new bool[chunkSize];
         }
     }
 
@@ -137,9 +137,15 @@ public class Chunk : MonoBehaviour
     }
 
 
-    public void SetGridArrayField(int x, int y, MovementType movementType)
+    public void SetGridArrayField(int x, int y, bool moveable)
     {
-        GridMovementArray[x][y]=(int)movementType;
+        GridMovementArray[x][y]=moveable;
     }
 
+    public Node GetNode()
+    {
+       // Vector2 position= new Vector2(,)
+       // return new Node(position, GridMovementArray[][]);
+        return new Node(Vector2.zero, true);
+    }
 }
