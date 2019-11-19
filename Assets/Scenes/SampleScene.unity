@@ -766,6 +766,7 @@ GameObject:
   - component: {fileID: 534350046}
   - component: {fileID: 534350047}
   - component: {fileID: 534350048}
+  - component: {fileID: 534350049}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -892,6 +893,18 @@ MonoBehaviour:
   - {fileID: 1718472081}
   - {fileID: 1502813036}
   - {fileID: 1053679375}
+--- !u!114 &534350049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534350040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d96d2bec464ca14e98913d58f59379c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &557393461
 GameObject:
   m_ObjectHideFlags: 0
@@ -3276,6 +3289,11 @@ PrefabInstance:
       propertyPath: playerToUpdateControllers.Array.data[1]
       value: 
       objectReference: {fileID: 676374954}
+    - target: {fileID: 6280581212326625917, guid: a6ed180808a8f1248831d3c0a8901cda,
+        type: 3}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ed180808a8f1248831d3c0a8901cda, type: 3}
 --- !u!1001 &7552599715133590657

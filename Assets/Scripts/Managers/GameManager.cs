@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
     {
 
         biomeGridGenerator.GenerateGridEdges();
-        //Debug.Log("Dupa");
         chunkGenerator.GenerateStartChunk(setOfChunks);
     }
 

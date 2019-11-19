@@ -124,7 +124,9 @@ public class ChunkGenerator : MonoBehaviour
             {
                 neighbourIndex = (int)neighbour.opposedDirection;
                 newChunk.Neighbours4Chunks[(int)neighbour.direction].exist = true;
+                newChunk.Neighbours4Chunks[(int)neighbour.direction].chunk = chunk;
                 chunk.Neighbours4Chunks[neighbourIndex].exist = true;
+                chunk.Neighbours4Chunks[neighbourIndex].chunk = newChunk;
             } 
         } 
     }

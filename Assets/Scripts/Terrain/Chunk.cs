@@ -53,7 +53,6 @@ public class Chunk : MonoBehaviour
             Fields[i] = new int[chunkSize];
         }
     }
-
     private void edgesInit()
     {
         edges = new ChunkEdge[4];
@@ -63,7 +62,6 @@ public class Chunk : MonoBehaviour
         edges[(int)Direction.E] = new EastEdge();
 
     }
-
     private void NeighboursChunksInit()
     {
         Neighbours4Chunks = new NeighbourChunk[]{
@@ -73,7 +71,6 @@ public class Chunk : MonoBehaviour
             new NeighbourChunk(new Vector2(transform.position.x+chunkSize, transform.position.y), Direction.E,false)
                 };
     }
-
 
     private void Awake()
     {
@@ -97,7 +94,6 @@ public class Chunk : MonoBehaviour
             GridMovementArray[i] = new bool[chunkSize];
         }
     }
-
 
     public Vector2 checkDiagonallChunkNeeded( Dictionary<Vector3, Chunk> chunks)
     {
@@ -136,16 +132,33 @@ public class Chunk : MonoBehaviour
         //offsetRiver = new Vector2(riverScale + originOffsetRiver.x, originOffsetRiver.y);
     }
 
-
     public void SetGridArrayField(int x, int y, bool moveable)
     {
         GridMovementArray[x][y]=moveable;
     }
 
-    public Node GetNode()
+    public Node GetNode(Vector2Int localPos)
     {
-       // Vector2 position= new Vector2(,)
-       // return new Node(position, GridMovementArray[][]);
-        return new Node(Vector2.zero, true);
+        return new Node(localPos, true, this);
+    }
+
+    public Vector2Int GetLocalPositionOnGrid(Vector2 positionGlobal)
+    {
+        Vector2Int positionLocal = Vector2Int.zero;
+
+        positionLocal.x = (int)(-positionGlobal.x + transform.position.x + Chunk.chunkSizeHalf);
+        positionLocal.y = (int)(-positionGlobal.y + transform.position.y + Chunk.chunkSizeHalf);
+
+        return positionLocal;
+    }
+
+    public Vector2 GetGlobalPositionOnGrid(Vector2Int Local)
+    {
+        Vector2 positionGlobal = Vector2.zero;
+
+        positionGlobal.x = -Local.x + transform.position.x + Chunk.chunkSizeHalf;
+        positionGlobal.y = -Local.y + transform.position.y + Chunk.chunkSizeHalf;
+
+        return positionGlobal;
     }
 }

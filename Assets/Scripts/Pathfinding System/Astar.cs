@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 public class Astar
 {
@@ -9,10 +10,12 @@ public class Astar
     private List<Node> openList;
     private List<Node> closedList;
 
-    public List<Node> FindPath(Chunk chunk, Vector2 startPos, Vector2 endPos)
+    bool testFlag = false;/////////test
+
+    public List<Node> FindPath(Chunk startChunk, Chunk endChunk, Vector2 startPos, Vector2 endPos)
     {
-        Node start= new Node(startPos, true);
-        Node end= new Node(endPos, true);
+        Node start= new Node(startPos, true, startChunk);
+        Node end= new Node(endPos, true, endChunk);
 
         openList = new List<Node> { start };
         closedList = new List<Node>();
@@ -21,20 +24,29 @@ public class Astar
         start.h = DistanceCost(start, end);
         start.CalculateF();
 
+        Debug.Log(end.positionOnChunkGrid);
+
+        int ii = 0; /////////test
         while (openList.Count>0)
         {
+            ii++;           
             Node currentNode=GetLowestF(openList);
-            if (currentNode==end)
+            //Debug.DrawLine(currentNode.position, new Vector2(currentNode.position.x + 1, currentNode.position.y + 1), Color.red, 10.0f);
+
+            if (currentNode.position==end.position || (currentNode.positionOnChunkGrid== end.positionOnChunkGrid && currentNode.chunk==end.chunk))
             {
+                end = currentNode;
+                Debug.Log(ii);
                 return ComputePath(end);
             }
 
             openList.Remove(currentNode);
             closedList.Add(currentNode);
-
+            
+            //Profiler.BeginSample("FindInNeighbour");
             foreach (var neighbourNode in GetNeighbours(currentNode))
             {
-                if (!closedList.Contains(neighbourNode))
+                if (closedList.Exists((x)=>x.position==neighbourNode.position)!=true)
                 {
                     int tentativeG = currentNode.g + DistanceCost(currentNode, neighbourNode);
                     if (tentativeG < neighbourNode.g)
@@ -43,13 +55,15 @@ public class Astar
                         neighbourNode.g = tentativeG;
                         neighbourNode.h = DistanceCost(neighbourNode, end);
                         neighbourNode.CalculateF();
-                        if (!openList.Contains(neighbourNode))
+                        if (openList.Exists((x)=>x.position == neighbourNode.position)!=true)
                         {
                             openList.Add(neighbourNode);
                         }
                     }
                 }
             }
+            //Profiler.EndSample();
+
         }
         return null;
     }
@@ -81,31 +95,76 @@ public class Astar
         return lowestFNode;
     }
 
-
-
-    private Node GetNode(Vector2 _position)
+    private void ComputeNodePosition(out Chunk chunk, out Vector2Int localPos, int i, int j, Node current)
     {
-        return new Node(Vector2.zero, true);
+        chunk = current.chunk;
+        localPos = Vector2Int.zero;
+        localPos.x = current.positionOnChunkGrid.x + i;
+        localPos.y = current.positionOnChunkGrid.y + j;
+        bool vertexX = false;
+        bool vertexY=false;
+        int direction =0;
+        if (localPos.x >= 64) //left
+        {
+            chunk = current.chunk.Neighbours4Chunks[(int)Direction.W].chunk;
+            localPos.x = 0;
+            vertexX = true;
+            direction = (int)Direction.W;
+            Debug.Log(Direction.W);
+        }
+        else if (localPos.x < 0) //right
+        {
+            chunk = current.chunk.Neighbours4Chunks[(int)Direction.E].chunk;
+            localPos.x = 64;
+            vertexX = true;
+            direction = (int)Direction.E;
+            Debug.Log(Direction.E);
+        }
+
+        if (localPos.y >= 64) //down
+        {
+            chunk = current.chunk.Neighbours4Chunks[(int)Direction.S].chunk;
+            localPos.y = 0;
+            vertexY = true;
+            Debug.Log(Direction.S);
+        }
+        else if (localPos.y < 0) //top
+        {
+            chunk = current.chunk.Neighbours4Chunks[(int)Direction.N].chunk;
+            localPos.y = 64;
+            vertexY = true;
+            Debug.Log(Direction.N);
+        }
+
+        if (vertexX && vertexY)
+        {
+            Debug.Log("notnot");
+            chunk = chunk.Neighbours4Chunks[direction].chunk;
+        }
     }
 
     private List<Node> GetNeighbours(Node current)
     {
         List<Node> neighbourList = new List<Node>();
-        Vector2 position = Vector2.zero;     
-        for (int i = -1; i <= 1; i+=2)//left right
+        Vector2Int localPos;
+        Debug.Log(current.positionOnChunkGrid);
+        Chunk chunk;
+        for (int i = -1; i <= 1; i++)
         {
             for (int j = -1; j <= 1; j++)
             {
-                position.x = current.position.x + i;
-                position.y = current.position.y + j;
-                neighbourList.Add(GetNode(position));
+              //  Debug.Log(current.positionOnChunkGrid);
+                ComputeNodePosition(out chunk, out localPos, i, j, current);
+                neighbourList.Add(chunk.GetNode(localPos));
             }
-        }        
-
-        if (true)//top down
-        {
-
         }
+        neighbourList.Remove(neighbourList.Find((neighbour) => neighbour.positionOnChunkGrid == current.positionOnChunkGrid));
+
+        //foreach (var nei in neighbourList)
+        //{
+        //    Debug.DrawLine(nei.position, new Vector2(nei.position.x + 1, nei.position.y + 1), Color.red, 10.0f);
+        //}
+
         return neighbourList;
     }
 

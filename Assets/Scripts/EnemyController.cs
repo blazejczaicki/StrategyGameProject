@@ -14,7 +14,7 @@ public class EnemyController : MovementObject
 
     public void MoveToTarget()
     {
-        pathfinding.FindPath(CurrentChunk, transform.position, target.position);
+       // pathfinding.FindPath(CurrentChunk, transform.position, target.position);
     }
 
     private void Update()

@@ -36,6 +36,22 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        //if (CurrentChunk.Neighbours4Chunks[(int)Direction.N].chunk == null)
+        //    Debug.Log("xddd");
+        //else
+        //    Debug.Log(CurrentChunk.Neighbours4Chunks[(int)Direction.N].direction);
+        //if (CurrentChunk.Neighbours4Chunks[(int)Direction.S].chunk == null)
+        //    Debug.Log("xddd");
+        //else
+        //    Debug.Log(CurrentChunk.Neighbours4Chunks[(int)Direction.S].direction);
+        //if (CurrentChunk.Neighbours4Chunks[(int)Direction.E].chunk == null)
+        //    Debug.Log("xddd");
+        //else
+        //    Debug.Log(CurrentChunk.Neighbours4Chunks[(int)Direction.E].direction);
+        //if (CurrentChunk.Neighbours4Chunks[(int)Direction.W].chunk == null)
+        //    Debug.Log("xddd");
+        //else
+        //    Debug.Log(CurrentChunk.Neighbours4Chunks[(int)Direction.W].direction);
         CheckOnWhichChunkYouStayed();
        // Debug.Log(CurrentChunk.GetFieldNumber(player.position));
     }
