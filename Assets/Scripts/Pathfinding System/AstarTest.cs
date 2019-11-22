@@ -13,17 +13,17 @@ public class AstarTest : MonoBehaviour
         pathFinding = new Astar();
     }
     
-    void Update()
+    void OnUpdate()
     {
         chunk = PlayerManager.instance.CurrentChunk;
         if (Input.GetMouseButtonDown(0))
         {
             //Profiler.BeginSample("FindPath");
-            List<Node> path = pathFinding.FindPath(chunk, GetChunkOnMouse(), Vector2Int.zero, GetMousePosToCell());
+            List<Node> path = pathFinding.FindPath(chunk, GetChunkOnMouse(), new Vector2(-4, 6), GetMousePosToCell());
             //Profiler.EndSample();
             if (path != null)
-            {                
-                for (int i = 0; i < path.Count-1; i++)
+            {
+                for (int i = 0; i < path.Count - 1; i++)
                 {
                     Debug.DrawLine(new Vector3(path[i].position.x, path[i].position.y),
                         new Vector3(path[i + 1].position.x, path[i + 1].position.y), Color.green, 10.0f);
@@ -32,8 +32,8 @@ public class AstarTest : MonoBehaviour
             else
                 Debug.Log("elsexd");
         }
-        //if (Input.GetMouseButtonDown(0))
-        //    Debug.Log(GetMousePosToCell());
+       // if (Input.GetMouseButtonDown(0))
+            //Debug.Log(GetMousePosToCell());
     }
 
     private Chunk GetChunkOnMouse()

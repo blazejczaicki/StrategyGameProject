@@ -2,23 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MovementObject
+public class EnemyController : MonoBehaviour
 {
     private Astar pathfinding;
-    [SerializeField] private Transform target;
+    private EnemyMovement movement;
+    private Transform target;
+
+    [SerializeField]private Transform player;
+    
 
     private void Awake()
     {
         pathfinding = new Astar();
+        movement = GetComponent<EnemyMovement>();
     }
 
-    public void MoveToTarget()
+    private void SeekTarget()
     {
-       // pathfinding.FindPath(CurrentChunk, transform.position, target.position);
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject==player.gameObject)
+        {
+            target = player.transform;
+        }
     }
 
     private void Update()
     {
-        CheckOnWhichChunkYouStayed();
+        movement.Move(target);
     }
 }

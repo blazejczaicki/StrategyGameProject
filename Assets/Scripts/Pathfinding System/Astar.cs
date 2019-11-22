@@ -24,7 +24,7 @@ public class Astar
         start.h = DistanceCost(start, end);
         start.CalculateF();
 
-        Debug.Log(end.positionOnChunkGrid);
+       // Debug.Log(end.positionOnChunkGrid);
 
         int ii = 0; /////////test
         while (openList.Count>0)
@@ -32,11 +32,12 @@ public class Astar
             ii++;           
             Node currentNode=GetLowestF(openList);
             //Debug.DrawLine(currentNode.position, new Vector2(currentNode.position.x + 1, currentNode.position.y + 1), Color.red, 10.0f);
-
-            if (currentNode.position==end.position || (currentNode.positionOnChunkGrid== end.positionOnChunkGrid && currentNode.chunk==end.chunk))
+Debug.Log(end.isMoveable);
+            if (currentNode.position==end.position || (currentNode.positionOnChunkGrid== end.positionOnChunkGrid && currentNode.chunk==end.chunk) || Vector2.Distance(currentNode.position, end.position)<=1.0f)
             {
+                
                 end = currentNode;
-                Debug.Log(ii);
+               // Debug.Log(ii);
                 return ComputePath(end);
             }
 
@@ -46,7 +47,7 @@ public class Astar
             //Profiler.BeginSample("FindInNeighbour");
             foreach (var neighbourNode in GetNeighbours(currentNode))
             {
-                if (closedList.Exists((x)=>x.position==neighbourNode.position)!=true)
+                if (closedList.Exists((x)=>x.position==neighbourNode.position)!=true && neighbourNode.isMoveable)
                 {
                     int tentativeG = currentNode.g + DistanceCost(currentNode, neighbourNode);
                     if (tentativeG < neighbourNode.g)
@@ -104,6 +105,7 @@ public class Astar
         bool vertexX = false;
         bool vertexY=false;
         int direction =0;
+        //Direction dir = Direction;
         if (localPos.x >= 64) //left
         {
             chunk = current.chunk.Neighbours4Chunks[(int)Direction.W].chunk;
@@ -126,7 +128,7 @@ public class Astar
             chunk = current.chunk.Neighbours4Chunks[(int)Direction.S].chunk;
             localPos.y = 0;
             vertexY = true;
-            Debug.Log(Direction.S);
+           Debug.Log(Direction.S);
         }
         else if (localPos.y < 0) //top
         {
@@ -138,16 +140,16 @@ public class Astar
 
         if (vertexX && vertexY)
         {
-            Debug.Log("notnot");
             chunk = chunk.Neighbours4Chunks[direction].chunk;
         }
+        
     }
 
     private List<Node> GetNeighbours(Node current)
     {
         List<Node> neighbourList = new List<Node>();
         Vector2Int localPos;
-        Debug.Log(current.positionOnChunkGrid);
+        //Debug.Log(current.positionOnChunkGrid);
         Chunk chunk;
         for (int i = -1; i <= 1; i++)
         {
@@ -155,7 +157,10 @@ public class Astar
             {
               //  Debug.Log(current.positionOnChunkGrid);
                 ComputeNodePosition(out chunk, out localPos, i, j, current);
-                neighbourList.Add(chunk.GetNode(localPos));
+                Debug.DrawLine(new Vector2(-localPos.x + chunk.transform.position.x + Chunk.chunkSizeHalf, -localPos.y + chunk.transform.position.y + Chunk.chunkSizeHalf),
+                    new Vector2(-localPos.x + chunk.transform.position.x + Chunk.chunkSizeHalf+1, -localPos.y + chunk.transform.position.y + Chunk.chunkSizeHalf+1), Color.blue, 10.0f);
+               //Debug.Log(chunk.transform.position);
+                neighbourList.Add(chunk.GetNode(localPos));         // na krawędziach xd
             }
         }
         neighbourList.Remove(neighbourList.Find((neighbour) => neighbour.positionOnChunkGrid == current.positionOnChunkGrid));

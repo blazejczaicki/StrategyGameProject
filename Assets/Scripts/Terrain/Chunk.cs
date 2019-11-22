@@ -16,6 +16,8 @@ public class Chunk : MonoBehaviour
 
     public Grid grid;
 
+    private Vector3 veev;
+
     public int[][] Fields { get; set; }
     public bool[][] GridMovementArray { get; set; }
 
@@ -74,6 +76,8 @@ public class Chunk : MonoBehaviour
 
     private void Awake()
     {
+        veev = transform.position;
+
         gameObject.layer = 8;
         FieldInit();
         NeighboursChunksInit();
@@ -137,9 +141,13 @@ public class Chunk : MonoBehaviour
         GridMovementArray[x][y]=moveable;
     }
 
+
     public Node GetNode(Vector2Int localPos)
     {
-        return new Node(localPos, true, this);
+        return new Node(localPos, GridMovementArray[Mathf.Clamp(localPos.x,0, chunkSize-1)][Mathf.Clamp(localPos.y, 0, chunkSize - 1)], this);
+       // return new Node(localPos, true, this);
+       // Debug.Log(localPos);
+        //return new Node(localPos, GridMovementArray[localPos.x - 1][localPos.y - 1], this);
     }
 
     public Vector2Int GetLocalPositionOnGrid(Vector2 positionGlobal)

@@ -24,6 +24,7 @@ public class Node
         h = f = 0;
         isMoveable = _moveable;
         previousNode = null;
+        position = new Vector2((int)position.x, (int)position.y);
     }
 
     public Node(Vector2 _position, bool _moveable, Chunk _chunk)
