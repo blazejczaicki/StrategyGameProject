@@ -27,6 +27,14 @@ public class InventoryController : Controller, IInventoryOperation
         return executed;
     }
 
+    public void UpdateInventoryUI()
+    {
+        inventoryObj.OnChangedUpdateUI(slotImages);
+    }
+
+
+
+
     public void ResetSlot(int slotID)
     {
         inventoryObject.ResetInventorySlot(slotImages[slotID], slotID);
@@ -36,13 +44,6 @@ public class InventoryController : Controller, IInventoryOperation
     {
         return inventoryObj.GetInventorySlot(slotID);
     }
-
-    public void UpdateInventoryUI()
-    {
-        inventoryObj.OnChangedUpdateUI(slotImages);
-    }
-
-
 
     public override void OnUpdate()
     {

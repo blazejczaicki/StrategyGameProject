@@ -5,6 +5,8 @@ using UnityEngine;
 public enum ItemType
 {
     Resources,
+    Wood,
+    Stone,
     Default
 }
 public abstract class ItemObject : ScriptableObject

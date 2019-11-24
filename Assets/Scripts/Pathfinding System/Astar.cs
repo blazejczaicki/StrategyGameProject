@@ -32,7 +32,7 @@ public class Astar
             ii++;           
             Node currentNode=GetLowestF(openList);
             //Debug.DrawLine(currentNode.position, new Vector2(currentNode.position.x + 1, currentNode.position.y + 1), Color.red, 10.0f);
-Debug.Log(end.isMoveable);
+//Debug.Log(end.isMoveable);
             if (currentNode.position==end.position || (currentNode.positionOnChunkGrid== end.positionOnChunkGrid && currentNode.chunk==end.chunk) || Vector2.Distance(currentNode.position, end.position)<=1.0f)
             {
                 

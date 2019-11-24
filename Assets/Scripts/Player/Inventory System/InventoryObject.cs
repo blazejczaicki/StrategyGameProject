@@ -15,7 +15,7 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
     public bool AddItem(ItemObject _item, int _amount)
     {
         var target = slots.Find(slot => slot.item.type == _item.type && slot.amount!=itemStackConstraint);
-        
+        Debug.Log(_item.type);
         if (target != null)
         {
             if (target.amount + _amount<=itemStackConstraint)
@@ -63,8 +63,6 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
         return false;
     }
 
-
-
     public void ResetInventoryObject()
     {
         slots.Clear();
@@ -82,12 +80,45 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
     {
         return slots[slotID];
     }
-
-    public void ResetInventorySlot(Image _image, int slotID)
+    
+    public void ResetInventorySlot(Image image, int slotID)
     {
-        slots[slotID].Reset(_image);
+        slots[slotID].Reset();
+        slots[slotID].UpdateSlotInUI(image);
+    }
+    
+
+
+    public int GetItemAmount(ItemType itemType)
+    {
+        int amount = 0;
+        foreach (var slot in slots)
+        {
+            if (slot.item.type== itemType)
+            {
+                amount += slot.amount;
+            }
+        }
+        return amount;
     }
 
+    public void DecreaseItemAmount(ItemType itemType, int amountToDecrease)
+    {
+        int rest = amountToDecrease;
+        foreach (var slot in slots)
+        {
+            if (slot.item.type == itemType)
+            {
+                rest = rest - slot.amount;
+                if (rest<0)
+                {
+                    slot.amount = -rest;
+                    break;
+                }
+                slot.Reset();
+            }
+        }
+    }
 }
 
 
@@ -108,24 +139,20 @@ public class InventorySlot
 
     public void UpdateSlotInUI(Image image)
     {
-        Debug.Log("xd");
         if (changed)
         {
             image.sprite = item.sprite;
             var color = image.color;
-            color.a = 1.0f;
+            color.a = (item.type == ItemType.Default) ? 0.0f : 1.0f;
             image.color = color;
             changed = false;
         }
     }
 
-    public void Reset(Image image)
+    public void Reset()
     {
         item = defaultObject;
         amount = 0;
-        image.sprite = item.sprite;
-        var color = image.color;
-        color.a = 0.0f;
-        image.color = color;
+        changed = true;
     }
 }
