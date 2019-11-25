@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class InventoryController : Controller, IInventoryOperation
 {
-    [SerializeField] private InventoryObject inventoryObj;
-    public InventoryObject inventoryObject { get { return inventoryObj; } }
+    public InventoryObject inventoryObject;
     [SerializeField] private List<Image> slotImages;
     [SerializeField] private DefaultObject defaultObject;
 
@@ -22,14 +21,14 @@ public class InventoryController : Controller, IInventoryOperation
 
     public bool AddItem(ItemObject item, int amount)
     {
-        bool executed = inventoryObj.AddItem(item, amount);
+        bool executed = inventoryObject.AddItem(item, amount);
         UpdateInventoryUI();
         return executed;
     }
 
     public void UpdateInventoryUI()
     {
-        inventoryObj.OnChangedUpdateUI(slotImages);
+        inventoryObject.OnChangedUpdateUI(slotImages);
     }
 
 
@@ -42,7 +41,7 @@ public class InventoryController : Controller, IInventoryOperation
 
     public InventorySlot GetInventorySlot(int slotID)
     {
-        return inventoryObj.GetInventorySlot(slotID);
+        return inventoryObject.GetInventorySlot(slotID);
     }
 
     public override void OnUpdate()

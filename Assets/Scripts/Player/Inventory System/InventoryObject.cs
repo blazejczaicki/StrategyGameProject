@@ -10,7 +10,10 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
 
     [SerializeField] private int itemStackConstraint = 50;
 
-
+    private void Awake()
+    {
+        slots = new List<InventorySlot>();
+    }
 
     public bool AddItem(ItemObject _item, int _amount)
     {

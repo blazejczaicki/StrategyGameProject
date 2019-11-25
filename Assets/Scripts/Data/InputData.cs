@@ -12,4 +12,8 @@ public class InputData : ScriptableObject
 
     public KeyCode interactionLeft;
     public KeyCode interactionRight;
+
+    public KeyCode escape;
+    public KeyCode inventory;
+    public KeyCode buildScreen;
 }

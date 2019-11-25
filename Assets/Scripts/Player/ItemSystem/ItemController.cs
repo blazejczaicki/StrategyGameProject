@@ -7,7 +7,7 @@ public class ItemController : MonoBehaviour, IInteractable
 {
     public ItemObject itemObject;
     [SerializeField] private float pickUpRange=5.0f;
-    [SerializeField] private int amount = 5;
+    public int amount = 5;
 
     private void PickUp(PlayerController playerController)
     {

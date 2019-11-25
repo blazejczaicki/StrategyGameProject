@@ -11,6 +11,7 @@ public enum ItemType
 }
 public abstract class ItemObject : ScriptableObject
 {
+    public GameObject gameObject;
     public Sprite sprite;
     public ItemType type;
     [TextArea(15,20)] public string description;
