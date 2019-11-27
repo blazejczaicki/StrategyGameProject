@@ -9,9 +9,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float maxSize = 0.0f;
     [SerializeField] private AnimationCurve scrollSequence;
     private bool isScrolling = false;
-
-    
-
+     
     public void Zoom()
     {
         StartCoroutine(ChangeCameraSize(-1));
@@ -21,7 +19,6 @@ public class CameraController : MonoBehaviour
     {
         StartCoroutine(ChangeCameraSize(1));
     }
-
 
     private IEnumerator ChangeCameraSize(float direction)
     {
@@ -33,21 +30,16 @@ public class CameraController : MonoBehaviour
             camer.orthographicSize = Mathf.Clamp(camer.orthographicSize, minSize, maxSize);
             scrollTime += Time.deltaTime;
         yield return null;
-        } while (scrollTime<1);
-
-        
+        } while (scrollTime<1);        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-       // Debug.Log("exxx" + collision.name);
         GameManager.instance.eraseInvisibleChunk(collision.transform.position, collision.GetComponent<Chunk>());
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("ennn" + collision.name);
         GameManager.instance.addToVisibleChunk(collision.transform.position, collision.GetComponent<Chunk>());
     }
 }

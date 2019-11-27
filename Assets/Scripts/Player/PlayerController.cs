@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
 
     public InventoryController inventory;
 
-    private IInteractable interactableObjectFocus=null;
+    private IInteractable interactableObjectFocus = null;
+    private Chunk _currentChunk;
+    public Chunk currentChunk => _currentChunk;
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        _currentChunk = ChunkSeeker.CheckOnWhichChunkYouStayed(transform.position);
         foreach (var controller in playerToUpdateControllers)
         {
             controller.OnUpdate();
@@ -30,16 +33,16 @@ public class PlayerController : MonoBehaviour
 
     private IInteractable GetInteractableObject()
     {
-        int layy = ~(1<<(LayerMask.NameToLayer("Camera")));
+        int layy = ~(1 << (LayerMask.NameToLayer("Camera")));
         RaycastHit2D hit = Physics2D.GetRayIntersection(camer.ScreenPointToRay(Input.mousePosition), Mathf.Infinity, layy);
         return hit.collider != null ? hit.collider.GetComponent<IInteractable>() : null;
     }
-    
+
     public void TryActivateObjectLeft()
     {
         interactableObjectFocus = GetInteractableObject();
-        
-        if(interactableObjectFocus!=null)
+
+        if (interactableObjectFocus != null)
         {
             interactableObjectFocus.OnLeftClickObject(this);
         }
@@ -50,7 +53,7 @@ public class PlayerController : MonoBehaviour
         interactableObjectFocus = GetInteractableObject();
         if (interactableObjectFocus != null)
         {
-         //   Debug.Log(interactableObjectFocus);
+            //   Debug.Log(interactableObjectFocus);
             interactableObjectFocus.OnRightClickObject(this);
         }
     }
@@ -59,9 +62,9 @@ public class PlayerController : MonoBehaviour
     {
         //odległość
 
-        health -= extractionTool*Time.deltaTime;
+        health -= extractionTool * Time.deltaTime;
         Debug.Log(health);
-        return health<=0;
+        return health <= 0;
     }
 
     private void OnApplicationQuit()

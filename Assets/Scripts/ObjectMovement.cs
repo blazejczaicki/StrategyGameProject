@@ -20,7 +20,7 @@ public abstract class ObjectMovement : MonoBehaviour
 
     public abstract void Move(dynamic direction);
 
-    void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         Debug.Log(rb);

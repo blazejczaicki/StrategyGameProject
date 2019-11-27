@@ -11,6 +11,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField]private Transform player;
     
 
+    [SerializeField] private float health=0;
+
     private void Awake()
     {
         pathfinding = new Astar();

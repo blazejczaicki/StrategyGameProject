@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     private BiomeGridGenerator biomeGridGenerator;
     private HyperGridGenerator hyperGridGenerator;
     [SerializeField] private ChunkGenerator chunkGenerator;
-
+    [SerializeField] private PlayerController player;
+    private int cameraRange = 10;
 
     [SerializeField] private Grid grid;
     public Grid gridd
@@ -40,7 +41,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
         biomeGridGenerator.GenerateGridEdges();
         chunkGenerator.GenerateStartChunk(setOfChunks);
     }
@@ -67,17 +67,28 @@ public class GameManager : MonoBehaviour
         chunk.tilemap.gameObject.SetActive(false);
     }
 
+    private bool IsChunkToSpawn()
+    {
+        if (player.currentChunk == null || player.currentChunk.NOTgenerationNeeded) return false;
+        Vector3 currentChunkPosition = player.currentChunk.transform.position;
+        Vector3 playerPosition= player.transform.position;
+        int noSpawnChunkAreaRadius = (int)(Chunk.chunkSizeHalf - cameraRange);
+        return (playerPosition.x + cameraRange < currentChunkPosition.x - noSpawnChunkAreaRadius ||
+            playerPosition.x - cameraRange > currentChunkPosition.x + noSpawnChunkAreaRadius ||
+            playerPosition.y - cameraRange < currentChunkPosition.y + noSpawnChunkAreaRadius ||
+            playerPosition.y + cameraRange > currentChunkPosition.y - noSpawnChunkAreaRadius);
+    }
 
     void Update()
     {
         
-        if (PlayerManager.instance.IsChunkToSpawn() )
+        if (IsChunkToSpawn() )
         {
-            chunkGenerator.generateChunk(setOfChunks, visibleChunks);
+            chunkGenerator.generateChunk(setOfChunks, visibleChunks, player.currentChunk, player.transform.position, cameraRange);
         }
-        if (biomeGridGenerator.IsIncreaseGrid(PlayerManager.instance.DistanceFromCenter()))
+        if (biomeGridGenerator.IsIncreaseGrid(Vector2.Distance(player.transform.position, Vector3.zero)))
         {
-            if (hyperGridGenerator.IsIncreaseGrid(PlayerManager.instance.DistanceFromCenter()))
+            if (hyperGridGenerator.IsIncreaseGrid(Vector2.Distance(player.transform.position, Vector3.zero)))
             {
                 hyperGridGenerator.GenerateGridEdges();
             }

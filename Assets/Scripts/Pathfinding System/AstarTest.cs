@@ -8,6 +8,8 @@ public class AstarTest : MonoBehaviour
     private Astar pathFinding;
     private Chunk chunk;
 
+    private PlayerController player;
+
     void Start()
     {
         pathFinding = new Astar();
@@ -15,7 +17,7 @@ public class AstarTest : MonoBehaviour
     
     void OnUpdate()
     {
-        chunk = PlayerManager.instance.CurrentChunk;
+        chunk = player.currentChunk;
         if (Input.GetMouseButtonDown(0))
         {
             //Profiler.BeginSample("FindPath");
@@ -32,8 +34,6 @@ public class AstarTest : MonoBehaviour
             else
                 Debug.Log("elsexd");
         }
-       // if (Input.GetMouseButtonDown(0))
-            //Debug.Log(GetMousePosToCell());
     }
 
     private Chunk GetChunkOnMouse()
@@ -48,14 +48,6 @@ public class AstarTest : MonoBehaviour
 
     private Vector2 GetMousePosToCell()
     {
-        //var position=Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        //Vector2Int xyOnGrid = Vector2Int.zero;
-
-        // xyOnGrid.x =(int)(-position.x + chunk.transform.position.x + Chunk.chunkSizeHalf);
-        // xyOnGrid.y=(int)(-position.y  + chunk.transform.position.y + Chunk.chunkSizeHalf);
-
-        //return xyOnGrid;
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 }

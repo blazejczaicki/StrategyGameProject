@@ -11,15 +11,19 @@ public class EnemyMovement : ObjectMovement
     private float pathUpdateTime = 1.0f;
     private float pathUpdateLastTime = 0.0f;
     List<Node> path;
-    private void Start()
+
+    protected override void Awake()
     {
+        base.Awake();
+        path = new List<Node>();
         pathfinding = new Astar();
     }
 
     private void UpdatePath(Transform target)
-    {        
-            path = pathfinding.FindPath(ChunkSeeker.CheckOnWhichChunkYouStayed(transform.position), ChunkSeeker.CheckOnWhichChunkYouStayed(target.position), 
-                transform.position, target.transform.position);
+    {
+        Vector3 startPosition = (path!=null && path.Count > pathIterator + 1) ?  (Vector3)path[pathIterator].position: transform.position; 
+            path = pathfinding.FindPath(ChunkSeeker.CheckOnWhichChunkYouStayed(transform.position), ChunkSeeker.CheckOnWhichChunkYouStayed(target.position),
+                startPosition, target.transform.position);
         pathIterator = 0;
             if (path != null)
             {
@@ -72,13 +76,6 @@ public class EnemyMovement : ObjectMovement
                         UpdateDirection(path[pathIterator].position);
                     }
                 }
-            //try
-            //{
-            //}
-            //catch(Index)
-            //{
-
-            //}
             //UpdateAnimation();
         }
     }

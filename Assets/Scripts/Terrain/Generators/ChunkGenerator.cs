@@ -67,7 +67,6 @@ public class ChunkGenerator : MonoBehaviour
         newChunk.grid = grid;
         tileGenerator.generateTiles(newChunk);
         setOfChunks.Add(Vector2.zero, newChunk);
-        PlayerManager.instance.SetStartChunk(setOfChunks);
     }
 
     private void AddPotentialDirections(float cameraRange, Vector2 currentChunkPosition, Vector2 playerPosition, List<Direction> potentialDirections)
@@ -94,13 +93,10 @@ public class ChunkGenerator : MonoBehaviour
         }
     }
 
-    private void loadChunksToGenerate()
+    private void loadChunksToGenerate(int cameraRange, Vector3 playerPosition, Chunk currentChunk)
     {
-        Chunk currentChunk = PlayerManager.instance.CurrentChunkTransform.GetComponent<Chunk>();
         List<Direction> potentialDirections= new List<Direction>();
-
-        AddPotentialDirections(PlayerManager.instance.CameraRange, PlayerManager.instance.CurrentChunkTransform.transform.position,
-            PlayerManager.instance.Player.position, potentialDirections);
+        AddPotentialDirections(cameraRange, currentChunk.transform.position, playerPosition, potentialDirections);
         
         NeighbourChunk neighbour;
         foreach (var direction in potentialDirections)
@@ -131,9 +127,9 @@ public class ChunkGenerator : MonoBehaviour
         } 
     }
 
-    private void diagonallyChunkGenerate(Dictionary<Vector3, Chunk> chunks, Dictionary<Vector3, Chunk> visibleChunks)
+    private void diagonallyChunkGenerate(Dictionary<Vector3, Chunk> chunks, Dictionary<Vector3, Chunk> visibleChunks, Chunk currentChunk)
     {
-        Vector2 positionDiagonallyChunk = PlayerManager.instance.CurrentChunk.checkDiagonallChunkNeeded(chunks);
+        Vector2 positionDiagonallyChunk = currentChunk.checkDiagonallChunkNeeded(chunks);
         if (!chunks.ContainsKey(positionDiagonallyChunk) && positionDiagonallyChunk != Vector2.zero)// to samo co wyżej z widzialnymi
         {
             createChunk(positionDiagonallyChunk,chunks, visibleChunks);
@@ -154,14 +150,14 @@ public class ChunkGenerator : MonoBehaviour
         visibleChunks.Add(chunkPosition, newChunk);
         CheckNeighbours(chunks, newChunk, visibleChunks);
     }
-    public void generateChunk( Dictionary<Vector3, Chunk> chunks, Dictionary<Vector3, Chunk> visibleChunks)
+    public void generateChunk( Dictionary<Vector3, Chunk> chunks, Dictionary<Vector3, Chunk> visibleChunks, Chunk currentChunk, Vector3 playerPosition, int camerRange)
     {
-        loadChunksToGenerate();
+        loadChunksToGenerate(camerRange, playerPosition, currentChunk);
         foreach (var newChunkPosition in chunkToGenerate)
         {
             createChunk(newChunkPosition,chunks, visibleChunks);
         }
-        diagonallyChunkGenerate(chunks, visibleChunks);
+        diagonallyChunkGenerate(chunks, visibleChunks, currentChunk);
         chunkToGenerate.Clear();
      }
 }

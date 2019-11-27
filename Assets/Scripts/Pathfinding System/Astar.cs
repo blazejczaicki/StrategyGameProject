@@ -10,8 +10,6 @@ public class Astar
     private List<Node> openList;
     private List<Node> closedList;
 
-    bool testFlag = false;/////////test
-
     public List<Node> FindPath(Chunk startChunk, Chunk endChunk, Vector2 startPos, Vector2 endPos)
     {
         Node start= new Node(startPos, true, startChunk);
@@ -23,21 +21,13 @@ public class Astar
         start.g = 0;
         start.h = DistanceCost(start, end);
         start.CalculateF();
-
-       // Debug.Log(end.positionOnChunkGrid);
-
-        int ii = 0; /////////test
         while (openList.Count>0)
         {
-            ii++;           
             Node currentNode=GetLowestF(openList);
-            //Debug.DrawLine(currentNode.position, new Vector2(currentNode.position.x + 1, currentNode.position.y + 1), Color.red, 10.0f);
-//Debug.Log(end.isMoveable);
             if (currentNode.position==end.position || (currentNode.positionOnChunkGrid== end.positionOnChunkGrid && currentNode.chunk==end.chunk) || Vector2.Distance(currentNode.position, end.position)<=1.0f)
             {
                 
                 end = currentNode;
-               // Debug.Log(ii);
                 return ComputePath(end);
             }
 
@@ -64,7 +54,6 @@ public class Astar
                 }
             }
             //Profiler.EndSample();
-
         }
         return null;
     }
