@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d58e9e57f922a14b8937a436264bce9, type: 3}
-  m_Name: Wood 1
+  m_Script: {fileID: 11500000, guid: 3f4fce8d2ff23d943aa6f819117be1f2, type: 3}
+  m_Name: Wood
   m_EditorClassIdentifier: 
   gameObject: {fileID: 8356287798689731863, guid: 3263ff2a7792a8b4f8fa1a0e92fbe3e1,
     type: 3}
   sprite: {fileID: 21300000, guid: d289b60d970d7ae419b54d0c778b0aee, type: 3}
   type: 1
   description: 
+  burningTime: 0

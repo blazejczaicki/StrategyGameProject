@@ -79,10 +79,7 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
         }
     }
 
-    public InventorySlot GetInventorySlot(int slotID)
-    {
-        return slots[slotID];
-    }
+
     
     public void ResetInventorySlot(Image image, int slotID)
     {
@@ -90,7 +87,10 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
         slots[slotID].UpdateSlotInUI(image);
     }
     
-
+    public InventorySlot GetInventorySlot(int slotID)
+    {
+        return slots[slotID];
+    }
 
     public int GetItemAmount(ItemType itemType)
     {

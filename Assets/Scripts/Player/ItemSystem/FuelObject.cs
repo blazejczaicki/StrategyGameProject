@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Teleporter : MonoBehaviour
+[CreateAssetMenu(fileName ="Fuel")]
+public class FuelObject : ResourceObject
 {
-
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Warehouse : Building, IInteractable
 {
-    [SerializeField] private InventoryObject inventoryObject;
-    [SerializeField] private InventoryController inventoryController;
+    [SerializeField] protected InventoryObject inventoryObject;
+    [SerializeField] protected InventoryController inventoryController;
 
     private void Awake()
     {

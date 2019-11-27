@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Wood")]
-public class WoodObject : ItemObject
+[CreateAssetMenu(fileName = "Resource")]
+public class ResourceObject : ItemObject
 {
     private void Awake()
     {

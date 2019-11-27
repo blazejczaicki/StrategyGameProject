@@ -66,17 +66,6 @@ public class PlayerInputController : Controller
         {
             cameraController.Zoom();
         }
-
-        //do prawego przycisku
-        //GetMouseButton do tworzenia strefy myszki
-        //if (Input.GetMouseButtonDown(0))
-        //{
-
-        //}
-        //if(Input.GetMouseButtonDown(1))
-        //{
-
-        //}
     }
 
     private void MovementInput()
