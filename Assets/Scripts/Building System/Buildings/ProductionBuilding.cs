@@ -18,29 +18,47 @@ public class ProductionBuilding : Warehouse
     private float currentProductionTime = 0;
     private float currentBurnTime = 0;
 
-    private bool isWorking = false;
+    private InventorySlot slotResource;
+    private InventorySlot slotFuel;
+    private InventorySlot slotProduct;
 
-    private void Awake()
+    private bool isWorking = false;
+    private bool isReadyToProduce = false;
+
+   // public Action 
+
+    protected override void Awake()
     {
+        base.Awake();
         production.maxValue = productionTime;
         burning.maxValue = burnFuelTime;
     }
 
     private void Update()
     {
-        Produce();
+       Produce();
+    }
+
+    public override void OnLeftClickObject(PlayerController controller)
+    {
+        base.OnLeftClickObject(controller);
+        isReadyToProduce = true;
     }
 
     public void Produce()
     {
-        var slotResource = inventoryObject.GetInventorySlot(0);
-        var slotFuel = inventoryObject.GetInventorySlot(1);
-        var slotProduct = inventoryObject.GetInventorySlot(2);
+        if (isReadyToProduce)
+        {
+        slotResource = inventoryObject.GetInventorySlot(0);
+        slotFuel = inventoryObject.GetInventorySlot(1);
+        slotProduct = inventoryObject.GetInventorySlot(2);
         MakeProduct(slotFuel, slotResource, slotProduct);
+        }
     }
 
     private void MakeProduct(InventorySlot slotFuel, InventorySlot slotResource, InventorySlot slotProduct)
     {
+        Debug.Log(isWorking);
         if (isWorking)
         {
             if (IsBurnFuel(slotFuel))
@@ -51,7 +69,7 @@ public class ProductionBuilding : Warehouse
         }
         else
         {
-            if(GetNewResourceUnit(slotResource) && slotFuel.item.type != ItemType.Default)
+            if(slotFuel.item.type != ItemType.Default && GetNewResourceUnit(slotResource))
             {
                 isWorking = true;
             }
@@ -60,9 +78,11 @@ public class ProductionBuilding : Warehouse
         if (productionTime < currentProductionTime)
         {
             isWorking = false;
-            CreateProduct(slotProduct);            
+            currentProductionTime = 0;
+            CreateProduct(slotProduct);
+            inventoryController.UpdateInventoryUI();
         }
-        
+
     }
 
     private void UpdateSliders()
@@ -102,12 +122,11 @@ public class ProductionBuilding : Warehouse
 
     private bool GetNewResourceUnit(InventorySlot slotResource)
     {
-        if (slotResource.item.type != ItemType.Default)
+        if (slotResource.item.type == ItemType.Default)
             return false;
-
         slotResource.amount -= 1;
         if (slotResource.amount<=0)
-        {
+        {            
             inventoryController.ResetSlot(slotResource.slotID);
         }
         return true;

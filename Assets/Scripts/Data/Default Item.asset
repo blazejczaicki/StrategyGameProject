@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a872650b252323479a15fcc5e80694d, type: 3}
   m_Name: Default Item
   m_EditorClassIdentifier: 
+  gameObject: {fileID: 0}
   sprite: {fileID: 0}
-  type: 3
+  type: 4
+  burningSpeed: 0
   description: 

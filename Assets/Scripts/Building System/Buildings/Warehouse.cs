@@ -7,12 +7,12 @@ public class Warehouse : Building, IInteractable
     [SerializeField] protected InventoryObject inventoryObject;
     [SerializeField] protected InventoryController inventoryController;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         inventoryObject = new InventoryObject();
     }
 
-    public void OnLeftClickObject(PlayerController controller)
+    public virtual void OnLeftClickObject(PlayerController controller)
     {
         inventoryController.inventoryObject = inventoryObject;
         inventoryController.transform.parent.gameObject.SetActive(true); 

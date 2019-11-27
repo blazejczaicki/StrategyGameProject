@@ -7,6 +7,7 @@ public enum ItemType
     Resources,
     Wood,
     Stone,
+    Brick,
     Default
 }
 public abstract class ItemObject : ScriptableObject

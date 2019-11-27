@@ -18,7 +18,7 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
     public bool AddItem(ItemObject _item, int _amount)
     {
         var target = slots.Find(slot => slot.item.type == _item.type && slot.amount!=itemStackConstraint);
-        Debug.Log(_item.type);
+
         if (target != null)
         {
             if (target.amount + _amount<=itemStackConstraint)
