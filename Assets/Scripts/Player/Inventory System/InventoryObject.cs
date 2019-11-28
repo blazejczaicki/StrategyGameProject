@@ -59,11 +59,15 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
             slots[_slotID].changed = true;
             return true;
         }
+        else if(slots[_slotID].item.type==_item.type)
+        {
+            return AddItem(_item, _amount);          // przy false problemy  
+        }
         else
         {
             //inne przypadki
         }
-        return false;
+            return false;
     }
 
     public void ResetInventoryObject()

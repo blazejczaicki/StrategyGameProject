@@ -1283,12 +1283,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4993708cfdc30c34f8f6f05ef7d10c0a, type: 3}
---- !u!4 &519420032 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6280581213512166394, guid: a6ed180808a8f1248831d3c0a8901cda,
-    type: 3}
-  m_PrefabInstance: {fileID: 6280581213280785274}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534350040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1369,7 +1363,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e332dd95827f74a83ce6f69af64c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 519420032}
 --- !u!114 &534350045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10710,10 +10703,10 @@ RectTransform:
   m_Father: {fileID: 984753358}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -140, y: 149}
-  m_SizeDelta: {x: -329.8, y: -343.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -743.3, y: 360.4}
+  m_SizeDelta: {x: 383.7, y: 313.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2089197994
 MonoBehaviour:
@@ -10982,6 +10975,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6280581212326625906, guid: a6ed180808a8f1248831d3c0a8901cda,
+        type: 3}
+      propertyPath: playerToUpdateControllers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6280581212326625906, guid: a6ed180808a8f1248831d3c0a8901cda,
+        type: 3}
+      propertyPath: playerToUpdateControllers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1194283269}
+    - target: {fileID: 6280581212326625906, guid: a6ed180808a8f1248831d3c0a8901cda,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 676374954}
+    - target: {fileID: 6280581212326625906, guid: a6ed180808a8f1248831d3c0a8901cda,
+        type: 3}
+      propertyPath: playerToUpdateControllers.Array.data[1]
+      value: 
+      objectReference: {fileID: 676374954}
     - target: {fileID: 6280581212326625919, guid: a6ed180808a8f1248831d3c0a8901cda,
         type: 3}
       propertyPath: UIElements.Array.size
@@ -11017,26 +11030,6 @@ PrefabInstance:
       propertyPath: UIElements.Array.data[3]
       value: 
       objectReference: {fileID: 2089197992}
-    - target: {fileID: 6280581212326625906, guid: a6ed180808a8f1248831d3c0a8901cda,
-        type: 3}
-      propertyPath: playerToUpdateControllers.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6280581212326625906, guid: a6ed180808a8f1248831d3c0a8901cda,
-        type: 3}
-      propertyPath: playerToUpdateControllers.Array.data[0]
-      value: 
-      objectReference: {fileID: 1194283269}
-    - target: {fileID: 6280581212326625906, guid: a6ed180808a8f1248831d3c0a8901cda,
-        type: 3}
-      propertyPath: inventory
-      value: 
-      objectReference: {fileID: 676374954}
-    - target: {fileID: 6280581212326625906, guid: a6ed180808a8f1248831d3c0a8901cda,
-        type: 3}
-      propertyPath: playerToUpdateControllers.Array.data[1]
-      value: 
-      objectReference: {fileID: 676374954}
     - target: {fileID: 6280581212326625917, guid: a6ed180808a8f1248831d3c0a8901cda,
         type: 3}
       propertyPath: speed
