@@ -2,29 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : ObjectMovement
 {
-    [SerializeField] private float speed=5;
-    [SerializeField] private Animator animator;
-    private Vector2 movementDirection = Vector2.zero;
-
-
-    private Rigidbody2D rb;
-
-    private int animatorHorizontalID=0;
-    private int animatorVerticalID=0;
-    private int animatorSpeedID=0;
-
-    void Start()
+    protected override void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-
-        animatorHorizontalID = Animator.StringToHash("Horizontal");
-        animatorVerticalID = Animator.StringToHash("Vertical");
-        animatorSpeedID = Animator.StringToHash("Speed");
+        base.Awake();
     }
-
-    public void Move(Vector2 direction)
+    public override void Move(dynamic direction)
     {
         movementDirection = direction;
         animator.SetFloat(animatorHorizontalID, movementDirection.x);
@@ -34,6 +18,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movementDirection * speed* Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movementDirection * stats.speed* Time.fixedDeltaTime);
     }
 }

@@ -8,7 +8,7 @@ public class AstarTest : MonoBehaviour
     private Astar pathFinding;
     private Chunk chunk;
 
-    private PlayerController player;
+    [SerializeField] private PlayerController player;
 
     void Start()
     {

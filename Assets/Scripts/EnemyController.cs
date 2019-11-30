@@ -2,26 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : CharacterController
 {
-    private Astar pathfinding;
-    private EnemyMovement movement;
     private Transform target;
-
-    [SerializeField]private Transform player;
-    
-
-    [SerializeField] private float health=0;
+    [SerializeField] private Transform player;    
 
     private void Awake()
     {
-        pathfinding = new Astar();
         movement = GetComponent<EnemyMovement>();
-    }
-
-    private void SeekTarget()
-    {
-
+        stats = GetComponent<CharacterStats>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -32,8 +21,13 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void Update()
+    public override void OnUpdate()
     {
         movement.Move(target);
+    }
+
+    private void Update()
+    {
+        OnUpdate();
     }
 }

@@ -4,14 +4,9 @@ using UnityEngine;
 
 public abstract class ObjectMovement : MonoBehaviour
 {
-    public Chunk CurrentChunk { get; set; }
-    public Transform CurrentChunkTransform { get; set; }
-
-    [SerializeField] protected float speed = 5;
     [SerializeField] protected Animator animator;
     protected Vector2 movementDirection = Vector2.zero;
-
-
+    protected CharacterStats stats;
     protected Rigidbody2D rb;
 
     protected int animatorHorizontalID = 0;
@@ -23,7 +18,7 @@ public abstract class ObjectMovement : MonoBehaviour
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        Debug.Log(rb);
+        stats = GetComponent<CharacterStats>();
 
         animatorHorizontalID = Animator.StringToHash("Horizontal");
         animatorVerticalID = Animator.StringToHash("Vertical");
@@ -35,16 +30,5 @@ public abstract class ObjectMovement : MonoBehaviour
         animator.SetFloat(animatorHorizontalID, movementDirection.x);
         animator.SetFloat(animatorVerticalID, movementDirection.y);
         animator.SetFloat(animatorSpeedID, movementDirection.sqrMagnitude);
-    }
-
-    protected void CheckOnWhichChunkYouStayed()
-    {
-        Vector2 newCurrentChunkPos = new Vector2();
-
-        newCurrentChunkPos.x = Mathf.Round(transform.position.x / Chunk.chunkSize) * Chunk.chunkSize;
-        newCurrentChunkPos.y = Mathf.Round(transform.position.y / Chunk.chunkSize) * Chunk.chunkSize;
-
-        CurrentChunkTransform = GameManager.instance.getChunkTransform(newCurrentChunkPos);
-        CurrentChunk = CurrentChunkTransform.GetComponent<Chunk>();
     }
 }

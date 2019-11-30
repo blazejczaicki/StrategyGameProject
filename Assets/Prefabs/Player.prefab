@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6280581212326625916}
+  - component: {fileID: 8675787509810736647}
   - component: {fileID: 6280581212326625906}
   - component: {fileID: 6280581212326625919}
   - component: {fileID: 6280581212326625917}
@@ -37,6 +38,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8675787509810736647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6280581212326625913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302888f064967fa47ab634a34b1b71c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 4
+  _health: 20
 --- !u!114 &6280581212326625906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +84,9 @@ MonoBehaviour:
   inputData: {fileID: 11400000, guid: 8444f426eb20f7a4fbeb6f3184b0b72b, type: 2}
   characterMovement: {fileID: 6280581212326625917}
   cameraController: {fileID: 6280581213512166392}
+  UIElements: []
+  buildUI: {fileID: 0}
+  inventoryUI: {fileID: 0}
 --- !u!114 &6280581212326625917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0928401a056087d4cb965a4a3607b23a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
   animator: {fileID: 7060347089053473077}
 --- !u!50 &6280581212326625918
 Rigidbody2D:

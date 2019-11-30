@@ -82,6 +82,6 @@ public class EnemyMovement : ObjectMovement
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movementDirection * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movementDirection * stats.speed * Time.fixedDeltaTime);
     }
 }

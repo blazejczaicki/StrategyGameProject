@@ -1438,6 +1438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d96d2bec464ca14e98913d58f59379c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &549749210
 GameObject:
   m_ObjectHideFlags: 0
@@ -9973,6 +9974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1881101747}
   - component: {fileID: 1881101750}
+  - component: {fileID: 1881101753}
   - component: {fileID: 1881101749}
   - component: {fileID: 1881101748}
   - component: {fileID: 1881101751}
@@ -10011,7 +10013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c511367e042ef4d9725f2a39497983, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
   animator: {fileID: 549749215}
 --- !u!114 &1881101749
 MonoBehaviour:
@@ -10080,6 +10081,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4.555035
+--- !u!114 &1881101753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881101746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302888f064967fa47ab634a34b1b71c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 3
+  _health: 5
 --- !u!1 &1964947983
 GameObject:
   m_ObjectHideFlags: 0
