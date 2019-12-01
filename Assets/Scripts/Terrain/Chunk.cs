@@ -15,9 +15,7 @@ public class Chunk : MonoBehaviour
     public NeighbourChunk[] Neighbours4Chunks { get; set; }
 
     public Grid grid;
-
-    private Vector3 veev;
-
+    
     public int[][] Fields { get; set; }
     public bool[][] GridMovementArray { get; set; }
 
@@ -76,8 +74,6 @@ public class Chunk : MonoBehaviour
 
     private void Awake()
     {
-        veev = transform.position;
-
         gameObject.layer = 8;
         FieldInit();
         NeighboursChunksInit();
@@ -89,7 +85,6 @@ public class Chunk : MonoBehaviour
         GameObject chunkGameObject = new GameObject();
         tilemap = chunkGameObject.AddComponent<Tilemap>();
         chunkGameObject.AddComponent<TilemapRenderer>();
-        chunkGameObject.transform.SetParent(GameManager.instance.gridd.transform);
         fieldsGlobalBegin = new Vector2Int((int)transform.position.x + chunkSizeHalf, (int)transform.position.y + chunkSizeHalf);
 
         GridMovementArray = new bool[chunkSize][];

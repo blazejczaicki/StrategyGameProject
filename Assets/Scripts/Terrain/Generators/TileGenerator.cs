@@ -40,12 +40,12 @@ public class TileGenerator : MonoBehaviour
         chunk.TerrainBiome = NearnestNeighbourBiome.Calculate(chunk.transform.position);
     }
 
-    public void checkNeighbourBiome(Chunk chunk, Biome[] neighboursBiomes)
+    public void checkNeighbourBiome(Chunk chunk, Biome[] neighboursBiomes, Dictionary<Vector3, Chunk> visibleChunks)
     {
         Chunk neighbourChunk;
         for (int i = 0; i < chunk.Neighbours4Chunks.Length; i++)
         {
-            if (GameManager.instance.visibleChunks.TryGetValue(chunk.Neighbours4Chunks[i].position, out neighbourChunk))
+            if (visibleChunks.TryGetValue(chunk.Neighbours4Chunks[i].position, out neighbourChunk))
             {
                     neighboursBiomes[i] = chunk.TerrainBiome;
             }
@@ -56,13 +56,13 @@ public class TileGenerator : MonoBehaviour
         }
     }
 
-    public bool checkNeighbourScaleTheSame(Chunk chunk)
+    public bool checkNeighbourScaleTheSame(Chunk chunk, Dictionary<Vector3, Chunk> visibleChunks)
     {
         Chunk neighbourChunk;
         Biome biome;
         for (int i = 0; i < chunk.Neighbours4Chunks.Length; i++)
         {
-            GameManager.instance.visibleChunks.TryGetValue(chunk.Neighbours4Chunks[i].position, out neighbourChunk);
+            visibleChunks.TryGetValue(chunk.Neighbours4Chunks[i].position, out neighbourChunk);
             if (neighbourChunk != null)
             {
                 biome = neighbourChunk.TerrainBiome;
@@ -77,7 +77,7 @@ public class TileGenerator : MonoBehaviour
         return true;
     }
 
-    public void generateTiles(Chunk chunk)
+    public void generateTiles(Chunk chunk, Dictionary<Vector3, Chunk> visibleChunks)
     {
             checkMembershipToBiome(chunk);
             chunk.topographyScale = chunk.TerrainBiome.topographyScaleOffset;
@@ -88,16 +88,16 @@ public class TileGenerator : MonoBehaviour
         else
         {
             Biome[] neighboursBiomes = new Biome[4];
-            checkNeighbourBiome(chunk, neighboursBiomes);
+            checkNeighbourBiome(chunk, neighboursBiomes, visibleChunks);
             chunk.UpdateOffset(chunk.TerrainBiome.topographyScaleOffset);
             //Debug.Log(chunk.topographyScale);
-            if (checkNeighbourScaleTheSame(chunk))
+            if (checkNeighbourScaleTheSame(chunk, visibleChunks))
             {
                 //StartCoroutine(jobjob(chunk));
                 StartCoroutine(GenerateTilesForNormalChunks(chunk));
             }
             else
-                StartCoroutine(GenerateTilesForIndirectChunks(chunk, neighboursBiomes));
+                StartCoroutine(GenerateTilesForIndirectChunks(chunk, neighboursBiomes, visibleChunks));
         }
     }
 
@@ -156,12 +156,12 @@ public class TileGenerator : MonoBehaviour
         return edges;
     }
 
-    private IEnumerator GenerateTilesForIndirectChunks(Chunk chunk, Biome[] neighboursBiomes)
+    private IEnumerator GenerateTilesForIndirectChunks(Chunk chunk, Biome[] neighboursBiomes, Dictionary<Vector3, Chunk> visibleChunks)
     {
         Vector2Int xy = Vector2Int.zero, xy1 = Vector2Int.zero;
         Vector2Int xy2 = new Vector2Int(Chunk.chunkSize, Chunk.chunkSize);
         ChunkEdge[] edges = InitEdges();
-        DesignateInterpolationNodes(chunk, edges);
+        DesignateInterpolationNodes(chunk, edges, visibleChunks);
         SaveEdgesIndirectChunk(chunk, edges, xy1, xy2);
 
         int breakGeneration = (int)(Chunk.chunkSize * 0.1f);
@@ -196,12 +196,12 @@ public class TileGenerator : MonoBehaviour
         chunk.edges = edges;
     }
 
-    private void DesignateInterpolationNodes(Chunk chunk,   ChunkEdge[] edges)
+    private void DesignateInterpolationNodes(Chunk chunk,   ChunkEdge[] edges, Dictionary<Vector3, Chunk> visibleChunks)
     {
         Chunk neighbourChunk;
         foreach (var neighbour in chunk.Neighbours4Chunks)
         {
-            if (GameManager.instance.visibleChunks.TryGetValue(neighbour.position, out neighbourChunk))
+            if (visibleChunks.TryGetValue(neighbour.position, out neighbourChunk))
             {
                 edges[(int)neighbour.direction] = neighbourChunk.edges[(int)neighbour.opposedDirection];
             }

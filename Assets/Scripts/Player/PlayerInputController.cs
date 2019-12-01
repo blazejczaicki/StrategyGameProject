@@ -6,7 +6,6 @@ using System;
 public class PlayerInputController : Controller
 {
     [SerializeField] private InputData inputData;
-    [SerializeField] private PlayerMovement characterMovement;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private List<GameObject> UIElements;
     [SerializeField] private GameObject buildUI;
@@ -17,8 +16,8 @@ public class PlayerInputController : Controller
     public Action OnClickInteractionLeft;
     public Action OnClickInteractionRight;
 
-    private Vector2 movementDirection= Vector2.zero;
-    
+    private Vector2 _movementDirection= Vector2.zero;
+    public Vector2 MovementDirection { get => _movementDirection; }
 
     public override void OnUpdate()
     {
@@ -70,23 +69,22 @@ public class PlayerInputController : Controller
 
     private void MovementInput()
     {
-        movementDirection = Vector3.zero;
+        _movementDirection = Vector3.zero;
         if (Input.GetKey(inputData.moveUp))
         {
-            movementDirection.y = 1;
+            _movementDirection.y = 1;
         }
         if (Input.GetKey(inputData.moveDown))
         {
-            movementDirection.y = -1;
+            _movementDirection.y = -1;
         }
         if (Input.GetKey(inputData.moveRight))
         {
-            movementDirection.x = 1;
+            _movementDirection.x = 1;
         }
         if (Input.GetKey(inputData.moveLeft))
         {
-            movementDirection.x = -1;
+            _movementDirection.x = -1;
         }
-        characterMovement.Move(movementDirection);
     }
 }

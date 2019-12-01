@@ -58,14 +58,16 @@ public class ChunkGenerator : MonoBehaviour
         chunkToGenerate = new List<Vector2>();
     }
 
-    public void GenerateStartChunk(Dictionary<Vector3, Chunk> setOfChunks)
+    public void GenerateStartChunk(Dictionary<Vector3, Chunk> setOfChunks, Dictionary<Vector3, Chunk> visibleChunks)
     {
         GameObject newChunkObject = new GameObject();
         newChunkObject.transform.position = Vector2.zero;
         newChunkObject.transform.SetParent(chunkParent);
         Chunk newChunk = newChunkObject.AddComponent<Chunk>();
         newChunk.grid = grid;
-        tileGenerator.generateTiles(newChunk);
+        newChunk.tilemap.transform.SetParent(grid.transform);
+        tileGenerator.generateTiles(newChunk, visibleChunks);
+        visibleChunks.Add(Vector2.zero, newChunk);
         setOfChunks.Add(Vector2.zero, newChunk);
     }
 
@@ -145,7 +147,8 @@ public class ChunkGenerator : MonoBehaviour
         newChunkObject.transform.SetParent(chunkParent);
         Chunk newChunk = newChunkObject.AddComponent<Chunk>();
         newChunk.grid = grid;
-        tileGenerator.generateTiles(newChunk);
+        newChunk.tilemap.transform.SetParent(grid.transform);
+        tileGenerator.generateTiles(newChunk, visibleChunks);
         chunks.Add(chunkPosition, newChunk);
         visibleChunks.Add(chunkPosition, newChunk);
         CheckNeighbours(chunks, newChunk, visibleChunks);

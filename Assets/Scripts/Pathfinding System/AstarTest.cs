@@ -42,8 +42,8 @@ public class AstarTest : MonoBehaviour
 
         newCurrentChunkPos.x = Mathf.Round(GetMousePosToCell().x / Chunk.chunkSize) * Chunk.chunkSize;
         newCurrentChunkPos.y = Mathf.Round(GetMousePosToCell().y / Chunk.chunkSize) * Chunk.chunkSize;
-
-        return GameManager.instance.getChunkTransform(newCurrentChunkPos).GetComponent<Chunk>();
+        return new Chunk();
+       // return GameManager.instance.getChunkTransform(newCurrentChunkPos).GetComponent<Chunk>();
     }
 
     private Vector2 GetMousePosToCell()

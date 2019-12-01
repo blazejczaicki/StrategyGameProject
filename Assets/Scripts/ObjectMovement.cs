@@ -13,7 +13,7 @@ public abstract class ObjectMovement : MonoBehaviour
     protected int animatorVerticalID = 0;
     protected int animatorSpeedID = 0;
 
-    public abstract void Move(dynamic direction);
+    public abstract void Move(dynamic direction, Chunk chunk);
 
     protected virtual void Awake()
     {

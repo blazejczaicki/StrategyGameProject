@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : CharacterController
 {
     [SerializeField] private Camera camer;
     [SerializeField] private List<Controller> playerToUpdateControllers;
@@ -13,8 +13,11 @@ public class PlayerController : MonoBehaviour
     public InventoryController inventory;
 
     private IInteractable interactableObjectFocus = null;
-    private Chunk _currentChunk;
-    public Chunk currentChunk => _currentChunk;
+
+    private void Awake()
+    {
+        movement = GetComponent<PlayerMovement>();
+    }
 
     private void Start()
     {
@@ -24,11 +27,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        _currentChunk = ChunkSeeker.CheckOnWhichChunkYouStayed(transform.position);
+        _currentChunk = CheckOnWhichChunkYouStayed(transform.position);
         foreach (var controller in playerToUpdateControllers)
         {
             controller.OnUpdate();
         }
+        OnUpdate();
     }
 
     private IInteractable GetInteractableObject()
@@ -70,6 +74,11 @@ public class PlayerController : MonoBehaviour
     private void OnApplicationQuit()
     {
         inventory.inventoryObject.ResetInventoryObject();
+    }
+
+    public override void OnUpdate()
+    {
+        movement.Move(inputCon.MovementDirection, currentChunk);
     }
 
     // na odznaczenie, na zniszczenie, na oddalenie

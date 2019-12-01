@@ -8,7 +8,7 @@ public class PlayerMovement : ObjectMovement
     {
         base.Awake();
     }
-    public override void Move(dynamic direction)
+    public override void Move(dynamic direction, Chunk chunk)
     {
         movementDirection = direction;
         animator.SetFloat(animatorHorizontalID, movementDirection.x);

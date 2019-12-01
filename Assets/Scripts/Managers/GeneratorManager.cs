@@ -10,10 +10,9 @@ public class GeneratorManager : MonoBehaviour
     private HyperGridGenerator hyperGridGenerator;
     [SerializeField] private ChunkGenerator chunkGenerator;
     [SerializeField] private PlayerController player;
-    private int cameraRange = 10;
+    [SerializeField] private CameraController camer;
 
-    [SerializeField] private Grid _grid;
-    public Grid grid { get { return _grid; } set { _grid = value; } }
+    private int cameraRange = 10;
 
     private void Awake()
     {
@@ -21,22 +20,21 @@ public class GeneratorManager : MonoBehaviour
         visibleChunks = new Dictionary<Vector3, Chunk>();
         biomeGridGenerator = gameObject.AddComponent<BiomeGridGenerator>();
         hyperGridGenerator = gameObject.AddComponent<HyperGridGenerator>();
+        camer.AddChunk += addToVisibleChunk;
+        camer.EraseChunk += eraseInvisibleChunk;
     }
-
-
+    
     private void Start()
     {
         biomeGridGenerator.GenerateGridEdges();
-        chunkGenerator.GenerateStartChunk(setOfChunks);
+        chunkGenerator.GenerateStartChunk(setOfChunks, visibleChunks);
     }
-
-
+    
     public Transform getChunkTransform(Vector2 id)
     {
         return visibleChunks[id].transform;
     }
-
-
+    
     public void addToVisibleChunk(Vector2 position, Chunk chunk)
     {
         chunk.gameObject.SetActive(true);
@@ -44,7 +42,6 @@ public class GeneratorManager : MonoBehaviour
         if (!visibleChunks.ContainsKey(position))
             visibleChunks.Add(position, chunk);
     }
-
 
     public void eraseInvisibleChunk(Vector2 position, Chunk chunk)
     {
@@ -57,18 +54,18 @@ public class GeneratorManager : MonoBehaviour
         if (player.currentChunk == null || player.currentChunk.NOTgenerationNeeded) return false;
         Vector3 currentChunkPosition = player.currentChunk.transform.position;
         Vector3 playerPosition = player.transform.position;
-        int noSpawnChunkAreaRadius = (int)(Chunk.chunkSizeHalf - cameraRange);
-        return (playerPosition.x + cameraRange < currentChunkPosition.x - noSpawnChunkAreaRadius ||
-            playerPosition.x - cameraRange > currentChunkPosition.x + noSpawnChunkAreaRadius ||
-            playerPosition.y - cameraRange < currentChunkPosition.y + noSpawnChunkAreaRadius ||
-            playerPosition.y + cameraRange > currentChunkPosition.y - noSpawnChunkAreaRadius);
+        int noSpawnChunkAreaRadius = (int)(Chunk.chunkSizeHalf - camer.rangeCamera);
+        return (playerPosition.x + camer.rangeCamera < currentChunkPosition.x - noSpawnChunkAreaRadius ||
+            playerPosition.x - camer.rangeCamera > currentChunkPosition.x + noSpawnChunkAreaRadius ||
+            playerPosition.y - camer.rangeCamera < currentChunkPosition.y + noSpawnChunkAreaRadius ||
+            playerPosition.y + camer.rangeCamera > currentChunkPosition.y - noSpawnChunkAreaRadius);
     }
 
-    void OnUpdate()
+    public void OnUpdate()
     {
         if (IsChunkToSpawn())
         {
-            chunkGenerator.generateChunk(setOfChunks, visibleChunks, player.currentChunk, player.transform.position, cameraRange);
+            chunkGenerator.generateChunk(setOfChunks, visibleChunks, player.currentChunk, player.transform.position, camer.rangeCamera);
         }
         if (biomeGridGenerator.IsIncreaseGrid(Vector2.Distance(player.transform.position, Vector3.zero)))
         {

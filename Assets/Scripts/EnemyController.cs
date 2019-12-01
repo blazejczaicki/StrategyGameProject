@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyController : CharacterController
 {
-    private Transform target;
-    [SerializeField] private Transform player;    
+    private CharacterController target;
+    [SerializeField] private CharacterController player;   //tmp 
 
     private void Awake()
     {
@@ -17,13 +17,13 @@ public class EnemyController : CharacterController
     {
         if (collision.gameObject==player.gameObject)
         {
-            target = player.transform;
+            target = player;
         }
     }
 
     public override void OnUpdate()
     {
-        movement.Move(target);
+        movement.Move(target, CheckOnWhichChunkYouStayed(transform.position));
     }
 
     private void Update()

@@ -19,10 +19,10 @@ public class EnemyMovement : ObjectMovement
         pathfinding = new Astar();
     }
 
-    private void UpdatePath(Transform target)
+    private void UpdatePath(CharacterController target, Chunk chunk)
     {
         Vector3 startPosition = (path!=null && path.Count > pathIterator + 1) ?  (Vector3)path[pathIterator].position: transform.position; 
-            path = pathfinding.FindPath(ChunkSeeker.CheckOnWhichChunkYouStayed(transform.position), ChunkSeeker.CheckOnWhichChunkYouStayed(target.position),
+            path = pathfinding.FindPath(chunk, target.currentChunk,
                 startPosition, target.transform.position);
         pathIterator = 0;
             if (path != null)
@@ -51,14 +51,14 @@ public class EnemyMovement : ObjectMovement
         movementDirection = -heading / heading.magnitude;
     }
 
-    public override void Move(dynamic target)//transform
+    public override void Move(dynamic target, Chunk chunk)//transform
     {
         if (target != null)
         {
             if (Time.time > pathUpdateLastTime + pathUpdateTime)
             {
                 pathUpdateLastTime = Time.time;
-                UpdatePath(target);
+                UpdatePath(target, chunk);
             }
           
                 if (path != null)
