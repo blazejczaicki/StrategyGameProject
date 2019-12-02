@@ -6,6 +6,11 @@ public class EnemyManager : MonoBehaviour
 {
     private List<EnemyController> enemies;
 
+    private void Awake()
+    {
+        enemies = new List<EnemyController>();
+    }
+
     public void OnUpdate()
     {
         foreach (var enemy in enemies)

@@ -42,6 +42,7 @@ public class EnemyMovement : ObjectMovement
 
     private bool IsPointReached()
     {
+        Debug.Log(pathIterator);// były błędy
         return Vector2.Distance(transform.position, path[pathIterator].position)<= pointTargetRadius;
     }
 

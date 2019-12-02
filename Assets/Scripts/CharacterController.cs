@@ -10,6 +10,8 @@ public abstract class CharacterController : MonoBehaviour
     protected Chunk _currentChunk;
     public Chunk currentChunk => _currentChunk;
 
+    public GeneratorManager Generator { get => generator; set => generator = value; }
+
     public abstract void OnUpdate();
 
     protected Chunk CheckOnWhichChunkYouStayed(Vector2 position)
@@ -17,6 +19,6 @@ public abstract class CharacterController : MonoBehaviour
         Vector2 newCurrentChunkPos = new Vector2();
         newCurrentChunkPos.x = Mathf.Round(position.x / Chunk.chunkSize) * Chunk.chunkSize;
         newCurrentChunkPos.y = Mathf.Round(position.y / Chunk.chunkSize) * Chunk.chunkSize;
-        return generator.getChunkTransform(newCurrentChunkPos).GetComponent<Chunk>();
+        return Generator.getChunkTransform(newCurrentChunkPos).GetComponent<Chunk>();
     }
 }

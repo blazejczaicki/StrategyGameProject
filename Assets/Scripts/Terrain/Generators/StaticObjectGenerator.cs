@@ -15,16 +15,18 @@ public class StaticObjectGenerator : MonoBehaviour
     {
         float randomVal;
         Vector3 position= Vector3.zero;
+        Vector2Int localPosition = Vector2Int.zero;
         int breakGeneration = (int)(Chunk.chunkSize * 0.4f);
         for (int x = 0; x < Chunk.chunkSize; x++)
         {
             for (int y = 0; y < Chunk.chunkSize; y++)
             {
                 randomVal = Random.Range(0.0f, 1.0f);
-               // Debug.Log(fields[chunk.Fields[x][y]].ID);
                 if (randomVal<fields[chunk.Fields[x][y]].ProbabilityOfGeneration)
                 {
-
+                    //position = GridCellCalculator.GetGlobalPositionOnGrid(localPosition, chunk);
+                    //position.x += 0.5f;
+                    //position.y += 0.5f;
                     position.x = -x + chunk.transform.position.x + Chunk.chunkSizeHalf + chunk.grid.cellSize.x*0.5f;
                     position.y = -y + chunk.transform.position.y + Chunk.chunkSizeHalf+ chunk.grid.cellSize.y * 0.5f;
                     CreateObject(chunk.Fields[x][y], position);

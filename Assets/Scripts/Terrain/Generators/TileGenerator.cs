@@ -11,6 +11,7 @@ using UnityEngine.Tilemaps;
 public class TileGenerator : MonoBehaviour
 {
     [SerializeField] private StaticObjectGenerator staticObjectGenerator;
+    [SerializeField] private EnemySpawn enemySpawn;
     [SerializeField] private Moisture tileContainer; //3d list moisture/temperatures/topologies
 
     private static float topographySeed = 554788;
@@ -90,7 +91,6 @@ public class TileGenerator : MonoBehaviour
             Biome[] neighboursBiomes = new Biome[4];
             checkNeighbourBiome(chunk, neighboursBiomes, visibleChunks);
             chunk.UpdateOffset(chunk.TerrainBiome.topographyScaleOffset);
-            //Debug.Log(chunk.topographyScale);
             if (checkNeighbourScaleTheSame(chunk, visibleChunks))
             {
                 //StartCoroutine(jobjob(chunk));
@@ -137,6 +137,8 @@ public class TileGenerator : MonoBehaviour
         chunk.tilemap.SetTiles(positionArray, tileArray);
 
         yield return StartCoroutine(staticObjectGenerator.Generate(chunk));
+
+        enemySpawn.SpawnOnChunk(chunk);
     }
     
     private void CalculateInterpolationPeak(ref float centerOfInterpolation, ref Vector2Int coordsOfCenter)
@@ -207,7 +209,6 @@ public class TileGenerator : MonoBehaviour
             }
             else
             {
-                //Debug.Log(neighbour.direction + " " + neighbour.position);
                 edges[(int)neighbour.direction].CalculateEdge(chunk, topographySeed, neighbour.position);
             }
         }

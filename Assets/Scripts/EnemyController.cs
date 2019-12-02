@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : CharacterController
 {
     private CharacterController target;
-    [SerializeField] private CharacterController player;   //tmp 
+    public CharacterController player;   //tmp 
 
     private void Awake()
     {
@@ -24,10 +24,5 @@ public class EnemyController : CharacterController
     public override void OnUpdate()
     {
         movement.Move(target, CheckOnWhichChunkYouStayed(transform.position));
-    }
-
-    private void Update()
-    {
-        OnUpdate();
     }
 }
