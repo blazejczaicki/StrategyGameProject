@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
-    protected int range = 0;
-    protected float damage = 0;
-    protected float cooldown = 0;
+    [SerializeField] protected int _range = 0;
+    [SerializeField] protected float _damage = 0;
+    [SerializeField] protected float _cooldown = 0;
 
-    public abstract float GetDamage();
+    public int range { get => _range; }
+    public float damage { get => _damage; }
+    public float cooldown { get => _cooldown;}
 }

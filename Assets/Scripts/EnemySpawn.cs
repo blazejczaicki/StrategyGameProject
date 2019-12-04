@@ -8,9 +8,7 @@ public class EnemySpawn : MonoBehaviour
     [SerializeField] private int maxEnemiesOnChunk=0;
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private GeneratorManager generatorManager;
-
-    [SerializeField] private PlayerController player; //tmp
-
+    
     [SerializeField] private List<Field> fields;
 
     private void CreateEnemy(int tileID, Vector3 position)
@@ -21,7 +19,6 @@ public class EnemySpawn : MonoBehaviour
         }
         Debug.Log("Sd");
         var newEnemy=Instantiate(fields[tileID].GetRandomEnemy(), position, Quaternion.identity).GetComponent<EnemyController>();
-        newEnemy.player = player;
         newEnemy.Generator = generatorManager;
         enemyManager.AddEnemy(newEnemy);
     }

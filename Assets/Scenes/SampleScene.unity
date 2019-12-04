@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &46543303
 Transform:
   m_ObjectHideFlags: 0
@@ -1456,10 +1456,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minEnemiesOnChunk: 0
-  maxEnemiesOnChunk: 10
+  maxEnemiesOnChunk: 0
   enemyManager: {fileID: 534350049}
   generatorManager: {fileID: 534350044}
-  player: {fileID: 1178131422}
   fields:
   - {fileID: 1271434531}
   - {fileID: 2001598162}
@@ -1856,7 +1855,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &676388336
 Transform:
   m_ObjectHideFlags: 0
@@ -8176,7 +8175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1348385653
 Transform:
   m_ObjectHideFlags: 0
@@ -8811,9 +8810,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 864d8d1c777adfb4794cd6eebe615707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 676374954}
-  transfer: {fileID: 984753359}
-  slotID: 3
+  inventory: {fileID: 0}
+  transfer: {fileID: 0}
+  slotID: -621874288
 --- !u!114 &1569257437
 MonoBehaviour:
   m_ObjectHideFlags: 0

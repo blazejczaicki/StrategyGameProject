@@ -14,6 +14,7 @@ public abstract class ObjectMovement : MonoBehaviour
     protected int animatorSpeedID = 0;
 
     public abstract void Move(dynamic direction, Chunk chunk);
+    public abstract void ResetMovement();
 
     protected virtual void Awake()
     {

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6280581212326625917}
   - component: {fileID: 6280581212326625918}
   - component: {fileID: 6280581212326625907}
+  - component: {fileID: -2458177624223111204}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -64,6 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d287214c4642a47a48d4242f8a44b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  generator: {fileID: 0}
+  _type: 0
+  weapon: {fileID: 8560265238119719751, guid: 08d39fe8066e61748bcca0b54e560586, type: 3}
   camer: {fileID: 6280581213512166149}
   playerToUpdateControllers: []
   inputCon: {fileID: 6280581212326625919}
@@ -82,7 +86,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputData: {fileID: 11400000, guid: 8444f426eb20f7a4fbeb6f3184b0b72b, type: 2}
-  characterMovement: {fileID: 6280581212326625917}
   cameraController: {fileID: 6280581213512166392}
   UIElements: []
   buildUI: {fileID: 0}
@@ -137,6 +140,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.25}
   m_Size: {x: 0.47348797, y: 0.5}
   m_Direction: 0
+--- !u!114 &-2458177624223111204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6280581212326625913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b214f528a719645a30fcaf5a850487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6280581213512166150
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,8 +299,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camer: {fileID: 6280581213512166149}
   sensitivity: 6
-  minSize: 3
-  maxSize: 10
+  minSizeCamera: 0
+  maxSizeCamera: 0
+  rangeCamera: 0
   scrollSequence:
     serializedVersion: 2
     m_Curve:

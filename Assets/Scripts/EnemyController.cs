@@ -1,28 +1,74 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class EnemyController : CharacterController
+public class EnemyController : CharacterObjectController, IInteractable
 {
-    private CharacterController target;
-    public CharacterController player;   //tmp 
+    private CharacterObjectController target;
+    [SerializeField] private List<CharacterTypes> potentialTargets;
+    [SerializeField] private int escapeDistance = 10;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        _type = CharacterTypes.enemy;
         movement = GetComponent<EnemyMovement>();
-        stats = GetComponent<CharacterStats>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject==player.gameObject)
+        var characterCon = collision.GetComponent<CharacterObjectController>();
+        if (characterCon!=null && potentialTargets.Exists(potentialTar=> potentialTar== characterCon.type) && target==null)
         {
-            target = player;
+            target = characterCon;
+        }
+    }
+    private void OnMissingTarget()
+    {
+        if (target != null && Vector2.Distance(target.transform.position, transform.position) > escapeDistance)
+        {
+            target = null;
+            movement.ResetMovement();
+        }
+    }
+
+    private void OnTargedAcquired()
+    {
+        movement.Move(target, CheckOnWhichChunkYouStayed(transform.position));
+    }
+
+    private void TryAttack()
+    {
+        if (target!=null && Vector2.Distance(target.transform.position, transform.position)<weapon.range)
+        {
+            combatController.Attack(target.stats, weapon);
         }
     }
 
     public override void OnUpdate()
     {
-        movement.Move(target, CheckOnWhichChunkYouStayed(transform.position));
+        OnMissingTarget();
+        OnTargedAcquired();
+        TryAttack();
+        OnDead();
+    }
+
+    protected override void OnDead()
+    {
+        if (stats.health<=0)
+        {
+            target = null;
+            movement.ResetMovement();
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void OnLeftClickObject(PlayerController controller)
+    {    }
+
+    public void OnRightClickObject(PlayerController controller)
+    {
+        controller.TryAttack(this);
     }
 }

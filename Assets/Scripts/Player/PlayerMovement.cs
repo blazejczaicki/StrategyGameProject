@@ -16,6 +16,11 @@ public class PlayerMovement : ObjectMovement
         animator.SetFloat(animatorSpeedID, movementDirection.sqrMagnitude);
     }
 
+    public override void ResetMovement()
+    {
+        movementDirection = Vector2.zero;
+    }
+
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + movementDirection * stats.speed* Time.fixedDeltaTime);

@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 4016646780211090382}
   - component: {fileID: 4016646780211090383}
   - component: {fileID: 4016646780211090368}
+  - component: {fileID: -1752356001960568908}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -218,7 +219,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 0}
-  player: {fileID: 0}
+  _type: 1
+  weapon: {fileID: 579607812904668244, guid: 9e9272578bec4934c85ddfa9e7fba52e, type: 3}
+  potentialTargets: 00000000
+  escapeDistance: 10
 --- !u!114 &4016646780211090382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,3 +273,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4.555035
+--- !u!114 &-1752356001960568908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016646780211090369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b214f528a719645a30fcaf5a850487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

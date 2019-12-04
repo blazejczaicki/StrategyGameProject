@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : CharacterController
+public class PlayerController : CharacterObjectController
 {
     [SerializeField] private Camera camer;
     [SerializeField] private List<Controller> playerToUpdateControllers;
     [SerializeField] private PlayerInputController inputCon;
 
     [SerializeField] private float extractionTool = 1.0f; //potem item z inventory
-
     public InventoryController inventory;
-
     private IInteractable interactableObjectFocus = null;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        _type = CharacterTypes.player;
         movement = GetComponent<PlayerMovement>();
     }
 
@@ -57,7 +57,6 @@ public class PlayerController : CharacterController
         interactableObjectFocus = GetInteractableObject();
         if (interactableObjectFocus != null)
         {
-            //   Debug.Log(interactableObjectFocus);
             interactableObjectFocus.OnRightClickObject(this);
         }
     }
@@ -71,6 +70,14 @@ public class PlayerController : CharacterController
         return health <= 0;
     }
 
+    public void TryAttack(CharacterObjectController target)
+    {
+        if (Vector2.Distance(target.transform.position, transform.position) < weapon.range)
+        {
+            combatController.Attack(target.stats, weapon);
+        }
+    }
+
     private void OnApplicationQuit()
     {
         inventory.inventoryObject.ResetInventoryObject();
@@ -79,6 +86,16 @@ public class PlayerController : CharacterController
     public override void OnUpdate()
     {
         movement.Move(inputCon.MovementDirection, currentChunk);
+        OnDead();
+    }
+
+    protected override void OnDead()
+    {
+        if (stats.health <= 0)
+        {
+            transform.position = Vector3.zero;
+            stats.health = 20;
+        }
     }
 
     // na odznaczenie, na zniszczenie, na oddalenie

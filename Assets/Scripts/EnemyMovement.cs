@@ -19,7 +19,7 @@ public class EnemyMovement : ObjectMovement
         pathfinding = new Astar();
     }
 
-    private void UpdatePath(CharacterController target, Chunk chunk)
+    private void UpdatePath(CharacterObjectController target, Chunk chunk)
     {
         Vector3 startPosition = (path!=null && path.Count > pathIterator + 1) ?  (Vector3)path[pathIterator].position: transform.position; 
             path = pathfinding.FindPath(chunk, target.currentChunk,
@@ -52,7 +52,7 @@ public class EnemyMovement : ObjectMovement
         movementDirection = -heading / heading.magnitude;
     }
 
-    public override void Move(dynamic target, Chunk chunk)//transform
+    public override void Move(dynamic target, Chunk chunk)
     {
         if (target != null)
         {
@@ -79,6 +79,14 @@ public class EnemyMovement : ObjectMovement
                 }
             //UpdateAnimation();
         }
+    }
+
+    public override void ResetMovement()
+    {
+        nodeIsReached = false;
+        pathIterator = 0;
+        pathUpdateLastTime = 0.0f;
+        movementDirection = Vector2.zero;
     }
 
     private void FixedUpdate()
