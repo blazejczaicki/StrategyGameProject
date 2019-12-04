@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticObjectGenerator : MonoBehaviour
+public class StaticObjectSpawn : MonoBehaviour
 {
     [SerializeField] private List<Field> fields;
 

@@ -14,7 +14,7 @@ using UnityEngine;
 
         public bool IsIncreaseGrid(float playerDistanceFromCenter)
         {
-            return distanceFromCenter * distanceFromCenter < playerDistanceFromCenter;
+            return distanceFromCenter < playerDistanceFromCenter;
         }
 
     public List<Vector2> GenerateGridEdgesTest()

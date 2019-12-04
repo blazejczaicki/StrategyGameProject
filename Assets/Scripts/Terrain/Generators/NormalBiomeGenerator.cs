@@ -12,7 +12,6 @@ public class NormalBiomeGenerator : BiomeGenerator
     private void Awake()
     {
         biomes = new Dictionary<Vector2, Biome>();
-
     }
      
     protected override void CreateBiome(Vector2 position)

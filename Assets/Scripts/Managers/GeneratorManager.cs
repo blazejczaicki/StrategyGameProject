@@ -7,7 +7,6 @@ public class GeneratorManager : MonoBehaviour
     private Dictionary<Vector3, Chunk> setOfChunks;
     public Dictionary<Vector3, Chunk> visibleChunks { get; set; }
     private BiomeGridGenerator biomeGridGenerator;
-    private HyperGridGenerator hyperGridGenerator;
     [SerializeField] private ChunkGenerator chunkGenerator;
     [SerializeField] private PlayerController player;
     [SerializeField] private CameraController camer;
@@ -19,7 +18,6 @@ public class GeneratorManager : MonoBehaviour
         setOfChunks = new Dictionary<Vector3, Chunk>();
         visibleChunks = new Dictionary<Vector3, Chunk>();
         biomeGridGenerator = gameObject.AddComponent<BiomeGridGenerator>();
-        hyperGridGenerator = gameObject.AddComponent<HyperGridGenerator>();
         camer.AddChunk += addToVisibleChunk;
         camer.EraseChunk += eraseInvisibleChunk;
     }
@@ -69,10 +67,6 @@ public class GeneratorManager : MonoBehaviour
         }
         if (biomeGridGenerator.IsIncreaseGrid(Vector2.Distance(player.transform.position, Vector3.zero)))
         {
-            if (hyperGridGenerator.IsIncreaseGrid(Vector2.Distance(player.transform.position, Vector3.zero)))
-            {
-                hyperGridGenerator.GenerateGridEdges();
-            }
             biomeGridGenerator.GenerateGridEdges();
         }
     }

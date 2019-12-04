@@ -10,7 +10,7 @@ using UnityEngine.Tilemaps;
 
 public class TileGenerator : MonoBehaviour
 {
-    [SerializeField] private StaticObjectGenerator staticObjectGenerator;
+    [SerializeField] private StaticObjectSpawn staticObjectGenerator;
     [SerializeField] private EnemySpawn enemySpawn;
     [SerializeField] private Moisture tileContainer; //3d list moisture/temperatures/topologies
 
