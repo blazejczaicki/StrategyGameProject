@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minEnemiesOnChunk: 0
-  maxEnemiesOnChunk: 0
+  maxEnemiesOnChunk: 50
   enemyManager: {fileID: 1903619818}
   generatorManager: {fileID: 534350044}
   fields:

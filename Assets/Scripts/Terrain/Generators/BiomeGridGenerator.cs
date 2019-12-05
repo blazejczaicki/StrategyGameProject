@@ -36,7 +36,6 @@ public class BiomeGridGenerator : GridGenerator
             }
         }
         distanceFromCenter = quadMakingFromGridBoxIndex * gridBoxSize;
-        Debug.Log(distanceFromCenter);
         quadMakingFromGridBoxIndex++;
     }
 

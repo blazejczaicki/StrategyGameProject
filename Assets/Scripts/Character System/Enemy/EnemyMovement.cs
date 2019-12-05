@@ -21,35 +21,48 @@ public class EnemyMovement : ObjectMovement
 
     private void UpdatePath(CharacterObjectController target, Chunk chunk)
     {
-        Vector3 startPosition = (path!=null && path.Count > pathIterator + 1) ?  (Vector3)path[pathIterator].position: transform.position; 
-            path = pathfinding.FindPath(chunk, target.currentChunk,
-                startPosition, target.transform.position);
+        Vector3 startPosition = (path != null && path.Count > pathIterator + 1) ? (Vector3)path[pathIterator].position : transform.position;
+        path = pathfinding.FindPath(chunk, target.currentChunk,
+            startPosition, target.transform.position);
         pathIterator = 0;
-            if (path != null)
+        if (path != null)
+        {
+            Vector2 centerPosition = Vector2.zero;
+            for (int i = 0; i < path.Count - 1; i++)
             {
-                Vector2 centerPosition = Vector2.zero;
-                for (int i = 0; i < path.Count - 1; i++)
-                {                    
-                    Debug.DrawLine(new Vector3(path[i].position.x, path[i].position.y),
-                        new Vector3(path[i + 1].position.x, path[i + 1].position.y), Color.green, 10.0f);
-                    centerPosition = path[i].position;
-                    centerPosition.x += 0.5f;
-                    centerPosition.y += 0.5f;
-                    path[i].position = centerPosition;
-                }
+                Debug.DrawLine(new Vector3(path[i].position.x, path[i].position.y),
+                    new Vector3(path[i + 1].position.x, path[i + 1].position.y), Color.green, 10.0f);
+                centerPosition = path[i].position;
+                centerPosition.x += 0.5f;
+                centerPosition.y += 0.5f;
+                path[i].position = centerPosition;
             }
+        }
     }
 
     private bool IsPointReached()
     {
-        Debug.Log(pathIterator);// były błędy
-        return Vector2.Distance(transform.position, path[pathIterator].position)<= pointTargetRadius;
+        return Vector2.Distance(transform.position, path[pathIterator].position) <= pointTargetRadius;
     }
 
-    private void UpdateDirection(Vector3 targetPosition)
+    private void UpdateDirection(List<Node> path)
     {
-        var heading = transform.position - targetPosition;
-        movementDirection = -heading / heading.magnitude;
+        if (path != null)
+        {
+            if (pathIterator >= path.Count)
+            {
+                path = null;
+            }
+            else
+            {
+                var heading = (Vector2)transform.position - path[pathIterator].position;
+                movementDirection = -heading / heading.magnitude;
+                if (IsPointReached())
+                {
+                    pathIterator++;
+                }
+            }
+        }
     }
 
     public override void Move(dynamic target, Chunk chunk)
@@ -61,22 +74,7 @@ public class EnemyMovement : ObjectMovement
                 pathUpdateLastTime = Time.time;
                 UpdatePath(target, chunk);
             }
-          
-                if (path != null)
-                {
-                    if (IsPointReached())
-                    {
-                        pathIterator++;
-                    }
-                    if (pathIterator >= path.Count)
-                    {
-                        path = null;
-                    }
-                    else
-                    {
-                        UpdateDirection(path[pathIterator].position);
-                    }
-                }
+            UpdateDirection(path);
             //UpdateAnimation();
         }
     }

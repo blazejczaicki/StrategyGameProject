@@ -17,7 +17,6 @@ public class EnemySpawn : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Sd");
         var newEnemy=Instantiate(fields[tileID].GetRandomEnemy(), position, Quaternion.identity).GetComponent<EnemyController>();
         newEnemy.Generator = generatorManager;
         enemyManager.AddEnemy(newEnemy);

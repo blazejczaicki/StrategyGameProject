@@ -168,7 +168,7 @@ public class TileGenerator : MonoBehaviour
 
         int breakGeneration = (int)(Chunk.chunkSize * 0.1f);
         float heightCell, centerOfInterpolation=0;
-        Biome currentBiome = new Biome();
+        Biome currentBiome = neighboursBiomes[0];
         Vector2Int coordsOfCenter=Vector2Int.zero;
         CalculateInterpolationPeak(ref centerOfInterpolation, ref coordsOfCenter);
         for (int x = 0; x < Chunk.chunkSize; x++)
