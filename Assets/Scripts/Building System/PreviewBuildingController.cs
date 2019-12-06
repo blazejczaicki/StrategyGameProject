@@ -72,6 +72,7 @@ public class PreviewBuildingController : MonoBehaviour
         }
         inventory.UpdateInventoryUI();
         Instantiate(building, transform.position, Quaternion.identity).gameObject.SetActive(true);
+        //chunk
     }
 
     private void ChangePatternPosition()

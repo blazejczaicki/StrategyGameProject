@@ -36,7 +36,8 @@ public class InventoryController : Controller, IInventoryOperation
 
     public void ResetSlot(int slotID)
     {
-        inventoryObject.ResetInventorySlot(slotImages[slotID], slotID);
+        inventoryObject.ResetInventorySlot(slotID);
+        UpdateInventoryUI();
     }
 
     public InventorySlot GetInventorySlot(int slotID)

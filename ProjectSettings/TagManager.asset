@@ -16,8 +16,8 @@ TagManager:
   - Camera
   - Item
   - SpriteControl
-  - 
-  - 
+  - CharacterObject
+  - GeneralCollision
   - 
   - 
   - 

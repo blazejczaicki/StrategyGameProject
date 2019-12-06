@@ -18,6 +18,7 @@ public class PlayerInputController : Controller
 
     private Vector2 _movementDirection= Vector2.zero;
     public Vector2 MovementDirection { get => _movementDirection; }
+    public List<GameObject> UIElements1 { get => UIElements; set => UIElements = value; }
 
     public override void OnUpdate()
     {
@@ -30,7 +31,7 @@ public class PlayerInputController : Controller
     {
         if (Input.GetKeyDown(inputData.escape))
         {
-            var element=UIElements.Find(obj => obj.activeSelf == true);
+            var element=UIElements1.Find(obj => obj.activeSelf == true);
             if (element!=null)
             {
                 element.SetActive(false);

@@ -85,10 +85,9 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
 
 
     
-    public void ResetInventorySlot(Image image, int slotID)
+    public void ResetInventorySlot(int slotID) 
     {
         slots[slotID].Reset();
-        slots[slotID].UpdateSlotInUI(image);
     }
     
     public InventorySlot GetInventorySlot(int slotID)

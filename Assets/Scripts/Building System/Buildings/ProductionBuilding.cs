@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class ProductionBuilding : Warehouse
@@ -12,8 +11,7 @@ public class ProductionBuilding : Warehouse
     [SerializeField] private float burnFuelTime = 0;
     [SerializeField] private ItemType itemProductType = ItemType.Resources;
     [SerializeField] private ItemObject product;
-    [SerializeField] private Slider production;
-    [SerializeField] private Slider burning;
+    private SliderController sliderController;
 
     private float currentProductionTime = 0;
     private float currentBurnTime = 0;
@@ -30,8 +28,9 @@ public class ProductionBuilding : Warehouse
     protected override void Awake()
     {
         base.Awake();
-        production.maxValue = productionTime;
-        burning.maxValue = burnFuelTime;
+        sliderController = inventoryBuildingController.GetComponent<SliderController>();
+        sliderController.production.maxValue = productionTime;
+        sliderController.burning.maxValue = burnFuelTime;
     }
 
     private void Update()
@@ -64,7 +63,7 @@ public class ProductionBuilding : Warehouse
             if (IsBurnFuel(slotFuel))
             {
                 currentProductionTime += productionSpeed * Time.deltaTime;
-                UpdateSliders();
+                sliderController.UpdateSliders(currentProductionTime, currentBurnTime);
             }
         }
         else
@@ -80,22 +79,15 @@ public class ProductionBuilding : Warehouse
             isWorking = false;
             currentProductionTime = 0;
             CreateProduct(slotProduct);
-            inventoryController.UpdateInventoryUI();
+            inventoryBuildingController.UpdateInventoryUI();////
         }
-
-    }
-
-    private void UpdateSliders()
-    {
-        production.value = currentProductionTime;
-        burning.value = currentBurnTime;
     }
 
     private void CreateProduct(InventorySlot slotProduct)
     {
         if (slotProduct.item.type==ItemType.Default)
         {
-            inventoryController.inventoryObject.AddToTargetSlot(product, 1, 2);
+            inventoryObject.AddToTargetSlot(product, 1, 2);
         }
         else if (slotProduct.item.type == itemProductType)
         {
@@ -127,7 +119,7 @@ public class ProductionBuilding : Warehouse
         slotResource.amount -= 1;
         if (slotResource.amount<=0)
         {            
-            inventoryController.ResetSlot(slotResource.slotID);
+            inventoryBuildingController.ResetSlot(slotResource.slotID);
         }
         return true;
     }
@@ -138,7 +130,7 @@ public class ProductionBuilding : Warehouse
         slotFuel.amount -= 1;
         if (slotFuel.amount<=0)
         {
-            inventoryController.ResetSlot(slotFuel.slotID);
+            inventoryBuildingController.ResetSlot(slotFuel.slotID);
         }
     }
 }
