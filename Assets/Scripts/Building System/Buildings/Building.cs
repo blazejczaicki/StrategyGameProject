@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Building : MonoBehaviour
 {
-    [SerializeField] protected int helath;
+    [SerializeField] protected int health;
 
     protected void DeleteBuilding()
     {

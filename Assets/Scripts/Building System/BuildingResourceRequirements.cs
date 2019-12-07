@@ -19,7 +19,6 @@ public class BuildingRequirements : ScriptableObject
             }
             i++;
         }
-
         return requirementsFulFilled.Exists(x => x == false) ? false : true;
     }
 }

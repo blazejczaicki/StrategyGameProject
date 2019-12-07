@@ -8,11 +8,11 @@ public class LayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.GetComponent<SpriteRenderer>().sortingOrder += layer;
+        collision.GetComponent<SpriteRenderer>().sortingOrder += 1;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        collision.GetComponent<SpriteRenderer>().sortingOrder -= layer;
+        collision.GetComponent<SpriteRenderer>().sortingOrder -= 1;
     }
 }
