@@ -17,7 +17,7 @@ public class EnemyManager : MonoBehaviour
         {
             if (enemy.gameObject.activeSelf==true)
             {
-            enemy.OnUpdate();
+                enemy.OnUpdate();
             }
         }
     }

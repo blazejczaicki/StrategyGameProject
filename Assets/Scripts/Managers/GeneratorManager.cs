@@ -30,7 +30,7 @@ public class GeneratorManager : MonoBehaviour
     
     public Transform getChunkTransform(Vector2 id)
     {
-        return visibleChunks[id].transform;
+        return visibleChunks[id].transform;// przeciwnicy a visible
     }
     
     public void addToVisibleChunk(Vector2 position, Chunk chunk)

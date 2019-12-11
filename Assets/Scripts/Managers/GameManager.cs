@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         generatorManager.OnUpdate();
-        //enemyManager.OnUpdate();
+        enemyManager.OnUpdate();
         player.OnUpdate();
     }
 }

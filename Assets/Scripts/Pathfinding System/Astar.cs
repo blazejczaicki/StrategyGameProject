@@ -101,7 +101,7 @@ public class Astar
             localPos.x = 0;
             vertexX = true;
             direction = (int)Direction.W;
-            Debug.Log(Direction.W);
+      //      Debug.Log(Direction.W);
         }
         else if (localPos.x < 0) //right
         {
@@ -109,7 +109,7 @@ public class Astar
             localPos.x = 64;
             vertexX = true;
             direction = (int)Direction.E;
-            Debug.Log(Direction.E);
+       //     Debug.Log(Direction.E);
         }
 
         if (localPos.y >= 64) //down
@@ -117,14 +117,14 @@ public class Astar
             chunk = current.chunk.Neighbours4Chunks[(int)Direction.S].chunk;
             localPos.y = 0;
             vertexY = true;
-           Debug.Log(Direction.S);
+         //  Debug.Log(Direction.S);
         }
         else if (localPos.y < 0) //top
         {
             chunk = current.chunk.Neighbours4Chunks[(int)Direction.N].chunk;
             localPos.y = 64;
             vertexY = true;
-            Debug.Log(Direction.N);
+        //    Debug.Log(Direction.N);
         }
 
         if (vertexX && vertexY)

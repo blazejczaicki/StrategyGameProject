@@ -28,4 +28,13 @@ public static class GridCellCalculator
         positionGlobal.y = -Local.y + chunk.transform.position.y + Chunk.chunkSizeHalf;
         return positionGlobal;
     }
+
+    public static Vector2 ComputeChunkPosition(Vector2 position)
+    {
+        Vector2 newCurrentChunkPos = new Vector2();
+        newCurrentChunkPos.x = (int)((-1 + position.x + (position.x / Mathf.Abs(position.x) * Chunk.chunkSizeHalf)) / Chunk.chunkSize) * Chunk.chunkSize;
+        newCurrentChunkPos.y = (int)((-1 + position.y + (position.y / Mathf.Abs(position.y) * Chunk.chunkSizeHalf)) / Chunk.chunkSize) * Chunk.chunkSize;
+      //  Debug.Log(newCurrentChunkPos);
+        return newCurrentChunkPos;
+    }
 }

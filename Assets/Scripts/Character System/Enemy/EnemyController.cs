@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 using System;
 
 public class EnemyController : CharacterObjectController, IInteractable
@@ -48,10 +49,12 @@ public class EnemyController : CharacterObjectController, IInteractable
 
     public override void OnUpdate()
     {
+        Profiler.BeginSample("EnemyUpd");
         OnMissingTarget();
         OnTargedAcquired();
         TryAttack();
         OnDead();
+        Profiler.EndSample();
     }
 
     protected override void OnDead()
@@ -69,6 +72,7 @@ public class EnemyController : CharacterObjectController, IInteractable
 
     public void OnRightClickObject(PlayerController controller)
     {
+        Debug.Log("nnnaatt");
         controller.TryAttack(this);
     }
 }

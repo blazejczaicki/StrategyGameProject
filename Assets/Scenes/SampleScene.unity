@@ -1795,7 +1795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minEnemiesOnChunk: 0
-  maxEnemiesOnChunk: 50
+  maxEnemiesOnChunk: 250
   enemyManager: {fileID: 1903619818}
   generatorManager: {fileID: 534350044}
   fields:
@@ -11306,6 +11306,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: MagTowerPattern
       objectReference: {fileID: 0}
+    - target: {fileID: 2789719384238586288, guid: 65cc1e97d6ea1a0419358ca5e2ebf459,
+        type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 1288235162}
+    - target: {fileID: 2789719384238586288, guid: 65cc1e97d6ea1a0419358ca5e2ebf459,
+        type: 3}
+      propertyPath: input
+      value: 
+      objectReference: {fileID: 1194283269}
+    - target: {fileID: 2789719384238586288, guid: 65cc1e97d6ea1a0419358ca5e2ebf459,
+        type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 676374954}
     - target: {fileID: 3209007793819372873, guid: 65cc1e97d6ea1a0419358ca5e2ebf459,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11361,21 +11376,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2789719384238586288, guid: 65cc1e97d6ea1a0419358ca5e2ebf459,
-        type: 3}
-      propertyPath: building
-      value: 
-      objectReference: {fileID: 1288235162}
-    - target: {fileID: 2789719384238586288, guid: 65cc1e97d6ea1a0419358ca5e2ebf459,
-        type: 3}
-      propertyPath: input
-      value: 
-      objectReference: {fileID: 1194283269}
-    - target: {fileID: 2789719384238586288, guid: 65cc1e97d6ea1a0419358ca5e2ebf459,
-        type: 3}
-      propertyPath: inventory
-      value: 
-      objectReference: {fileID: 676374954}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65cc1e97d6ea1a0419358ca5e2ebf459, type: 3}
 --- !u!1001 &5498479426793902621
@@ -11718,8 +11718,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6280581212326625907, guid: a6ed180808a8f1248831d3c0a8901cda, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ed180808a8f1248831d3c0a8901cda, type: 3}
 --- !u!114 &6280581213280785275 stripped
 MonoBehaviour:

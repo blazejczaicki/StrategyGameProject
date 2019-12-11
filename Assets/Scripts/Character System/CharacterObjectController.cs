@@ -35,9 +35,6 @@ public abstract class CharacterObjectController : MonoBehaviour
 
     protected Chunk CheckOnWhichChunkYouStayed(Vector2 position)
     {
-        Vector2 newCurrentChunkPos = new Vector2();
-        newCurrentChunkPos.x = (int)((-1+position.x+(position.x / Mathf.Abs(position.x)*Chunk.chunkSizeHalf)) / Chunk.chunkSize) * Chunk.chunkSize;
-        newCurrentChunkPos.y = (int)((-1+position.y+(position.y / Mathf.Abs(position.y)*Chunk.chunkSizeHalf)) / Chunk.chunkSize) * Chunk.chunkSize;
-        return Generator.getChunkTransform(newCurrentChunkPos).GetComponent<Chunk>();
+        return Generator.getChunkTransform(GridCellCalculator.ComputeChunkPosition(position)).GetComponent<Chunk>();
     }
 }

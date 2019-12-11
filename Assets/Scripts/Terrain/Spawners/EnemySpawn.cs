@@ -28,8 +28,8 @@ public class EnemySpawn : MonoBehaviour
         Vector2Int localPosition = Vector2Int.zero;
         for (int i = 0; i < countEnemies; i++)
         {
-            localPosition.x = Random.Range(0, Chunk.chunkSize - 1);
-            localPosition.y = Random.Range(0, Chunk.chunkSize - 1);
+            localPosition.x = Random.Range(4, Chunk.chunkSize - 4);
+            localPosition.y = Random.Range(4, Chunk.chunkSize - 4);
             for (int j = 0; j < countEnemies; j++)
             {
                 if (chunk.GridMovementArray[localPosition.x][localPosition.y]==true)
@@ -37,8 +37,8 @@ public class EnemySpawn : MonoBehaviour
                     CreateEnemy(chunk.Fields[localPosition.x][localPosition.y], GridCellCalculator.GetGlobalPositionOnGrid(localPosition, chunk));
                     break;
                 }
-                localPosition.x = Random.Range(0, Chunk.chunkSize - 1);
-                localPosition.y = Random.Range(0, Chunk.chunkSize - 1);
+                localPosition.x = Random.Range(4, Chunk.chunkSize - 4);
+                localPosition.y = Random.Range(4, Chunk.chunkSize - 4);
             }
         }
     }
