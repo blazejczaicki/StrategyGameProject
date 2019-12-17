@@ -14,7 +14,7 @@ public class Warehouse : Building, IInteractable
         inventoryObject = new InventoryObject();
         inventoryBuildingController = Instantiate(inventoryBuildingController.gameObject.transform.parent, Vector3.zero,Quaternion.identity,canvas ).GetComponentInChildren<InventoryController>();
         player.UIElements1.Add(inventoryBuildingController.gameObject.transform.parent.gameObject);
-       // inventoryBuildingController.gameObject.transform.parent.SetParent(canvas);
+        // inventoryBuildingController.gameObject.transform.parent.SetParent(canvas);
     }
 
     public virtual void OnLeftClickObject(PlayerController controller)
@@ -27,5 +27,8 @@ public class Warehouse : Building, IInteractable
     {
         DeleteBuilding();
     }
+
+    public void OnCoursor(){}
+    public void OnExitCoursor(){}
 
 }

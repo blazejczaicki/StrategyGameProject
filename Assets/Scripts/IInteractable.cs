@@ -6,4 +6,6 @@ public interface IInteractable
 {
     void OnLeftClickObject(PlayerController controller);
     void OnRightClickObject(PlayerController controller);
+    void OnCoursor();
+    void OnExitCoursor();
 }

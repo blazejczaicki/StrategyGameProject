@@ -152,6 +152,16 @@ public class InventorySlot
             color.a = (item.type == ItemType.Default) ? 0.0f : 1.0f;
             image.color = color;
             changed = false;
+
+            var num = image.GetComponentInChildren<Text>();
+            if (item.type!=ItemType.Default)
+            {
+                num.text = amount.ToString();
+            }
+            else
+            {
+                num.text = "";
+            }
         }
     }
 

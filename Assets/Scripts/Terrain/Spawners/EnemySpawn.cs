@@ -20,6 +20,7 @@ public class EnemySpawn : MonoBehaviour
         var newEnemy=Instantiate(fields[tileID].GetRandomEnemy(), position, Quaternion.identity).GetComponent<EnemyController>();
         newEnemy.Generator = generatorManager;
         enemyManager.AddEnemy(newEnemy);
+        newEnemy.GetComponentInChildren<Canvas>().worldCamera = Camera.main;
     }
 
      public void SpawnOnChunk(Chunk chunk)

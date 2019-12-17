@@ -6,9 +6,16 @@ public class StaticObjectSpawn : MonoBehaviour
 {
     [SerializeField] private List<Field> fields;
 
-    private void CreateObject(int tileID, Vector3 position)
+    private void CreateObject(int tileID, Vector3 position, Chunk chunk)
     {
-        Instantiate(fields[tileID].GetRandomEnviroObject(), position, Quaternion.identity);
+        GameObject newObject= Instantiate(fields[tileID].GetRandomEnviroObject(), position, Quaternion.identity);
+
+
+        var healthCanvas= newObject.GetComponentInChildren<Canvas>();
+        healthCanvas.worldCamera = Camera.main;
+        healthCanvas.gameObject.SetActive(false);
+
+        newObject.transform.SetParent(chunk.transform);
     }
 
     public IEnumerator Generate(Chunk chunk)
@@ -24,12 +31,9 @@ public class StaticObjectSpawn : MonoBehaviour
                 randomVal = Random.Range(0.0f, 1.0f);
                 if (randomVal<fields[chunk.Fields[x][y]].ProbabilityOfGeneration)
                 {
-                    //position = GridCellCalculator.GetGlobalPositionOnGrid(localPosition, chunk);
-                    //position.x += 0.5f;
-                    //position.y += 0.5f;
                     position.x = -x + chunk.transform.position.x + Chunk.chunkSizeHalf + chunk.grid.cellSize.x*0.5f;
                     position.y = -y + chunk.transform.position.y + Chunk.chunkSizeHalf+ chunk.grid.cellSize.y * 0.5f;
-                    CreateObject(chunk.Fields[x][y], position);
+                    CreateObject(chunk.Fields[x][y], position, chunk);
                     chunk.SetGridArrayField(x, y, false);
                 }
                 else

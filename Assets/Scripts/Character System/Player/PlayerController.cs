@@ -11,6 +11,7 @@ public class PlayerController : CharacterObjectController
     [SerializeField] private float extractionTool = 1.0f; //potem item z inventory
     public InventoryController inventory;
     private IInteractable interactableObjectFocus = null;
+    private IInteractable interactableObjectOnCoursor = null;
 
     protected override void Awake()
     {
@@ -33,6 +34,23 @@ public class PlayerController : CharacterObjectController
             controller.OnUpdate();
         }
         OnUpdate();
+
+        var interactableObject = GetInteractableObject();
+
+        if ( interactableObjectOnCoursor!=interactableObject && interactableObjectOnCoursor!=null)
+        {
+            Debug.Log("xdd11");
+            interactableObjectOnCoursor.OnExitCoursor();
+            interactableObjectOnCoursor = null;
+        }
+
+        if (interactableObject!=null)
+        {
+            Debug.Log("xdd");
+            interactableObjectOnCoursor = interactableObject;
+            interactableObject.OnCoursor();
+        }
+
     }
 
     private IInteractable GetInteractableObject()

@@ -9,6 +9,7 @@ public class ItemController : MonoBehaviour, IInteractable
     [SerializeField] private float pickUpRange=5.0f;
     public int amount = 5;
 
+
     private void PickUp(PlayerController playerController)
     {
         if (playerController.inventory.AddItem(itemObject, amount))
@@ -31,5 +32,7 @@ public class ItemController : MonoBehaviour, IInteractable
             PickUp(playerController);
         }        
     }
-    
+
+    public void OnCoursor() { }
+    public void OnExitCoursor() { }
 }

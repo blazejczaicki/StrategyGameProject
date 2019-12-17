@@ -9,6 +9,14 @@ public class StaticObjectController : MonoBehaviour, IInteractable
     [SerializeField] private float health = 10.0f;
     [SerializeField] private float interactRange = 5.0f;
 
+    private Canvas ownCanvas;
+    private HealthBar healthBar;
+
+    private void Awake()
+    {
+        ownCanvas = transform.GetComponentInChildren<Canvas>();
+        healthBar = ownCanvas.GetComponentInChildren<HealthBar>();
+    }
     //public Func<int, bool> OnExtractObject; //do ref własny delegat
 
     public void DropItem(PlayerController playerController)
@@ -18,6 +26,17 @@ public class StaticObjectController : MonoBehaviour, IInteractable
             Instantiate(ItemToDrop, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+        healthBar.UpdateBar(health);
+    }
+
+    public void OnCoursor()
+    {
+        ownCanvas.gameObject.SetActive(true);
+    }
+
+    public void OnExitCoursor()
+    {
+        ownCanvas.gameObject.SetActive(false);
     }
 
     public void OnLeftClickObject(PlayerController playerController)

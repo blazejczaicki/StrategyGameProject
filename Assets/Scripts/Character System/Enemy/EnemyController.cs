@@ -36,7 +36,17 @@ public class EnemyController : CharacterObjectController, IInteractable
 
     private void OnTargedAcquired()
     {
-        movement.Move(target, CheckOnWhichChunkYouStayed(transform.position));
+        if (target != null)
+        {
+            if (Vector2.Distance(target.transform.position, transform.position) > weapon.range)
+            {
+                movement.Move(target, CheckOnWhichChunkYouStayed(transform.position));
+            }
+            else
+            {
+                movement.ResetMovement();
+            }
+        }
     }
 
     private void TryAttack()
@@ -72,7 +82,9 @@ public class EnemyController : CharacterObjectController, IInteractable
 
     public void OnRightClickObject(PlayerController controller)
     {
-        Debug.Log("nnnaatt");
         controller.TryAttack(this);
     }
+
+    public void OnCoursor() { }
+    public void OnExitCoursor() { }
 }

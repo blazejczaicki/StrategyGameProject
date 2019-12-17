@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    [SerializeField] private HealthBar healthBar;
+
     [SerializeField] private float _speed = 0;
     public float speed { get => _speed; }
     [SerializeField] private float _health = 0;
@@ -12,5 +14,6 @@ public class CharacterStats : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
+        healthBar.UpdateBar(health);
     }
 }
