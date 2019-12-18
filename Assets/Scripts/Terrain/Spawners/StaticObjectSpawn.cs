@@ -8,13 +8,13 @@ public class StaticObjectSpawn : MonoBehaviour
 
     private void CreateObject(int tileID, Vector3 position, Chunk chunk)
     {
-        GameObject newObject= Instantiate(fields[tileID].GetRandomEnviroObject(), position, Quaternion.identity);
-
-
-        var healthCanvas= newObject.GetComponentInChildren<Canvas>();
-        healthCanvas.worldCamera = Camera.main;
-        healthCanvas.gameObject.SetActive(false);
-
+        GameObject newObject = Instantiate(fields[tileID].GetRandomEnviroObject(), position, Quaternion.identity);
+        var healthCanvas = newObject.GetComponentInChildren<Canvas>();
+        if (healthCanvas != null)
+        {
+            healthCanvas.worldCamera = Camera.main;
+            healthCanvas.gameObject.SetActive(false);
+        }
         newObject.transform.SetParent(chunk.transform);
     }
 

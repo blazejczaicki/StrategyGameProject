@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 
 public class PreviewBuildingController : MonoBehaviour
@@ -13,10 +14,16 @@ public class PreviewBuildingController : MonoBehaviour
     [SerializeField] private BuildingRequirements buildingRequirements;
     private SpriteRenderer sprite;
     private Color color;
+    [SerializeField] private Canvas ownCanvas;
+    [SerializeField] private Text text;
 
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        foreach (var requirement in buildingRequirements.requirements)
+        {
+            text.text = requirement.itemType.ToString() + ": " + requirement.amount.ToString() + "\n";
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,12 +40,14 @@ public class PreviewBuildingController : MonoBehaviour
     {
         input.OnClickInteractionLeft += TryPlaceObject;
         input.OnClickInteractionRight += CancelDraggingBuilding;
+        ownCanvas.gameObject.SetActive(true);
     }
 
     private void OnDisable()
     {
         input.OnClickInteractionLeft -= TryPlaceObject;
         input.OnClickInteractionRight -= CancelDraggingBuilding;
+        ownCanvas.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -89,6 +98,16 @@ public class PreviewBuildingController : MonoBehaviour
             color.a = 0.5f;
             sprite.color = color;
         }
+
+        if (!buildingRequirements.IsRequirementsFulFilled(inventory.inventoryObject))
+        {
+            text.color = Color.red;
+        }
+        else
+        {
+            text.color = Color.green;
+        }
+
         transform.position = GridCellCalculator.GetMousePosToCell();
     }
 }

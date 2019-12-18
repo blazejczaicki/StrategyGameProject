@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requirements:
   - itemType: 3
-    amount: 10
+    amount: 20

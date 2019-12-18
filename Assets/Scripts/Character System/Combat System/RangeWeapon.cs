@@ -16,7 +16,6 @@ public class RangeWeapon : Weapon
         {
             var newProjectile = Instantiate(projectile.gameObject, transform.position, Quaternion.identity);
             newProjectile.SetActive(true);
-            Debug.Log("tim ");
             attackTime = Time.time;
             var projectileComponent = newProjectile.GetComponent<Projectile>();
             projectileComponent.target = target;

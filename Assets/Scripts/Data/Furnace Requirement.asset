@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Furnace Requirement
   m_EditorClassIdentifier: Main::BuildingRequirements
   requirements:
-  - itemType: 1
-    amount: 125
+  - itemType: 2
+    amount: 80

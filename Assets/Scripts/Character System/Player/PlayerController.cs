@@ -71,10 +71,8 @@ public class PlayerController : CharacterObjectController
 
     public bool ExtractObject(ref float health)
     {
-        //odległość
-
         health -= extractionTool * Time.deltaTime;
-        Debug.Log(health);
+       // Debug.Log(health);
         return health <= 0;
     }
 
