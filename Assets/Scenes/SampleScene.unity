@@ -12036,6 +12036,12 @@ PrefabInstance:
       propertyPath: inventory
       value: 
       objectReference: {fileID: 676374954}
+    - target: {fileID: 2789719384238586288, guid: 65cc1e97d6ea1a0419358ca5e2ebf459,
+        type: 3}
+      propertyPath: buildingRequirements
+      value: 
+      objectReference: {fileID: 11400000, guid: cd39922a8cdc9374fbfada3e783beb16,
+        type: 2}
     - target: {fileID: 3209007793819372873, guid: 65cc1e97d6ea1a0419358ca5e2ebf459,
         type: 3}
       propertyPath: m_LocalPosition.x
