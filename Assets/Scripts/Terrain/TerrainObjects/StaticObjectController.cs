@@ -29,12 +29,12 @@ public class StaticObjectController : MonoBehaviour, IInteractable
         healthBar.UpdateBar(health);
     }
 
-    public void OnCoursor()
+    public void OnCursor()
     {
         ownCanvas.gameObject.SetActive(true);
     }
 
-    public void OnExitCoursor()
+    public void OnExitCursor()
     {
         ownCanvas.gameObject.SetActive(false);
     }

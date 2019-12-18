@@ -26,31 +26,21 @@ public class PlayerController : CharacterObjectController
         inputCon.OnClickInteractionRight += TryActivateObjectRight;
     }
 
-    void Update()
+    private void OnCursorAboveObject()
     {
-        _currentChunk = CheckOnWhichChunkYouStayed(transform.position);
-        foreach (var controller in playerToUpdateControllers)
-        {
-            controller.OnUpdate();
-        }
-        OnUpdate();
-
         var interactableObject = GetInteractableObject();
 
         if ( interactableObjectOnCoursor!=interactableObject && interactableObjectOnCoursor!=null)
         {
-            Debug.Log("xdd11");
-            interactableObjectOnCoursor.OnExitCoursor();
+            interactableObjectOnCoursor.OnExitCursor();
             interactableObjectOnCoursor = null;
         }
 
         if (interactableObject!=null)
         {
-            Debug.Log("xdd");
             interactableObjectOnCoursor = interactableObject;
-            interactableObject.OnCoursor();
+            interactableObject.OnCursor();
         }
-
     }
 
     private IInteractable GetInteractableObject()
@@ -92,7 +82,8 @@ public class PlayerController : CharacterObjectController
     {
         if (Vector2.Distance(target.transform.position, transform.position) < weapon.range)
         {
-            combatController.Attack(target.stats, weapon);
+            weapon.OnAttack(target, combatController);
+          //  combatController.Attack(target.stats, weapon);
         }
     }
 
@@ -103,6 +94,12 @@ public class PlayerController : CharacterObjectController
 
     public override void OnUpdate()
     {
+        _currentChunk = CheckOnWhichChunkYouStayed(transform.position);
+        foreach (var controller in playerToUpdateControllers)
+        {
+            controller.OnUpdate();
+        }
+        OnCursorAboveObject();
         movement.Move(inputCon.MovementDirection, currentChunk);
         OnDead();
     }

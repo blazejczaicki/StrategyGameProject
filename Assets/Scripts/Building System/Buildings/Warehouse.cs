@@ -28,7 +28,7 @@ public class Warehouse : Building, IInteractable
         DeleteBuilding();
     }
 
-    public void OnCoursor(){}
-    public void OnExitCoursor(){}
+    public void OnCursor(){}
+    public void OnExitCursor(){}
 
 }

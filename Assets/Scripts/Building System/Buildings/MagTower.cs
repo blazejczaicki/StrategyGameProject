@@ -20,6 +20,6 @@ public class MagTower : Building, IInteractable
     public void OnRightClickObject(PlayerController controller)
     {    }
 
-    public void OnCoursor() { }
-    public void OnExitCoursor() { }
+    public void OnCursor() { }
+    public void OnExitCursor() { }
 }

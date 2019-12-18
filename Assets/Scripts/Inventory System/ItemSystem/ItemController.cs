@@ -33,6 +33,6 @@ public class ItemController : MonoBehaviour, IInteractable
         }        
     }
 
-    public void OnCoursor() { }
-    public void OnExitCoursor() { }
+    public void OnCursor() { }
+    public void OnExitCursor() { }
 }

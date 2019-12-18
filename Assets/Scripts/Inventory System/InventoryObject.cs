@@ -24,7 +24,6 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
             if (target.amount + _amount<=itemStackConstraint)
             {
                 target.amount += _amount;
-                target.changed = true;
                 return true;
             }
             else
@@ -44,7 +43,6 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
         {
             target.item = _item;
             target.amount = _amount;
-            target.changed = true;
             return true;
         }
         return false;
@@ -56,7 +54,6 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
         {
             slots[_slotID].item = _item;
             slots[_slotID].amount = _amount;
-            slots[_slotID].changed = true;
             return true;
         }
         else if(slots[_slotID].item.type==_item.type)
@@ -135,7 +132,6 @@ public class InventorySlot
     public ItemObject defaultObject;
     public int amount=0;
     public int slotID=0;
-    public bool changed=false;
 
     public InventorySlot(int _id, ItemObject _defaultObject)
     {
@@ -145,23 +141,19 @@ public class InventorySlot
 
     public void UpdateSlotInUI(Image image)
     {
-        if (changed)
-        {
-            image.sprite = item.sprite;
-            var color = image.color;
-            color.a = (item.type == ItemType.Default) ? 0.0f : 1.0f;
-            image.color = color;
-            changed = false;
+        image.sprite = item.sprite;
+        var color = image.color;
+        color.a = (item.type == ItemType.Default) ? 0.0f : 1.0f;
+        image.color = color;
 
-            var num = image.GetComponentInChildren<Text>();
-            if (item.type!=ItemType.Default)
-            {
-                num.text = amount.ToString();
-            }
-            else
-            {
-                num.text = "";
-            }
+        var num = image.GetComponentInChildren<Text>();
+        if (item.type != ItemType.Default)
+        {
+            num.text = amount.ToString();
+        }
+        else
+        {
+            num.text = "";
         }
     }
 
@@ -169,6 +161,5 @@ public class InventorySlot
     {
         item = defaultObject;
         amount = 0;
-        changed = true;
     }
 }

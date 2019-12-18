@@ -53,7 +53,7 @@ public class EnemyController : CharacterObjectController, IInteractable
     {
         if (target!=null && Vector2.Distance(target.transform.position, transform.position)<weapon.range)
         {
-            combatController.Attack(target.stats, weapon);
+            weapon.OnAttack(target, combatController);
         }
     }
 
@@ -85,6 +85,6 @@ public class EnemyController : CharacterObjectController, IInteractable
         controller.TryAttack(this);
     }
 
-    public void OnCoursor() { }
-    public void OnExitCoursor() { }
+    public void OnCursor() { }
+    public void OnExitCursor() { }
 }
