@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Furnace Requirement
-  m_EditorClassIdentifier: Main::BuildingRequirements
+  m_Script: {fileID: 11500000, guid: 414b404a389103843a2055ed68777b0f, type: 3}
+  m_Name: FurReq
+  m_EditorClassIdentifier: 
   requirements:
   - itemType: 2
     amount: 80

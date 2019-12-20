@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c03c16cea830c341937a86a9b3e79d6, type: 3}
-  m_Name: MagReq
+  m_Script: {fileID: 11500000, guid: 414b404a389103843a2055ed68777b0f, type: 3}
+  m_Name: MagTowReq
   m_EditorClassIdentifier: 
   requirements:
   - itemType: 3

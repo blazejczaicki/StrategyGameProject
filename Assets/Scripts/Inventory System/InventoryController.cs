@@ -17,6 +17,7 @@ public class InventoryController : Controller, IInventoryOperation
             inventoryObject.slots.Add(new InventorySlot(id, defaultObject));
             id++;
         }
+        transform.parent.gameObject.SetActive(false);
     }
 
     public bool AddItem(ItemObject item, int amount)

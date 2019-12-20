@@ -11,7 +11,7 @@ public class PreviewBuildingController : MonoBehaviour
     [SerializeField] private Transform building;
     [SerializeField] private PlayerInputController input;
     [SerializeField] private InventoryController inventory;
-    [SerializeField] private BuildingRequirements buildingRequirements;
+    [SerializeField] private BuildReq buildingRequirements;
     private SpriteRenderer sprite;
     private Color color;
     [SerializeField] private Canvas ownCanvas;
