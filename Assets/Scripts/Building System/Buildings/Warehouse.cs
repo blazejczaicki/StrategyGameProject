@@ -23,11 +23,7 @@ public class Warehouse : Building, IInteractable
         inventoryBuildingController.transform.parent.gameObject.SetActive(true); 
     }
 
-    public void OnRightClickObject(PlayerController controller)
-    {
-        DeleteBuilding();
-    }
-
+    public void OnRightClickObject(PlayerController controller){}
     public void OnCursor(){}
     public void OnExitCursor(){}
 

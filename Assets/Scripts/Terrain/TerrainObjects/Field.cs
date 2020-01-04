@@ -10,7 +10,6 @@ public class Field : MonoBehaviour
     [SerializeField] private Tile tile;
     public Tile TileRepresentation
     { get { return tile; } }
-    private bool isMovable;
 
     [SerializeField] private List<GameObject> _enemyKinds;
     public List<GameObject> enemyKinds { get => _enemyKinds;}

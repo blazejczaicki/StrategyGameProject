@@ -10,7 +10,7 @@ public class Temperature : MonoBehaviour, ILayerCalculation
     public List<Topography> temperatureKinds;
     private float cold = 0.3f;
     private float cool = 0.7f;
-    private float hot = 1f;
+ //   private float hot = 1f;
 
     public int CalculateLayer(Biome biome,float tileHeight)
     {

@@ -11,8 +11,6 @@ public class GeneratorManager : MonoBehaviour
     [SerializeField] private PlayerController player;
     [SerializeField] private CameraController camer;
 
-    private int cameraRange = 10;
-
     private void Awake()
     {
         setOfChunks = new Dictionary<Vector3, Chunk>();
@@ -64,7 +62,7 @@ public class GeneratorManager : MonoBehaviour
     {
         if (IsChunkToSpawn())
         {
-            chunkGenerator.generateChunk(setOfChunks, visibleChunks, player.currentChunk, player.transform.position, camer.rangeCamera);
+            chunkGenerator.GenerateChunk(setOfChunks, visibleChunks, player.currentChunk, player.transform.position, camer.rangeCamera);
         }
         if (biomeGridGenerator.IsIncreaseGrid(Vector2.Distance(player.transform.position, Vector3.zero)))
         {

@@ -18,8 +18,7 @@ public class Chunk : MonoBehaviour
     
     public int[][] Fields { get; set; }
     public bool[][] GridMovementArray { get; set; }
-
-    private Vector2Int fieldsGlobalBegin = Vector2Int.zero;
+    
     public Tilemap tilemap { get; set; }
     public Biome TerrainBiome { get; set; }
     private bool isIndirectChunk;
@@ -37,7 +36,7 @@ public class Chunk : MonoBehaviour
     public float topographyScale = 4f;//
     public static float moistureScale =0.6f;
     public static float temperatureScale =0.5f;
-    public float riverScale =0.2f;
+    //public float riverScale =0.2f;
 
     private bool NOTneededNW;
     private bool NOTneededSW;
@@ -53,7 +52,7 @@ public class Chunk : MonoBehaviour
             Fields[i] = new int[chunkSize];
         }
     }
-    private void edgesInit()
+    private void EdgesInit()
     {
         edges = new ChunkEdge[4];
         edges[(int)Direction.N] = new NorthEdge();
@@ -77,7 +76,7 @@ public class Chunk : MonoBehaviour
         gameObject.layer = 8;
         FieldInit();
         NeighboursChunksInit();
-        edgesInit();
+        EdgesInit();
         offsetTopography=offsetMoisture=offsetRiver=offsetTemperature=Vector2.zero;
         BoxCollider2D coll = gameObject.AddComponent<BoxCollider2D>();
         coll.size = new Vector2(chunkSize, chunkSize);
@@ -85,7 +84,6 @@ public class Chunk : MonoBehaviour
         GameObject chunkGameObject = new GameObject();
         tilemap = chunkGameObject.AddComponent<Tilemap>();
         chunkGameObject.AddComponent<TilemapRenderer>();
-        fieldsGlobalBegin = new Vector2Int((int)transform.position.x + chunkSizeHalf, (int)transform.position.y + chunkSizeHalf);
 
         GridMovementArray = new bool[chunkSize][];
         for (int i = 0; i < chunkSize; i++)

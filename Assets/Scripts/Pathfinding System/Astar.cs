@@ -6,7 +6,6 @@ using UnityEngine.Profiling;
 
 public class Astar
 {
-    [SerializeField] private Grid grid;
     private List<Node> openList;
     private List<Node> closedList;
 

@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyMovement : ObjectMovement
 {
     private Astar pathfinding;
-    private bool nodeIsReached = false;
     private int pathIterator = 0;
     private float pointTargetRadius = 0.2f;
     private float pathUpdateTime = 1.0f;
@@ -81,14 +80,13 @@ public class EnemyMovement : ObjectMovement
 
     public override void ResetMovement()
     {
-        nodeIsReached = false;
         pathIterator = 0;
         pathUpdateLastTime = 0.0f;
         movementDirection = Vector2.zero;
     }
 
-    private void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + movementDirection * stats.speed * Time.fixedDeltaTime);
-    }
+    //private void FixedUpdate()
+    //{
+    //    rb.MovePosition(rb.position + movementDirection * stats.speed * Time.fixedDeltaTime);
+    //}
 }

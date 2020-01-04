@@ -12,7 +12,7 @@ public class Topography : MonoBehaviour, ILayerCalculation
     private float shallowWaterLayer = -0.0f;
     private float lowLandLayer = 0.3f;
     private float upLandLayer = 0.6f;
-    private float moutainLayer = 1.0f;
+//    private float moutainLayer = 1.0f;
 
 
     public int CalculateLayer(Biome biome, float tileHeight)

@@ -561,8 +561,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 99.45999, y: -48.160034}
-  m_SizeDelta: {x: 156.36, y: 76.399994}
+  m_AnchoredPosition: {x: 105.3, y: -48.160034}
+  m_SizeDelta: {x: 168.1, y: 76.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &66968770
 MonoBehaviour:
@@ -599,7 +599,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Steering- W,A,S,D
 
-    Interaction/Attack- Mouse left
+    Interaction/Attack- Mouse right
 
     B-Building menu
 

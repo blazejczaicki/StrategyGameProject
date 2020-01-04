@@ -32,4 +32,9 @@ public abstract class ObjectMovement : MonoBehaviour
         animator.SetFloat(animatorVerticalID, movementDirection.y);
         animator.SetFloat(animatorSpeedID, movementDirection.sqrMagnitude);
     }
+
+    private void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movementDirection * stats.speed * Time.fixedDeltaTime);
+    }
 }

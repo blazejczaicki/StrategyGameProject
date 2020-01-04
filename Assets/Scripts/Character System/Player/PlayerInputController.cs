@@ -22,7 +22,8 @@ public class PlayerInputController : Controller
 
     public override void OnUpdate()
     {
-        MouseInput();
+        CameraSize();
+        InteractionInput();
         UIControl();
         MovementInput();
     }
@@ -47,7 +48,7 @@ public class PlayerInputController : Controller
         }
     }
 
-    private void MouseInput()
+    private void InteractionInput()
     {
         if (Input.GetKey(inputData.interactionLeft))
         {
@@ -57,7 +58,10 @@ public class PlayerInputController : Controller
         {
             OnClickInteractionRight();
         }
+    }
 
+    private void CameraSize()
+    {
         if (Input.mouseScrollDelta.y < 0)
         {
             cameraController.UnZoom();

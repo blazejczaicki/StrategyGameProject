@@ -11,7 +11,7 @@ public class Moisture : MonoBehaviour, ILayerCalculation
 
     private float dry = 0.3f;
     private float mid = 0.7f;
-    private float wet = 1f;
+ //   private float wet = 1f;
 
     public int CalculateLayer(Biome biome,float tileHeight)
     {

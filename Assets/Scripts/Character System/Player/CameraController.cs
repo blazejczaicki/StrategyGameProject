@@ -11,7 +11,6 @@ public class CameraController : MonoBehaviour
     public int rangeCamera = 0;
 
     [SerializeField] private AnimationCurve scrollSequence;
-    private bool isScrolling = false;
 
     public Action<Vector2, Chunk> EraseChunk;
     public Action<Vector2, Chunk> AddChunk;

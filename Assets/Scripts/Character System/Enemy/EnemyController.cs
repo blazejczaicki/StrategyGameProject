@@ -34,7 +34,7 @@ public class EnemyController : CharacterObjectController, IInteractable
         }
     }
 
-    private void OnTargedAcquired()
+    private void OnTargetAcquired()
     {
         if (target != null)
         {
@@ -61,7 +61,7 @@ public class EnemyController : CharacterObjectController, IInteractable
     {
         Profiler.BeginSample("EnemyUpd");
         OnMissingTarget();
-        OnTargedAcquired();
+        OnTargetAcquired();
         TryAttack();
         OnDead();
         Profiler.EndSample();

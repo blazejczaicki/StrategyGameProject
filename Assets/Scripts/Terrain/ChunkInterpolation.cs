@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class ChunkInterpolation
 {
-    public static float Calculate(Vector2Int xy, Vector2Int xy1, Vector2Int xy2, float Q11, float Q12, float Q21, float Q22,
+    public static float Calculate(Vector2Int xy,  float Q11, float Q12, float Q21, float Q22,
         float centerOfInterpolation, Vector2Int coordsOfCenter, ref Biome currentBiome, Biome[] neighboursBiomes)
     {
         float xxE, xxW, xxN, xxS, N, S, W, E;

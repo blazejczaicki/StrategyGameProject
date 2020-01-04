@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Node
 {
-    [SerializeField] private Grid grid;
     public Vector2 position { get; set; }
     public Vector2Int positionOnChunkGrid { get; set; }
     public Chunk chunk { get; set; }
