@@ -22,8 +22,5 @@ public class HealthBar : MonoBehaviour
             currentHealth = maxHealth;
         }
         healthBar.value = currentHealth;
-        //ColorBlock color = healthBar.colors;
-        //color.normalColor=Color.HSVToRGB(currentHealth/maxHealth, 1, 1);
-        //healthBar.colors = color;
     }
 }

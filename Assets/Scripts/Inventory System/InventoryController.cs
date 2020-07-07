@@ -12,7 +12,7 @@ public class InventoryController : Controller, IInventoryOperation
     private void Awake()
     {
         int id = 0;
-        foreach (Transform slot in transform)// od biedy get component od slotController i ze slotImages
+        foreach (Transform slot in transform)
         {
             inventoryObject.slots.Add(new InventorySlot(id, defaultObject));
             id++;

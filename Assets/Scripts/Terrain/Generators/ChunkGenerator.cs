@@ -32,10 +32,6 @@ public class ChunkGenerator : MonoBehaviour
 
     private void AddPotentialDirections(float cameraRange, Vector2 currentChunkPosition, Vector2 playerPosition, List<Direction> potentialDirections)
     {
-
-        //var a = playerPosition - currentChunkPosition;
-        //if(Mathf.Abs(a)>cameraRange)
-
         if (playerPosition.x > currentChunkPosition.x + Chunk.chunkSizeHalf - cameraRange)
         {
             potentialDirections.Add(Direction.E);
@@ -77,7 +73,7 @@ public class ChunkGenerator : MonoBehaviour
         int neighbourIndex;
         foreach (var neighbour in newChunk.Neighbours4Chunks)
         {
-            if (chunks.TryGetValue(neighbour.position, out chunk))// visible chunks? wymaga zwiększonej strefy widoczności
+            if (chunks.TryGetValue(neighbour.position, out chunk))      //jeśli istnieje, to informacje o jego istnieniu są zapisywane
             {
                 neighbourIndex = (int)neighbour.opposedDirection;
                 newChunk.Neighbours4Chunks[(int)neighbour.direction].exist = true;
@@ -91,7 +87,7 @@ public class ChunkGenerator : MonoBehaviour
     private void DiagonallyChunkGenerate(Dictionary<Vector3, Chunk> chunks, Dictionary<Vector3, Chunk> visibleChunks, Chunk currentChunk)
     {
         Vector2 positionDiagonallyChunk = currentChunk.checkDiagonallChunkNeeded(chunks);
-        if (!chunks.ContainsKey(positionDiagonallyChunk) && positionDiagonallyChunk != Vector2.zero)// to samo co wyżej z widzialnymi
+        if (!chunks.ContainsKey(positionDiagonallyChunk) && positionDiagonallyChunk != Vector2.zero)
         {
             CreateChunk(positionDiagonallyChunk,chunks, visibleChunks);
         //Debug.Log("diagorigin "+ newOriginChunkForDiagonal.transform.position);

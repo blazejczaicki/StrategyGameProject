@@ -48,14 +48,14 @@ public class GeneratorManager : MonoBehaviour
 
     private bool IsChunkToSpawn()
     {
-        if (player.currentChunk == null || player.currentChunk.NOTgenerationNeeded) return false;
+        if (player.currentChunk == null || player.currentChunk.NOTgenerationNeeded) return false;       //czy generacja jest potrzebna
         Vector3 currentChunkPosition = player.currentChunk.transform.position;
         Vector3 playerPosition = player.transform.position;
         int noSpawnChunkAreaRadius = (int)(Chunk.chunkSizeHalf - camer.rangeCamera);
         return (playerPosition.x + camer.rangeCamera < currentChunkPosition.x - noSpawnChunkAreaRadius ||
             playerPosition.x - camer.rangeCamera > currentChunkPosition.x + noSpawnChunkAreaRadius ||
             playerPosition.y - camer.rangeCamera < currentChunkPosition.y + noSpawnChunkAreaRadius ||
-            playerPosition.y + camer.rangeCamera > currentChunkPosition.y - noSpawnChunkAreaRadius);
+            playerPosition.y + camer.rangeCamera > currentChunkPosition.y - noSpawnChunkAreaRadius);        //sprawdzenie, czy suma pozycji gracza i rozmiaru kamery jest większa lub mniejsza od sumy tworzącej strefe niegenerowania
     }
 
     public void OnUpdate()

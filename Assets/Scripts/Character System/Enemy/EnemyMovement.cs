@@ -29,11 +29,11 @@ public class EnemyMovement : ObjectMovement
             Vector2 centerPosition = Vector2.zero;
             for (int i = 0; i < path.Count - 1; i++)
             {
-                Debug.DrawLine(new Vector3(path[i].position.x, path[i].position.y),
-                    new Vector3(path[i + 1].position.x, path[i + 1].position.y), Color.green, 10.0f);
+                //Debug.DrawLine(new Vector3(path[i].position.x, path[i].position.y),
+                //    new Vector3(path[i + 1].position.x, path[i + 1].position.y), Color.green, 10.0f);
                 centerPosition = path[i].position;
-                centerPosition.x += 0.5f;
-                centerPosition.y += 0.5f;
+                centerPosition.x += 0.5f;                               // przesunięcie z wierzchołka płytki do jej środka
+                centerPosition.y += 0.5f;                               //
                 path[i].position = centerPosition;
             }
         }
@@ -74,7 +74,6 @@ public class EnemyMovement : ObjectMovement
                 UpdatePath(target, chunk);
             }
             UpdateDirection(path);
-            //UpdateAnimation();
         }
     }
 
@@ -84,9 +83,5 @@ public class EnemyMovement : ObjectMovement
         pathUpdateLastTime = 0.0f;
         movementDirection = Vector2.zero;
     }
-
-    //private void FixedUpdate()
-    //{
-    //    rb.MovePosition(rb.position + movementDirection * stats.speed * Time.fixedDeltaTime);
-    //}
+    
 }

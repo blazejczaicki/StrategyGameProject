@@ -9,13 +9,14 @@ public class AstarTest : MonoBehaviour
     private Chunk chunk;
 
     [SerializeField] private PlayerController player;
+    [SerializeField] private GeneratorManager ge;
 
     void Start()
     {
         pathFinding = new Astar();
     }
     
-    void OnUpdate()
+    void Update()
     {
         chunk = player.currentChunk;
         if (Input.GetMouseButtonDown(0))
@@ -42,8 +43,7 @@ public class AstarTest : MonoBehaviour
 
         newCurrentChunkPos.x = Mathf.Round(GetMousePosToCell().x / Chunk.chunkSize) * Chunk.chunkSize;
         newCurrentChunkPos.y = Mathf.Round(GetMousePosToCell().y / Chunk.chunkSize) * Chunk.chunkSize;
-        return new Chunk();
-       // return GameManager.instance.getChunkTransform(newCurrentChunkPos).GetComponent<Chunk>();
+        return ge.getChunkTransform(newCurrentChunkPos).GetComponent<Chunk>();
     }
 
     private Vector2 GetMousePosToCell()

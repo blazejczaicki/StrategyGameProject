@@ -21,8 +21,4 @@ public class PlayerMovement : ObjectMovement
         movementDirection = Vector2.zero;
     }
 
-    //private void FixedUpdate()
-    //{
-    //    rb.MovePosition(rb.position + movementDirection * stats.speed* Time.fixedDeltaTime);
-    //}
 }

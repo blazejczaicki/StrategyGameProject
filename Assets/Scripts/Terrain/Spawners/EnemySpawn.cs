@@ -31,7 +31,7 @@ public class EnemySpawn : MonoBehaviour
         {
             localPosition.x = Random.Range(4, Chunk.chunkSize - 4);
             localPosition.y = Random.Range(4, Chunk.chunkSize - 4);
-            for (int j = 0; j < countEnemies; j++)
+            for (int j = 0; j < countEnemies; j++)                          // dodatkowe losowanie zwiększające szanse
             {
                 if (chunk.GridMovementArray[localPosition.x][localPosition.y]==true)
                 {

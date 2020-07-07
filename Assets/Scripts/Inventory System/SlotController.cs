@@ -13,12 +13,15 @@ public class SlotController : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (transfer.itemOnCursor && inventory.inventoryObject.AddToTargetSlot(transfer.item, transfer.amount, slotID))
+            /**
+             *  gdy przedmiot trzyma się kursora
+             */ 
+            if (transfer.itemOnCursor && inventory.inventoryObject.AddToTargetSlot(transfer.item, transfer.amount, slotID)) 
             {
                 transfer.ResetTransfer();
                 inventory.UpdateInventoryUI();
             }
-            else if (inventory.GetInventorySlot(slotID).item.type != ItemType.Default)
+            else if (transfer.itemOnCursor==false && inventory.GetInventorySlot(slotID).item.type != ItemType.Default)      //
             {
                 transfer.LoadToTransfer(this, Instantiate(this.transform.GetChild(0).GetComponent<RectTransform>()));
             }

@@ -23,17 +23,15 @@ public class Astar
         while (openList.Count>0)
         {
             Node currentNode=GetLowestF(openList);
-            if (currentNode.position==end.position || (currentNode.positionOnChunkGrid== end.positionOnChunkGrid && currentNode.chunk==end.chunk) || Vector2.Distance(currentNode.position, end.position)<=1.0f)
+            if (currentNode.position==end.position || (currentNode.positionOnChunkGrid== end.positionOnChunkGrid && currentNode.chunk==end.chunk)
+                || Vector2.Distance(currentNode.position, end.position)<=1.0f)
             {
                 
                 end = currentNode;
                 return ComputePath(end);
             }
-
             openList.Remove(currentNode);
             closedList.Add(currentNode);
-            
-            //Profiler.BeginSample("FindInNeighbour");
             foreach (var neighbourNode in GetNeighbours(currentNode))
             {
                 if (closedList.Exists((x)=>x.position==neighbourNode.position)!=true && neighbourNode.isMoveable)
@@ -52,7 +50,6 @@ public class Astar
                     }
                 }
             }
-            //Profiler.EndSample();
         }
         return null;
     }
@@ -126,7 +123,7 @@ public class Astar
         //    Debug.Log(Direction.N);
         }
 
-        if (vertexX && vertexY)
+        if (vertexX && vertexY)                                         // sytuacja, przy wirzchołkach fragmentów terenu
         {
             chunk = chunk.Neighbours4Chunks[direction].chunk;
         }
@@ -145,10 +142,10 @@ public class Astar
             {
               //  Debug.Log(current.positionOnChunkGrid);
                 ComputeNodePosition(out chunk, out localPos, i, j, current);
-                Debug.DrawLine(new Vector2(-localPos.x + chunk.transform.position.x + Chunk.chunkSizeHalf, -localPos.y + chunk.transform.position.y + Chunk.chunkSizeHalf),
-                    new Vector2(-localPos.x + chunk.transform.position.x + Chunk.chunkSizeHalf+1, -localPos.y + chunk.transform.position.y + Chunk.chunkSizeHalf+1), Color.blue, 10.0f);
+                //Debug.DrawLine(new Vector2(-localPos.x + chunk.transform.position.x + Chunk.chunkSizeHalf, -localPos.y + chunk.transform.position.y + Chunk.chunkSizeHalf),
+                //    new Vector2(-localPos.x + chunk.transform.position.x + Chunk.chunkSizeHalf+1, -localPos.y + chunk.transform.position.y + Chunk.chunkSizeHalf+1), Color.blue, 10.0f);
                //Debug.Log(chunk.transform.position);
-                neighbourList.Add(chunk.GetNode(localPos));         // na krawędziach xd
+                neighbourList.Add(chunk.GetNode(localPos));        
             }
         }
         neighbourList.Remove(neighbourList.Find((neighbour) => neighbour.positionOnChunkGrid == current.positionOnChunkGrid));

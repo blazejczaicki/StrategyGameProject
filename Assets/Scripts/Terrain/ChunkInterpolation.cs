@@ -7,19 +7,38 @@ public static class ChunkInterpolation
     public static float Calculate(Vector2Int xy,  float Q11, float Q12, float Q21, float Q22,
         float centerOfInterpolation, Vector2Int coordsOfCenter, ref Biome currentBiome, Biome[] neighboursBiomes)
     {
+        /**
+        * xxE,xxW,xxN,xxS -  wartości współczynnika interpolacji w danym polu
+        * N,S,W,E- wynikowe wartości dla danego punktu wględem danego trójkąta
+        */
         float xxE, xxW, xxN, xxS, N, S, W, E;
         int max = Chunk.chunkSize - 1;
        
-        float rightVerticalFactor, leftVerticalFactor;
-        rightVerticalFactor = coordsOfCenter.y / (float)coordsOfCenter.x;
+        /**
+        *  współczynniki kroku interpolacji dla różnych przyprostokątnych trójkąta prostokątnego, zbudowanego w oparciu o centrum interpolacji i różne kombinacje długości x i y
+        */
+        float rightVerticalFactor, leftVerticalFactor;    
+        rightVerticalFactor = coordsOfCenter.y / (float)coordsOfCenter.x;                            
         leftVerticalFactor = coordsOfCenter.y / (float)(Chunk.chunkSize - coordsOfCenter.x);
 
+        /**
+        * sprawdzanie, czy xy.x należy do prawej strony trójkąta północnej krawędzi
+        */
         if (xy.x < coordsOfCenter.x)
+        {
             xxN = rightVerticalFactor * xy.x;
+        }
         else
+        {
             xxN = leftVerticalFactor * (Chunk.chunkSize - xy.x);
+        }
+        /**
+        * sprawdzanie, czy xy.y jest większa niż xxN, czyli nie leży wewnątrz trójkąta północnej krawędzi
+        */
         if (xy.y > xxN)//+1
+        {
             N = 0;
+        }
         else
         {
             N = ((xy.y / (xxN + 1)) * (centerOfInterpolation - Q11) + Q11);

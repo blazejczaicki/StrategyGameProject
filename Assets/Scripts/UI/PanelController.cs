@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PanelController : MonoBehaviour, IBeginDragHandler,IDragHandler, IEndDragHandler
+public class PanelController : MonoBehaviour, IBeginDragHandler,IDragHandler
 {
     private Vector2 distanceBetweenCursorPanel = Vector2.zero;
 
@@ -16,10 +16,5 @@ public class PanelController : MonoBehaviour, IBeginDragHandler,IDragHandler, IE
     public void OnDrag(PointerEventData eventData)
     {
        transform.position = eventData.position+distanceBetweenCursorPanel;
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-
     }
 }

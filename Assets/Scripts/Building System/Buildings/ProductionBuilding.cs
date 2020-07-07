@@ -57,7 +57,6 @@ public class ProductionBuilding : Warehouse
 
     private void MakeProduct(InventorySlot slotFuel, InventorySlot slotResource, InventorySlot slotProduct)
     {
-        Debug.Log(isWorking);
         if (isWorking)
         {
             if (IsBurnFuel(slotFuel))

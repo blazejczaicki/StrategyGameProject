@@ -5,7 +5,7 @@ using UnityEngine;
 
     public abstract class GridGenerator : MonoBehaviour
     {
-        protected int quadMakingFromGridBoxIndex = 1;
+        protected int quadMakingFromGridBoxIndex = 1;       //
         public float gridBoxSize { get; protected set; }
         protected float distanceFromCenter = 0;
         protected BiomeGenerator biomeGenerator;

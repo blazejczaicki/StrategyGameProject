@@ -23,7 +23,7 @@ public class StaticObjectSpawn : MonoBehaviour
         float randomVal;
         Vector3 position= Vector3.zero;
         Vector2Int localPosition = Vector2Int.zero;
-        int breakGeneration = (int)(Chunk.chunkSize * 0.4f);
+        int breakGeneration = (int)(Chunk.chunkSize * 0.1f);        //limit po którym następuje wstrzymanie metody w obecnej klatce
         for (int x = 0; x < Chunk.chunkSize; x++)
         {
             for (int y = 0; y < Chunk.chunkSize; y++)

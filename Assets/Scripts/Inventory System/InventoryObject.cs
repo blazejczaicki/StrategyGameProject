@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class InventoryObject : ScriptableObject, IInventoryOperation
 {
     public List<InventorySlot> slots;
-
-    [SerializeField] private int itemStackConstraint = 50;
+    /**
+    *   limit pola w inwentarzu
+    */
+    [SerializeField] private int itemStackConstraint = 50;      
 
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
 
         if (target != null)
         {
-            if (target.amount + _amount<=itemStackConstraint)
+            if (target.amount + _amount<=itemStackConstraint)  
             {
                 target.amount += _amount;
                 return true;
@@ -58,11 +60,7 @@ public class InventoryObject : ScriptableObject, IInventoryOperation
         }
         else if(slots[_slotID].item.type==_item.type)
         {
-            return AddItem(_item, _amount);          // przy false problemy  
-        }
-        else
-        {
-            //inne przypadki
+            return AddItem(_item, _amount);        
         }
             return false;
     }

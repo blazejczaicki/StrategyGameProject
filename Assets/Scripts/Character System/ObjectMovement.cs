@@ -35,6 +35,6 @@ public abstract class ObjectMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movementDirection * stats.speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movementDirection * stats.speed * Time.fixedDeltaTime);// wykonanie ruchu
     }
 }

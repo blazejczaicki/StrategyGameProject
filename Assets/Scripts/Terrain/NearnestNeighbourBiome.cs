@@ -14,11 +14,10 @@ public static class NearnestNeighbourBiome
 
     public static Biome Calculate(Vector2 chunkPosition )
     {
-        //Debug.Log("XXX");
         Biome nearnestBiome = NormalBiomeGenerator.biomes.First().Value;
         float min = 0, dis = 0;
         min = Distance(chunkPosition, NormalBiomeGenerator.biomes.First().Key);
-        foreach (var biome in NormalBiomeGenerator.biomes)                            //todo staly kontener z pobliskimi biomami
+        foreach (var biome in NormalBiomeGenerator.biomes) 
         {
             dis = Distance(chunkPosition, biome.Key);
             if (dis<min)

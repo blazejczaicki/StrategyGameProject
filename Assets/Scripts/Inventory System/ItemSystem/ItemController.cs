@@ -14,13 +14,13 @@ public class ItemController : MonoBehaviour, IInteractable
     {
         if (playerController.inventory.AddItem(itemObject, amount))
         {
-            Destroy(gameObject); // może pull kiedyś
+            Destroy(gameObject); 
         }
         else
             Debug.Log("Brak miejsca");
     }
 
-    public void OnLeftClickObject(PlayerController playerController) //przytrzymanie i przerzucanie po ziemi
+    public void OnLeftClickObject(PlayerController playerController) 
     {
         
     }

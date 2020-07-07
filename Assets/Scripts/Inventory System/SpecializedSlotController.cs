@@ -13,12 +13,15 @@ public class SpecializedSlotController : SlotController
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {//allowedItems.Exists(type => type == transfer.item.type)
-            if (transfer.itemOnCursor && allowedItem==transfer.item.type && inventory.inventoryObject.AddToTargetSlot(transfer.item, transfer.amount, slotID))
+            /**
+             * gdy przedmiot trzyma się kursora
+             */
+            if (transfer.itemOnCursor && allowedItem==transfer.item.type && inventory.inventoryObject.AddToTargetSlot(transfer.item, transfer.amount, slotID))   
             {
                 transfer.ResetTransfer();
                 inventory.UpdateInventoryUI();
             }
-            else if (inventory.GetInventorySlot(slotID).item.type != ItemType.Default)
+            else if (transfer.itemOnCursor == false && inventory.GetInventorySlot(slotID).item.type != ItemType.Default)
             {
                 transfer.LoadToTransfer(this, Instantiate(this.transform.GetChild(0).GetComponent<RectTransform>()));
             }

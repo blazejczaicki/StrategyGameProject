@@ -57,7 +57,7 @@ public class PreviewBuildingController : MonoBehaviour
 
     public void TryPlaceObject()
     {
-        if (!isCollidedList.Any() && buildingRequirements.IsRequirementsFulFilled(inventory.inventoryObject)) // check req po stronie req wymagające amount z inv
+        if (!isCollidedList.Any() && buildingRequirements.IsRequirementsFulFilled(inventory.inventoryObject)) // sprawdzanie wymagan i kolizji
         {
             PlaceBuilding();
         }
