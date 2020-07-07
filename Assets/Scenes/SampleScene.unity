@@ -3137,12 +3137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topographyScaleOffset: 7
-  RiverScale: 0
-  deepWaterOffset: 0
-  shallowWaterOffset: 0
-  lowLandOffset: 0
   upLandOffset: 0
-  moutainOffset: 0
 --- !u!1 &638614556
 GameObject:
   m_ObjectHideFlags: 0
@@ -4123,12 +4118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topographyScaleOffset: 1.22
-  RiverScale: 0
-  deepWaterOffset: 0
-  shallowWaterOffset: 0
-  lowLandOffset: 0.2
   upLandOffset: 0
-  moutainOffset: 0
 --- !u!1 &752923799
 GameObject:
   m_ObjectHideFlags: 0
@@ -11751,12 +11741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topographyScaleOffset: 0.55
-  RiverScale: 0
-  deepWaterOffset: 0
-  shallowWaterOffset: 0
-  lowLandOffset: -0.2
   upLandOffset: 0.3
-  moutainOffset: 0
 --- !u!1 &1569257434
 GameObject:
   m_ObjectHideFlags: 0
